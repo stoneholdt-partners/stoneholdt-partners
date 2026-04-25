@@ -455,7 +455,7 @@
     <section class="hero">
       <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
       <div class="divider"></div>
-      <p>Sourcing exclusive teardown and redevelopment opportunities / for premier developers, investors &amp; funds.</p>
+      <p>Sourcing exclusive teardown and redevelopment opportunities<br>for premier developers, investors &amp; funds.</p>
     </section>
 
     <section class="markets-section">
@@ -471,7 +471,6 @@
               West Hollywood<br>
               Culver City<br>
               Santa Monica<br>
-              Redondo Beach<br>
               &amp; more
             </div>
             <div class="hover-tag">Luxury Teardown Acquisitions</div>
@@ -612,17 +611,17 @@
   }, 350);
 }
 
-    function hidePartner() {
-      const main = document.getElementById('mainContent');
-      const partner = document.getElementById('partnerPage');
-      partner.style.opacity = '0';
-      setTimeout(() => {
-        partner.classList.remove('active');
-        main.classList.remove('hidden');
-        setTimeout(() => { main.style.opacity = '1'; }, 20);
-      }, 350);
-      window.scrollTo(0, 0);
-    }
+   function hidePartner() {
+  const main = document.getElementById('mainContent');
+  const partner = document.getElementById('partnerPage');
+  partner.style.opacity = '0';
+  setTimeout(() => {
+    partner.classList.remove('active');
+    main.classList.remove('hidden');
+    window.scrollTo(0, 0);
+    setTimeout(() => { main.style.opacity = '1'; }, 20);
+  }, 350);
+}
   </script>
 
 </body>
