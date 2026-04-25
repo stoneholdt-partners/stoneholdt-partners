@@ -18,19 +18,17 @@
       flex-direction: column;
     }
 
+    /* NAV */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 32px 60px;
+      padding: 24px 60px;
     }
 
-    nav .logo-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #1B2A5E;
+    nav img.nav-logo {
+      height: 64px;
+      opacity: 0.92;
     }
 
     nav ul {
@@ -42,131 +40,496 @@
     nav ul li a {
       text-decoration: none;
       color: #1B2A5E;
-      font-size: 12px;
-      letter-spacing: 0.15em;
+      font-size: 11px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
-    nav ul li a:hover { opacity: 0.6; }
+    nav ul li a:hover { opacity: 0.5; transition: opacity 0.3s; }
 
+    /* HERO */
     .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      padding: 80px 40px;
-    }
-
-    .hero img {
-      width: 220px;
-      margin-bottom: 48px;
-      opacity: 0.95;
+      padding: 72px 40px 56px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
+      font-size: 52px;
       font-weight: 300;
       letter-spacing: 0.08em;
       line-height: 1.2;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .divider {
       width: 50px;
       height: 1px;
       background-color: #1B2A5E;
-      margin: 0 auto 28px;
-      opacity: 0.4;
+      margin: 0 auto 24px;
+      opacity: 0.35;
     }
 
     .hero p {
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: 0.12em;
-      line-height: 2;
-      opacity: 0.75;
-      max-width: 480px;
+      line-height: 2.2;
+      opacity: 0.65;
+      max-width: 500px;
+      margin: 0 auto;
       text-transform: uppercase;
     }
 
-    .markets {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      margin-top: 56px;
+    /* MARKETS */
+    .markets-section {
+      padding: 56px 48px;
     }
 
-    .markets span {
+    .markets-label {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 32px;
+    }
+
+    .markets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .market-card {
+      position: relative;
+      height: 420px;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .market-card .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .market-card:hover .bg {
+      transform: scale(1.05);
+    }
+
+    .market-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 30, 70, 0.52);
+      transition: background 0.4s ease;
+    }
+
+    .market-card:hover .overlay {
+      background: rgba(20, 30, 70, 0.38);
+    }
+
+    .market-card .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px 28px;
+      color: #EDE8DF;
+    }
+
+    .market-card .state-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .market-card .neighborhoods {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 2.2;
+      opacity: 0.75;
+    }
+
+    .market-card .hover-tag {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0;
+      margin-top: 16px;
+      transition: opacity 0.4s ease;
+      border-top: 1px solid rgba(237, 232, 223, 0.3);
+      padding-top: 14px;
+    }
+
+    .market-card:hover .hover-tag {
+      opacity: 0.8;
+    }
+
+    /* PARTNER CTA */
+    .cta-section {
+      text-align: center;
+      padding: 72px 40px;
+    }
+
+    .cta-section p {
       font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.5;
+      opacity: 0.45;
+      margin-bottom: 20px;
     }
 
+    .cta-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1px solid #1B2A5E;
+      color: #1B2A5E;
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #1B2A5E;
+      color: #EDE8DF;
+    }
+
+    /* CONTACT */
     .contact-section {
       text-align: center;
-      padding: 64px 40px;
+      padding: 56px 40px;
       border-top: 1px solid rgba(27, 42, 94, 0.12);
     }
 
     .contact-section p {
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 16px;
+      opacity: 0.4;
+      margin-bottom: 14px;
     }
 
     .contact-section a {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 24px;
       color: #1B2A5E;
       text-decoration: none;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
-    .contact-section a:hover { opacity: 0.6; }
+    .contact-section a:hover { opacity: 0.5; }
 
     footer {
       text-align: center;
       padding: 24px;
-      font-size: 10px;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.25;
+    }
+
+    /* PARTNER PAGE */
+    .partner-page {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .partner-page.active { display: flex; }
+    .main-content.hidden { display: none; }
+
+    .partner-page h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .partner-page .sub {
+      font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.3;
+      opacity: 0.5;
+      margin-bottom: 48px;
     }
+
+    .partner-form {
+      width: 100%;
+      max-width: 520px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.3);
+      padding: 10px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      color: #1B2A5E;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-bottom-color: #1B2A5E;
+    }
+
+    .form-group select {
+      appearance: none;
+      cursor: pointer;
+      background-color: transparent;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 80px;
+      margin-top: 4px;
+    }
+
+    .form-submit {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      cursor: pointer;
+      text-decoration: none;
+      color: #1B2A5E;
+    }
+
+    .back-link:hover { opacity: 0.8; }
   </style>
 </head>
 <body>
 
   <nav>
-    <div class="logo-text">Stoneholdt Partners</div>
+    <img src="LogoProfile.png" alt="Stoneholdt Partners" class="nav-logo"/>
     <ul>
+      <li><a href="#" onclick="showPartner()">Partner With Us</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="hero">
-    <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
-    <div class="divider"></div>
-    <p>We source exclusive teardown and redevelopment opportunities<br>for premier builders and developers across key luxury markets.</p>
-    <div class="markets">
-      <span>Los Angeles</span>
-      <span>Scottsdale</span>
-      <span>Bellevue</span>
+  <!-- MAIN CONTENT -->
+  <div class="main-content" id="mainContent">
+
+    <section class="hero">
+      <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
+      <div class="divider"></div>
+      <p>Sourcing exclusive teardown and redevelopment opportunities<br>for premier builders and developers.</p>
+    </section>
+
+    <section class="markets-section">
+      <p class="markets-label">Active Markets</p>
+      <div class="markets-grid">
+
+        <div class="market-card">
+          <div class="bg" style="background-image: url('CA.jpg')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <div class="state-name">California</div>
+            <div class="neighborhoods">
+              Bel Air<br>
+              Brentwood<br>
+              Cheviot Hills<br>
+              Pacific Palisades<br>
+              Beverly Hills
+            </div>
+            <div class="hover-tag">Luxury Teardown Acquisitions</div>
+          </div>
+        </div>
+
+        <div class="market-card">
+          <div class="bg" style="background-image: url('WA.jpg')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <div class="state-name">Washington</div>
+            <div class="neighborhoods">
+              Bellevue<br>
+              Medina<br>
+              Clyde Hill<br>
+              Kirkland<br>
+              Mercer Island
+            </div>
+            <div class="hover-tag">Luxury Teardown Acquisitions</div>
+          </div>
+        </div>
+
+        <div class="market-card">
+          <div class="bg" style="background-image: url('AZ.jpg')"></div>
+          <div class="overlay"></div>
+          <div class="content">
+            <div class="state-name">Arizona</div>
+            <div class="neighborhoods">
+              Scottsdale<br>
+              Paradise Valley<br>
+              Arcadia<br>
+              McCormick Ranch<br>
+              DC Ranch
+            </div>
+            <div class="hover-tag">Luxury Teardown Acquisitions</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <p>For Developers & Acquisition Teams</p>
+      <h2>Looking to Source More Deals?</h2>
+      <a href="#" class="btn" onclick="showPartner()">Partner With Us</a>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <p>Get in touch</p>
+      <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+    </section>
+
+    <footer>&copy; 2026 Stoneholdt Partners &mdash; All Rights Reserved</footer>
+
+  </div>
+
+  <!-- PARTNER PAGE -->
+  <div class="partner-page" id="partnerPage">
+    <h2>Partner With Stoneholdt</h2>
+    <p class="sub">For developers, fund managers & acquisition teams</p>
+
+    <div class="partner-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" placeholder="Smith Development Group"/>
+      </div>
+
+      <div class="form-group">
+        <label>Role</label>
+        <select>
+          <option value="" disabled selected>Select your role</option>
+          <option>Developer</option>
+          <option>Fund Manager</option>
+          <option>Acquisition Manager</option>
+          <option>Holding Company</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="john@smithdev.com"/>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="(310) 000-0000"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Primary Market</label>
+        <select>
+          <option value="" disabled selected>Select a market</option>
+          <option>Los Angeles, CA</option>
+          <option>Bellevue, WA</option>
+          <option>Scottsdale, AZ</option>
+          <option>Multiple Markets</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea placeholder="Tell us about your buy box, target neighborhoods, or current pipeline..."></textarea>
+      </div>
+
+      <div class="form-submit">
+        <a href="#" class="btn">Submit</a>
+        <br>
+        <a class="back-link" onclick="hidePartner()">← Back to Home</a>
+      </div>
+
     </div>
-  </section>
+  </div>
 
-  <section class="contact-section" id="contact">
-    <p>Get in touch</p>
-    <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
-  </section>
+  <script>
+    function showPartner() {
+      document.getElementById('mainContent').classList.add('hidden');
+      document.getElementById('partnerPage').classList.add('active');
+      window.scrollTo(0, 0);
+    }
 
-  <footer>
-    &copy; 2026 Stoneholdt Partners &mdash; All Rights Reserved
-  </footer>
+    function hidePartner() {
+      document.getElementById('partnerPage').classList.remove('active');
+      document.getElementById('mainContent').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+  </script>
 
 </body>
 </html>
