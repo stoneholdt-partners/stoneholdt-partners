@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stoneholdt Partners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #EDE8DF;
+      color: #1B2A5E;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 60px;
+    }
+
+    nav .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #1B2A5E;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #1B2A5E;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    nav ul li a:hover { opacity: 0.6; }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 40px;
+    }
+
+    .hero img {
+      width: 220px;
+      margin-bottom: 48px;
+      opacity: 0.95;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 50px;
+      height: 1px;
+      background-color: #1B2A5E;
+      margin: 0 auto 28px;
+      opacity: 0.4;
+    }
+
+    .hero p {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      line-height: 2;
+      opacity: 0.75;
+      max-width: 480px;
+      text-transform: uppercase;
+    }
+
+    .markets {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 56px;
+    }
+
+    .markets span {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .contact-section {
+      text-align: center;
+      padding: 64px 40px;
+      border-top: 1px solid rgba(27, 42, 94, 0.12);
+    }
+
+    .contact-section p {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+
+    .contact-section a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: #1B2A5E;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-section a:hover { opacity: 0.6; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo-text">Stoneholdt Partners</div>
+    <ul>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
+    <div class="divider"></div>
+    <p>We source exclusive teardown and redevelopment opportunities<br>for premier builders and developers across key luxury markets.</p>
+    <div class="markets">
+      <span>Los Angeles</span>
+      <span>Scottsdale</span>
+      <span>Bellevue</span>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <p>Get in touch</p>
+    <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+  </section>
+
+  <footer>
+    &copy; 2026 Stoneholdt Partners &mdash; All Rights Reserved
+  </footer>
+
+</body>
+</html>
