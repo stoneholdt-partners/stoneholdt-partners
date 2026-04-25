@@ -144,22 +144,15 @@
       color: #EDE8DF;
     }
 
+
     .market-card .state-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 34px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      margin-bottom: 14px;
-    }
-
-    .market-card .neighborhoods {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      line-height: 2.2;
-      opacity: 0.75;
-    }
-
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+  margin-top: auto;
+}
     .market-card .hover-tag {
       font-size: 9px;
       letter-spacing: 0.22em;
@@ -607,17 +600,17 @@
   </div>
 
   <script>
-    function showPartner() {
-      const main = document.getElementById('mainContent');
-      const partner = document.getElementById('partnerPage');
-      main.style.opacity = '0';
-      setTimeout(() => {
-        main.classList.add('hidden');
-        partner.classList.add('active');
-        setTimeout(() => { partner.style.opacity = '1'; }, 20);
-      }, 350);
-      window.scrollTo(0, 0);
-    }
+  function showPartner() {
+  const main = document.getElementById('mainContent');
+  const partner = document.getElementById('partnerPage');
+  main.style.opacity = '0';
+  setTimeout(() => {
+    main.classList.add('hidden');
+    partner.classList.add('active');
+    window.scrollTo(0, 0);
+    setTimeout(() => { partner.style.opacity = '1'; }, 20);
+  }, 350);
+}
 
     function hidePartner() {
       const main = document.getElementById('mainContent');
