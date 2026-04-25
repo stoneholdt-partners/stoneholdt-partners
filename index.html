@@ -355,12 +355,80 @@
     }
 
     .back-link:hover { opacity: 0.8; }
+
+@media (max-width: 768px) {
+  nav {
+    padding: 20px 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  nav img.nav-logo {
+    height: 72px;
+  }
+
+  nav ul {
+    gap: 20px;
+  }
+
+  .hero {
+    padding: 48px 24px 40px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero p {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    max-width: 90%;
+  }
+
+  .markets-section {
+    padding: 40px 20px;
+  }
+
+  .markets-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .market-card {
+    height: 300px;
+  }
+
+  .cta-section {
+    padding: 48px 24px;
+  }
+
+  .cta-section h2 {
+    font-size: 28px;
+  }
+
+  .contact-section {
+    padding: 40px 24px;
+  }
+
+  .partner-page {
+    padding: 48px 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-page h2 {
+    font-size: 30px;
+  }
+}
   </style>
 </head>
 <body>
 
   <nav>
-    <img src="LogoProfile.png" alt="Stoneholdt Partners" class="nav-logo"/>
+<a href="#" onclick="hidePartner(); return false;"><img src="LogoProfile.png" alt="Stoneholdt Partners" class="nav-logo"/></a>
     <ul>
       <li><a href="#" onclick="showPartner()">Partner With Us</a></li>
     </ul>
@@ -372,7 +440,7 @@
     <section class="hero">
       <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
       <div class="divider"></div>
-      <p>Sourcing exclusive teardown and redevelopment opportunities<br>for premier developers, investors &amp; funds.</p>
+<p style="text-transform:uppercase; letter-spacing:0.1em; line-height:2; font-size:11px; max-width:600px; margin:0 auto;">Sourcing exclusive teardown and redevelopment opportunities for premier developers, investors &amp; funds.</p>
     </section>
 
     <section class="markets-section">
