@@ -443,7 +443,7 @@
     .media-pane-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(27, 42, 94, 0.88);
+      background-color: rgba(27, 42, 94, 0.65);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       transition: all 0.4s ease;
@@ -782,7 +782,7 @@
     <!-- CREDIBILITY DECK (PORTFOLIO) -->
     <section class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
-        <p class="section-label">Track Record &amp; Pipeline</p>
+        <p class="section-label">Portfolio</p>
         
         <div class="portfolio-header">
           <div class="portfolio-tabs">
@@ -1060,8 +1060,8 @@
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 1; 
-        this.speedX = (Math.random() * 0.2) - 0.1;
-        this.speedY = (Math.random() * 0.15) - 0.075;
+        this.speedX = (Math.random() * 0.6) - 0.3;
+        this.speedY = (Math.random() * 0.45) - 0.225;
         this.alpha = Math.random() * 0.25 + 0.05; // Soft, low-contrast alpha values
       }
       update() {
@@ -1076,7 +1076,7 @@
       }
       draw() {
         ctx.save();
-        ctx.globalAlpha = this.alpha;
+        ctx.globalAlpha = 0.45;
         ctx.fillStyle = '#1B2A5E'; // Uses theme primary dark blue at ultra low visibility
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
