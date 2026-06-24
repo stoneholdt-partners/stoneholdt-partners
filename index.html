@@ -21,6 +21,14 @@
       overflow-x: hidden;
     }
 
+    /* PREMIUM ACCENT VARIATIONS */
+    :root {
+      --primary-blue: #1B2A5E;
+      --accent-blue: #4A67AD;
+      --bg-cream: #EDE8DF;
+      --bg-cream-light: #F4F0E6;
+    }
+
     /* FLUID MOUSE TRAILING EFFECT */
     .custom-cursor {
       width: 20px;
@@ -63,13 +71,14 @@
 
     nav ul li a {
       text-decoration: none;
-      color: #1B2A5E;
+      color: var(--primary-blue);
       font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 400;
       transition: all 0.3s ease;
       opacity: 0.6;
+      cursor: pointer;
     }
 
     nav ul li a:hover, nav ul li a.active-link { 
@@ -78,51 +87,63 @@
     
     nav ul li a.active-link {
       font-weight: 500;
-      border-bottom: 1px solid #1B2A5E;
+      border-bottom: 1px solid var(--primary-blue);
       padding-bottom: 4px;
+    }
+
+    /* SCREEN VIEWS CONTAINER */
+    .view-panel {
+      display: none;
+      min-height: 100vh;
+    }
+    .view-panel.active-view {
+      display: block;
     }
 
     /* HERO LAYOUT */
     .hero {
-      min-height: 80vh;
+      min-height: 75vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 140px 40px 40px;
+      padding: 160px 40px 40px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 58px;
+      font-size: 64px;
       font-weight: 300;
-      letter-spacing: 0.03em;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--primary-blue);
     }
 
     .hero-sub {
-      font-size: 14px;
-      letter-spacing: 0.15em;
+      font-size: 13px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.75;
       margin-bottom: 30px;
+      font-weight: 400;
+      color: var(--accent-blue);
     }
 
     .divider {
       width: 40px;
       height: 1px;
-      background-color: #1B2A5E;
-      margin-bottom: 30px;
-      opacity: 0.3;
+      background-color: var(--primary-blue);
+      margin-bottom: 35px;
+      opacity: 0.25;
     }
 
     .hero p {
       font-size: 14px;
       line-height: 1.9;
       max-width: 680px;
-      margin-bottom: 40px;
+      margin-bottom: 45px;
       opacity: 0.85;
     }
 
@@ -135,8 +156,8 @@
     .btn {
       display: inline-block;
       padding: 15px 32px;
-      border: 1px solid #1B2A5E;
-      color: #1B2A5E;
+      border: 1px solid var(--primary-blue);
+      color: var(--primary-blue);
       text-decoration: none;
       font-size: 10px;
       letter-spacing: 0.2em;
@@ -148,18 +169,18 @@
     }
 
     .btn:hover {
-      background-color: #1B2A5E;
-      color: #EDE8DF;
+      background-color: var(--primary-blue);
+      color: var(--bg-cream);
     }
 
     .btn.secondary {
-      background-color: #1B2A5E;
-      color: #EDE8DF;
+      background-color: var(--primary-blue);
+      color: var(--bg-cream);
     }
 
     .btn.secondary:hover {
       background-color: transparent;
-      color: #1B2A5E;
+      color: var(--primary-blue);
     }
 
     /* SCROLL ANIMATION WRAPPER */
@@ -175,9 +196,14 @@
 
     /* SECTION STANDARDS */
     .section-spacing {
-      padding: 80px 60px;
+      padding: 90px 60px;
       max-width: 1100px;
       margin: 0 auto;
+    }
+    
+    .bg-break {
+      background-color: var(--bg-cream-light);
+      max-width: 100%;
     }
 
     .section-label {
@@ -185,88 +211,78 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       opacity: 0.5;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
       font-weight: 500;
+      color: var(--primary-blue);
     }
 
-    /* PHILOSOPHY */
-    .walkthrough-grid {
+    /* ASYMMETRICAL GEOGRAPHIC IMAGE GRID */
+    .market-matrix {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 60px;
-      align-items: start;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
-    .walkthrough-statement h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
-      font-weight: 300;
-      line-height: 1.35;
-      color: #1B2A5E;
-    }
-
-    .walkthrough-body p {
-      font-size: 14px;
-      line-height: 1.8;
-      opacity: 0.8;
-      margin-bottom: 20px;
-    }
-
-    /* BLUEPRINT PROCESS ENGINE */
-    .process-intro {
-      margin-bottom: 45px;
-      max-width: 720px;
-    }
-
-    .process-intro p {
-      font-size: 14px;
-      line-height: 1.8;
-      opacity: 0.85;
-    }
-
-    .process-flow {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .process-card {
-      background: rgba(27, 42, 94, 0.02);
-      border: 1px solid rgba(27, 42, 94, 0.06);
-      padding: 35px 25px;
+    .market-block {
+      position: relative;
+      background-size: cover;
+      background-position: center;
       border-radius: 2px;
-      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      min-height: 460px;
+      transition: all 0.5s ease;
     }
 
-    .process-card:hover {
-      background: #1B2A5E;
+    .market-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.1) 0%, rgba(27, 42, 94, 0.75) 100%);
+      z-index: 1;
+      transition: background 0.4s ease;
+    }
+
+    .market-block:hover .market-overlay {
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.2) 0%, rgba(27, 42, 94, 0.85) 100%);
+    }
+
+    .market-right-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .market-block.half-height {
+      min-height: 218px;
+      padding: 30px;
+    }
+
+    .market-text {
+      position: relative;
+      z-index: 2;
       color: #EDE8DF;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(27, 42, 94, 0.08);
     }
 
-    .process-step {
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      opacity: 0.4;
-      margin-bottom: 15px;
-      font-weight: 500;
-    }
-    .process-card:hover .process-step { opacity: 0.6; }
-
-    .process-card h3 {
+    .market-text h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
-      margin-bottom: 12px;
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+    .market-block.half-height .market-text h3 {
+      font-size: 26px;
     }
 
-    .process-card p {
+    .market-text p {
       font-size: 12px;
-      line-height: 1.6;
-      opacity: 0.73;
+      opacity: 0.85;
+      letter-spacing: 0.08em;
     }
-    .process-card:hover p { opacity: 0.9; }
 
     /* CREDIBILITY PORTFOLIO HUB */
     .portfolio-header {
@@ -290,7 +306,7 @@
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #1B2A5E;
+      color: var(--primary-blue);
       cursor: pointer;
       opacity: 0.4;
       padding: 6px 12px;
@@ -300,6 +316,7 @@
     .tab-btn.active-tab {
       opacity: 1;
       font-weight: 500;
+      color: var(--accent-blue);
     }
 
     .portfolio-grid {
@@ -318,8 +335,8 @@
     }
 
     .portfolio-card:hover {
-      background: rgba(27, 42, 94, 0.03);
-      border-color: rgba(27, 42, 94, 0.15);
+      background: rgba(27, 42, 94, 0.02);
+      border-color: rgba(27, 42, 94, 0.12);
     }
 
     .badge {
@@ -332,13 +349,13 @@
       font-weight: 500;
       margin-bottom: 24px;
       background-color: rgba(27, 42, 94, 0.06);
-      color: #1B2A5E;
+      color: var(--primary-blue);
     }
 
     .badge.escrow {
-      background-color: rgba(40, 70, 140, 0.1);
-      color: #1B2A5E;
-      border: 1px solid rgba(27, 42, 94, 0.15);
+      background-color: rgba(74, 103, 173, 0.08);
+      color: var(--accent-blue);
+      border: 1px solid rgba(74, 103, 173, 0.2);
     }
 
     .portfolio-card h4 {
@@ -361,121 +378,134 @@
       opacity: 0.75;
     }
 
-    /* GEOGRAPHIC REGIONS */
-    .markets-section {
-      background-color: rgba(27, 42, 94, 0.015);
-      border-top: 1px solid rgba(27, 42, 94, 0.04);
-      border-bottom: 1px solid rgba(27, 42, 94, 0.04);
-    }
-
-    .wa-core-banner {
-      background: #1B2A5E;
-      color: #EDE8DF;
-      padding: 60px;
+    .archive-fallback {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      border: 1px dashed rgba(27, 42, 94, 0.15);
       border-radius: 2px;
-      margin-bottom: 30px;
     }
-
-    .wa-core-banner h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-
-    .wa-core-banner p {
+    .archive-fallback p {
       font-size: 13px;
-      letter-spacing: 0.12em;
-      opacity: 0.8;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+      line-height: 1.6;
     }
 
-    .pipeline-row {
+    /* SELLERS OVERVIEW VIEW DYNAMICS */
+    .walkthrough-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: start;
     }
 
-    .pipeline-stub {
-      border-left: 1px solid rgba(27, 42, 94, 0.15);
-      padding-left: 24px;
+    .walkthrough-statement h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.3;
+      color: var(--primary-blue);
     }
 
-    .pipeline-stub h4 {
+    .walkthrough-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .process-intro {
+      margin-bottom: 45px;
+      max-width: 720px;
+    }
+
+    .process-intro p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-card {
+      background: rgba(27, 42, 94, 0.02);
+      border: 1px solid rgba(27, 42, 94, 0.06);
+      padding: 35px 25px;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .process-card:hover {
+      background: var(--primary-blue);
+      color: var(--bg-cream);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(27, 42, 94, 0.08);
+    }
+
+    .process-step {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      opacity: 0.4;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .process-card:hover .process-step { opacity: 0.6; color: var(--accent-blue); }
+
+    .process-card h3 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 22px;
       font-weight: 400;
-      margin-bottom: 6px;
+      margin-bottom: 12px;
     }
 
-    .pipeline-stub p {
+    .process-card p {
       font-size: 12px;
-      opacity: 0.6;
-      letter-spacing: 0.05em;
+      line-height: 1.6;
+      opacity: 0.73;
     }
+    .process-card:hover p { opacity: 0.9; }
 
-    /* CONTACT / CORRESPONDENCE */
-    .contact-pane {
+    /* INNER PAGES STRUCTURAL HEADERS */
+    .portal-frame-header {
       text-align: center;
-      padding: 100px 40px;
+      padding: 140px 40px 40px;
+      background-color: var(--bg-cream-light);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.03);
     }
 
-    .contact-pane p {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 15px;
-    }
-
-    .contact-pane a {
+    .portal-frame-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 30px;
-      color: #1B2A5E;
-      text-decoration: none;
-      transition: opacity 0.3s;
+      font-size: 46px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--primary-blue);
     }
 
-    .contact-pane a:hover { opacity: 0.5; }
-
-    footer {
-      text-align: center;
-      padding: 35px 24px;
-      font-size: 10px;
-      letter-spacing: 0.15em;
+    .portal-frame-header .subtitle {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
       text-transform: uppercase;
-      opacity: 0.35;
-      border-top: 1px solid rgba(27, 42, 94, 0.03);
+      margin-top: 10px;
     }
 
-    /* DEVELOPER INTEGRATION VIEW */
-    .portal-frame {
-      display: none;
+    .view-return-block {
+      text-align: center;
+      padding: 60px 40px 100px;
+    }
+
+    /* DEVELOPER INTEGRATION FORM */
+    .portal-form-wrapper {
+      padding: 60px 40px;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 140px 40px 100px;
-      min-height: 100vh;
-    }
-
-    .portal-frame.active { display: flex; }
-    .main-content.hidden { display: none; }
-
-    .portal-frame h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 40px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .portal-frame .subtitle {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      opacity: 0.6;
-      text-transform: uppercase;
-      margin-bottom: 45px;
-      text-align: center;
     }
 
     .portal-form {
@@ -504,12 +534,12 @@
       padding: 10px 0;
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
-      color: #1B2A5E;
+      color: var(--primary-blue);
       outline: none;
     }
 
     .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
-      border-bottom-color: #1B2A5E;
+      border-bottom-color: var(--accent-blue);
     }
 
     .form-actions {
@@ -525,23 +555,59 @@
       text-transform: uppercase;
       opacity: 0.5;
       cursor: pointer;
-      color: #1B2A5E;
+      color: var(--primary-blue);
+      transition: opacity 0.2s;
+    }
+    .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
+
+    /* CONTACT / CORRESPONDENCE */
+    .contact-pane {
+      text-align: center;
+      padding: 110px 40px;
+    }
+
+    .contact-pane p {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 15px;
+    }
+
+    .contact-pane a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-pane a:hover { color: var(--accent-blue); }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      border-top: 1px solid rgba(27, 42, 94, 0.03);
     }
 
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid, .portfolio-grid { grid-template-columns: 1fr; gap: 40px; }
+      .walkthrough-grid, .portfolio-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .market-block { min-height: 380px; }
+      .market-block.half-height { min-height: 380px; }
     }
 
     @media (max-width: 768px) {
       nav { padding: 20px; }
       nav ul { display: none; }
-      .hero h1 { font-size: 38px; }
+      .hero h1 { font-size: 44px; }
       .section-spacing { padding: 60px 24px; }
       .process-flow { grid-template-columns: 1fr; }
-      .wa-core-banner { padding: 35px 25px; }
-      .pipeline-row { grid-template-columns: 1fr; gap: 20px; }
       .custom-cursor { display: none; }
     }
   </style>
@@ -553,177 +619,223 @@
 
   <!-- NAVIGATION -->
   <nav>
-    <a href="#" onclick="navigateToHome(); return false;">
+    <a href="#" onclick="showView('home'); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
     </a>
     <ul>
-      <li><a href="#sellers-portal" id="navSellersLink" class="active-link" onclick="navigateToHome();">Sellers Overview</a></li>
-      <li><a href="#" id="navDevLink" onclick="togglePortalView(true); return false;">Developer Portal</a></li>
+      <li><a id="navSellersLink" onclick="showView('seller');">Sellers Overview</a></li>
+      <li><a id="navDevLink" onclick="showView('developer');">Developer Portal</a></li>
     </ul>
   </nav>
 
-  <!-- HOME INTERACTIVE COMPONENT -->
-  <div class="main-content" id="mainContent">
-
+  <!-- ========================================== -->
+  <!-- VIEW 1: MAIN LANDING OVERVIEW VIEW         -->
+  <!-- ========================================== -->
+  <div id="homeView" class="view-panel active-view">
+    
     <!-- HERO PANEL -->
     <section class="hero">
-      <p class="hero-sub">Off-Market Acquisitions</p>
-      <h1>Bridging Homeowners With<br>Trusted Building Teams</h1>
+      <h1>Off-Market Acquisitions</h1>
+      <p class="hero-sub">Bridging Homeowners With Trusted Development Partners</p>
       <div class="divider"></div>
       <p>We work directly with premium property owners to curate seamless off-market exits — connecting your deal with our highest paying development partner best suited for your desired terms.</p>
       <div class="hero-ctas">
-        <a href="#sellers-portal" class="btn">Sellers Overview</a>
-        <a href="#" class="btn secondary" onclick="togglePortalView(true); return false;">Developer Portal</a>
+        <button class="btn" onclick="showView('seller');">Sellers Overview</button>
+        <button class="btn secondary" onclick="showView('developer');">Developer Portal</button>
       </div>
     </section>
 
-    <!-- PHILOSOPHY / INTRO -->
-    <section class="section-spacing scroll-reveal" id="sellers-portal">
-      <p class="section-label">Our Philosophy</p>
-      <div class="walkthrough-grid">
-        <div class="walkthrough-statement">
-          <h2>No deal closes unless a seller feels like they are winning.</h2>
-        </div>
-        <div class="walkthrough-body">
-          <p>Stoneholdt Partners is an acquisition company operating cleanly within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation parameters—and construct a transparent roadmap to perform on.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- BLUEPRINT LAYOUT SYSTEM -->
+    <!-- GEOGRAPHY REGIONS MATRIX -->
     <section class="section-spacing scroll-reveal">
-      <p class="section-label">The Transaction Blueprint</p>
-      <div class="process-intro">
-        <p>Skip the hiring process, the public open houses, the structural repair negotiations, and the standard agent commission fees. We protect your transaction from standard retail fallouts by mapping out clear, predictable baseline parameters before we ever put pen to paper.</p>
-      </div>
-
-      <div class="process-flow">
-        <!-- 01 -->
-        <div class="process-card">
-          <div class="process-step">STAGE 01</div>
-          <h3>Under Contract</h3>
-          <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
+      <p class="section-label">Target Acquisition Footprint</p>
+      <div class="market-matrix">
+        <!-- Left Big Block (WA) -->
+        <div class="market-block" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80');">
+          <div class="market-overlay"></div>
+          <div class="market-text">
+            <h3>Washington Core</h3>
+            <p>Bellevue &bull; Kirkland &bull; Seattle &bull; Supporting Submarkets</p>
+          </div>
         </div>
-        <!-- 02 -->
-        <div class="process-card">
-          <div class="process-step">STAGE 02</div>
-          <h3>Feasibility Period</h3>
-          <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear engineering parameters.</p>
-        </div>
-        <!-- 03 -->
-        <div class="process-card">
-          <div class="process-step">STAGE 03</div>
-          <h3>Earnest Money</h3>
-          <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
-        </div>
-        <!-- 04 -->
-        <div class="process-card">
-          <div class="process-step">STAGE 04</div>
-          <h3>Close &amp; Record</h3>
-          <p>Title transfers safely through escrow, funds register instantly via direct wire, and your custom post-closing move-out parameters activate flawlessly.</p>
+        <!-- Right Stacked Blocks (CA & AZ) -->
+        <div class="market-right-stack">
+          <div class="market-block half-height" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80');">
+            <div class="market-overlay"></div>
+            <div class="market-text">
+              <h3>California Pipeline</h3>
+              <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
+            </div>
+          </div>
+          <div class="market-block half-height" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80');">
+            <div class="market-overlay"></div>
+            <div class="market-text">
+              <h3>Arizona Pipeline</h3>
+              <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CREDIBILITY DECK (PORTFOLIO) -->
-    <section class="section-spacing scroll-reveal">
-      <p class="section-label">Track Record &amp; Pipeline</p>
-      
-      <div class="portfolio-header">
-        <div class="portfolio-tabs">
-          <button class="tab-btn active-tab" id="tab2026" onclick="filterPortfolio('2026')">Active 2026</button>
-          <button class="tab-btn" id="tab2025" onclick="triggerArchivePrompt()">Archive 2025</button>
+    <section class="section-spacing scroll-reveal bg-break">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
+        <p class="section-label">Track Record &amp; Pipeline</p>
+        
+        <div class="portfolio-header">
+          <div class="portfolio-tabs">
+            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">Active 2026</button>
+            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">Archive 2025</button>
+          </div>
         </div>
-      </div>
 
-      <div class="portfolio-grid" id="portfolioContainer">
-        <!-- Card 1 -->
-        <div class="portfolio-card">
-          <div class="badge escrow">In Escrow</div>
-          <h4>Bellevue Infill Assemblage</h4>
-          <div class="meta">King County Metro Area</div>
-          <p>Successfully aligned terms with a multi-generation family property owner to bypass traditional market listings, clearing the site layout for a premier multi-home residential subdivision build.</p>
+        <div class="portfolio-grid" id="portfolioActiveGrid">
+          <!-- Card 1 -->
+          <div class="portfolio-card">
+            <div class="badge escrow">In Escrow</div>
+            <h4>Bellevue Infill Assemblage</h4>
+            <div class="meta">King County Metro Area</div>
+            <p>Successfully aligned terms with a multi-generation family property owner to bypass traditional market listings, clearing the site layout for a premier multi-home residential subdivision build.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="portfolio-card">
+            <div class="badge escrow">In Escrow</div>
+            <h4>Kirkland Waterfront Lot</h4>
+            <div class="meta">Lake Washington Corridor</div>
+            <p>Structured a flexible 60-day post-close occupancy arrangement enabling the custom homeowner to secure their transition property, while coordinating timelines for a custom luxury builder.</p>
+          </div>
         </div>
-        <!-- Card 2 -->
-        <div class="portfolio-card">
-          <div class="badge escrow">In Escrow</div>
-          <h4>Kirkland Waterfront Lot</h4>
-          <div class="meta">Lake Washington Corridor</div>
-          <p>Structured a flexible 60-day post-close occupancy arrangement enabling the custom homeowner to secure their transition property, while coordinating feasibility parameters for a custom luxury builder.</p>
+
+        <div class="archive-fallback" id="portfolioArchiveGrid">
+          <p>Historical 2025 acquisition records and private transaction ledgers are restricted.<br>Please contact private correspondence directly for authenticated access credentials.</p>
         </div>
       </div>
     </section>
 
-    <!-- GEOGRAPHY PANE -->
-    <section class="section-spacing scroll-reveal">
-      <p class="section-label">Target Acquisition Footprint</p>
-      <div class="wa-core-banner">
-        <h3>Washington Core Focus</h3>
-        <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + Supporting Submarkets</p>
-      </div>
-      <div class="pipeline-row">
-        <div class="pipeline-stub">
-          <h4>California Pipeline</h4>
-          <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
-        </div>
-        <div class="pipeline-stub">
-          <h4>Arizona Pipeline</h4>
-          <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER LINK -->
+    <!-- FOOTER PANEL -->
     <section class="contact-pane scroll-reveal">
       <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
     <footer>&copy; 2026 Stoneholdt Partners &mdash; Land &amp; Asset Sourcing</footer>
-
   </div>
 
-  <!-- SEPARATE INTERACTIVE PORTAL FOR REGISTERED BUILDERS -->
-  <div class="portal-frame" id="partnerPage">
-    <h2>Development Partner Verification</h2>
-    <p class="subtitle">Specify structural buying box criteria and capital allocation limits</p>
-    
-    <form class="portal-form" action="https://formspree.io/f/mrerjjzo" method="POST">
-      <div class="form-element">
-        <label>Principal Representative</label>
-        <input type="text" name="name" placeholder="Name" required/>
-      </div>
-      <div class="form-element">
-        <label>Development Entity</label>
-        <input type="text" name="firm" placeholder="Company Name" required/>
-      </div>
-      <div class="form-element">
-        <label>Allocation Matrix Profile</label>
-        <select name="profile" required>
-          <option value="" disabled selected>Select investment footprint</option>
-          <option>Custom Infill Single-Family Builder</option>
-          <option>Townhome / Multi-Family Developer</option>
-          <option>Private Equity Real Estate Fund</option>
-        </select>
-      </div>
-      <div class="form-element">
-        <label>Direct Workspace Email</label>
-        <input type="email" name="email" placeholder="email@firm.com" required/>
-      </div>
-      <div class="form-element">
-        <label>Target Acquisition Profiles</label>
-        <textarea name="parameters" rows="3" placeholder="Zoning criteria, preferred square footage thresholds, or submarket target tiers..."></textarea>
-      </div>
 
-      <div class="form-actions">
-        <button type="submit" class="btn">Register Buying Box</button>
-        <br>
-        <span class="return-trigger" onclick="togglePortalView(false);">← Return to Platform Overview</span>
+  <!-- ========================================== -->
+  <!-- VIEW 2: DEDICATED SELLERS OVERVIEW VIEW   -->
+  <!-- ========================================== -->
+  <div id="sellerView" class="view-panel">
+    <header class="portal-frame-header">
+      <h2>Sellers Overview</h2>
+      <p class="subtitle">A straightforward approach to premium property exits</p>
+    </header>
+
+    <!-- PHILOSOPHY / INTRO -->
+    <section class="section-spacing">
+      <p class="section-label">Our Philosophy</p>
+      <div class="walkthrough-grid">
+        <div class="walkthrough-statement">
+          <h2>No deal closes unless a seller feels like they are winning.</h2>
+        </div>
+        <div class="walkthrough-body">
+          <p>Stoneholdt Partners is an acquisition company operating cleanly within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation expectations—and construct a transparent roadmap to perform on.</p>
+        </div>
       </div>
-    </form>
+    </section>
+
+    <!-- BLUEPRINT LAYOUT SYSTEM -->
+    <section class="section-spacing bg-break">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <p class="section-label">The Transaction Blueprint</p>
+        <div class="process-intro">
+          <p>Skip the hiring process, the public open houses, the structural repair negotiations, and the standard agent commission fees. We protect your transaction from standard retail fallouts by mapping out clear, predictable baseline expectations before we ever put pen to paper.</p>
+        </div>
+
+        <div class="process-flow">
+          <!-- 01 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 01</div>
+            <h3>Under Contract</h3>
+            <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
+          </div>
+          <!-- 02 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 02</div>
+            <h3>Feasibility Period</h3>
+            <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
+          </div>
+          <!-- 03 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 03</div>
+            <h3>Earnest Money</h3>
+            <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
+          </div>
+          <!-- 04 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 04</div>
+            <h3>Close &amp; Record</h3>
+            <p>Title transfers safely through escrow, funds register instantly via direct wire, and your custom post-closing move-out arrangements activate flawlessly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="view-return-block">
+      <span class="return-trigger" onclick="showView('home');">← Back to Platform Overview</span>
+    </div>
   </div>
 
-  <!-- LIQUID NAVIGATION & VIEW ANIMATION ENGINE -->
+
+  <!-- ========================================== -->
+  <!-- VIEW 3: DEDICATED DEVELOPER PORTAL VIEW    -->
+  <!-- ========================================== -->
+  <div id="developerView" class="view-panel">
+    <header class="portal-frame-header">
+      <h2>Development Partner Verification</h2>
+      <p class="subtitle">Specify structural buying box criteria and capital allocation limits</p>
+    </header>
+
+    <div class="portal-form-wrapper">
+      <form class="portal-form" action="https://formspree.io/f/mrerjjzo" method="POST">
+        <div class="form-element">
+          <label>Principal Representative</label>
+          <input type="text" name="name" placeholder="Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Development Entity</label>
+          <input type="text" name="firm" placeholder="Company Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Investment Criteria Profile</label>
+          <select name="profile" required>
+            <option value="" disabled selected>Select investment footprint</option>
+            <option>Custom Infill Single-Family Builder</option>
+            <option>Townhome / Multi-Family Developer</option>
+            <option>Private Equity Real Estate Fund</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label>Direct Workspace Email</label>
+          <input type="email" name="email" placeholder="email@firm.com" required/>
+        </div>
+        <div class="form-element">
+          <label>Target Acquisition Profiles</label>
+          <textarea name="parameters" rows="3" placeholder="Zoning criteria, preferred square footage thresholds, or target submarkets..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Register Buying Box</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="view-return-block" style="padding-top: 0;">
+      <span class="return-trigger" onclick="showView('home');">← Back to Platform Overview</span>
+    </div>
+  </div>
+
+  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
   <script>
     // Visual tracking cursor node mechanics
     const cursor = document.getElementById('cursor');
@@ -732,23 +844,28 @@
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Make dot expand on links
-    const interactiveElements = document.querySelectorAll('a, .process-card, button, .portfolio-card');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '38px';
-        cursor.style.height = '38px';
-        cursor.style.backgroundColor = 'rgba(27, 42, 94, 0.04)';
+    // Make trailing ring expand on interactive boundaries
+    function applyCursorDynamics() {
+      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '38px';
+          cursor.style.height = '38px';
+          cursor.style.backgroundColor = 'rgba(74, 103, 173, 0.06)';
+          cursor.style.borderColor = '#4A67AD';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '20px';
+          cursor.style.height = '20px';
+          cursor.style.backgroundColor = 'transparent';
+          cursor.style.borderColor = 'rgba(27, 42, 94, 0.4)';
+        });
       });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        cursor.style.backgroundColor = 'transparent';
-      });
-    });
+    }
+    applyCursorDynamics();
 
     // On-Scroll Fade-In Reveal Logic
-    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -758,36 +875,55 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+    function trackScrollReveals() {
+      document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+    }
+    trackScrollReveals();
 
-    // Dynamic Navigation View Switcher
-    function togglePortalView(showDev) {
-      const main = document.getElementById('mainContent');
-      const partner = document.getElementById('partnerPage');
-      const navSellers = document.getElementById('navSellersLink');
-      const navDev = document.getElementById('navDevLink');
+    // Dynamic Navigation View Engine Matrix
+    function showView(viewId) {
+      // Hide all panels
+      document.getElementById('homeView').classList.remove('active-view');
+      document.getElementById('sellerView').classList.remove('active-view');
+      document.getElementById('developerView').classList.remove('active-view');
 
-      if (showDev) {
-        main.classList.add('hidden');
-        partner.classList.add('active');
-        navSellers.classList.remove('active-link');
-        navDev.classList.add('active-link');
-      } else {
-        partner.classList.remove('active');
-        main.classList.remove('hidden');
-        navDev.classList.remove('active-link');
-        navSellers.classList.add('active-link');
+      // Unset active navigation items
+      document.getElementById('navSellersLink').classList.remove('active-link');
+      document.getElementById('navDevLink').classList.remove('active-link');
+
+      // Route view execution
+      if (viewId === 'home') {
+        document.getElementById('homeView').classList.add('active-view');
+      } else if (viewId === 'seller') {
+        document.getElementById('sellerView').classList.add('active-view');
+        document.getElementById('navSellersLink').classList.add('active-link');
+      } else if (viewId === 'developer') {
+        document.getElementById('developerView').classList.add('active-view');
+        document.getElementById('navDevLink').classList.add('active-link');
       }
-      window.scrollTo(0, 0);
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      trackScrollReveals();
     }
 
-    function navigateToHome() {
-      togglePortalView(false);
-    }
+    // Dynamic Tracking Portfolio Tabs Setup
+    function togglePortfolioTab(year) {
+      const tab2026 = document.getElementById('tab2026');
+      const tab2025 = document.getElementById('tab2025');
+      const activeGrid = document.getElementById('portfolioActiveGrid');
+      const archiveGrid = document.getElementById('portfolioArchiveGrid');
 
-    // Portfolio Archive Safe Gate
-    function triggerArchivePrompt() {
-      alert("Historical 2025 acquisition records and architectural data sets are available strictly upon direct private request.");
+      if (year === '2026') {
+        tab2026.classList.add('active-tab');
+        tab2025.classList.remove('active-tab');
+        activeGrid.style.display = 'grid';
+        archiveGrid.style.display = 'none';
+      } else {
+        tab2025.classList.add('active-tab');
+        tab2026.classList.remove('active-tab');
+        activeGrid.style.display = 'none';
+        archiveGrid.style.display = 'block';
+      }
     }
   </script>
 
