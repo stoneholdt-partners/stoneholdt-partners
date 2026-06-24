@@ -21,7 +21,7 @@
       overflow-x: hidden;
     }
 
-    /* MASON FERRE FLUID CURSOR EFFECT (Hidden on touch screens) */
+    /* FLUID MOUSE TRAILING EFFECT */
     .custom-cursor {
       width: 20px;
       height: 20px;
@@ -31,23 +31,26 @@
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 9999;
-      transition: width 0.3s, height 0.3s, background-color 0.3s;
+      transition: width 0.25s, height 0.25s, background-color 0.25s;
     }
 
-    /* NAV */
+    /* NAVIGATION ARCHITECTURE */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 40px 60px;
-      position: absolute;
+      padding: 35px 60px;
+      position: fixed;
       width: 100%;
       top: 0;
       z-index: 100;
+      background: rgba(237, 232, 223, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.04);
     }
 
     nav img.nav-logo {
-      height: 38px;
+      height: 34px;
       opacity: 0.95;
       cursor: pointer;
     }
@@ -55,85 +58,88 @@
     nav ul {
       list-style: none;
       display: flex;
-      gap: 40px;
+      gap: 35px;
     }
 
     nav ul li a {
       text-decoration: none;
       color: #1B2A5E;
       font-size: 11px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 400;
-      transition: opacity 0.3s;
+      transition: all 0.3s ease;
+      opacity: 0.6;
     }
 
-    nav ul li a:hover { opacity: 0.5; }
+    nav ul li a:hover, nav ul li a.active-link { 
+      opacity: 1; 
+    }
+    
+    nav ul li a.active-link {
+      font-weight: 500;
+      border-bottom: 1px solid #1B2A5E;
+      padding-bottom: 4px;
+    }
 
-    /* HERO */
+    /* HERO LAYOUT */
     .hero {
-      min-height: 85vh;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 120px 40px 40px;
-      position: relative;
+      padding: 140px 40px 40px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 64px;
+      font-size: 58px;
       font-weight: 300;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
       margin-bottom: 30px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: revealText 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.2s;
     }
 
     .divider {
       width: 40px;
       height: 1px;
       background-color: #1B2A5E;
-      margin-bottom: 35px;
-      opacity: 0.4;
+      margin-bottom: 30px;
+      opacity: 0.3;
     }
 
     .hero p {
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      line-height: 2;
-      max-width: 700px;
-      margin-bottom: 45px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: revealText 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.4s;
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 680px;
+      margin-bottom: 40px;
+      opacity: 0.85;
     }
 
     .hero-ctas {
       display: flex;
-      gap: 20px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: revealText 1s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.6s;
+      gap: 15px;
     }
 
-    @keyframes revealText {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* BUTTONS */
+    /* CORE COMPONENTS & BUTTONS */
     .btn {
       display: inline-block;
-      padding: 16px 36px;
+      padding: 15px 32px;
       border: 1px solid #1B2A5E;
       color: #1B2A5E;
       text-decoration: none;
       font-size: 10px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 400;
       transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -156,511 +162,632 @@
       color: #1B2A5E;
     }
 
-    /* THE WALKTHROUGH / OVERVIEW SECTION */
-    .walkthrough-section {
-      padding: 100px 60px;
+    /* SCROLL ANIMATION WRAPPER */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SECTION STANDARDS */
+    .section-spacing {
+      padding: 80px 60px;
       max-width: 1100px;
       margin: 0 auto;
-      border-top: 1px solid rgba(27, 42, 94, 0.08);
     }
 
     .section-label {
-      font-size: 11px;
-      letter-spacing: 0.3em;
+      font-size: 10px;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       opacity: 0.5;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      font-weight: 500;
     }
 
+    /* PHILOSOPHY */
     .walkthrough-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 80px;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
       align-items: start;
     }
 
     .walkthrough-statement h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
+      font-size: 36px;
       font-weight: 300;
-      line-height: 1.4;
-      letter-spacing: 0.02em;
+      line-height: 1.35;
+      color: #1B2A5E;
     }
 
     .walkthrough-body p {
       font-size: 14px;
-      line-height: 1.9;
+      line-height: 1.8;
       opacity: 0.8;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    /* TRANSACTIONS FLOW CHART (DIAGRAM) */
-    .process-container {
-      padding: 80px 60px 120px;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* BLUEPRINT PROCESS ENGINE */
+    .process-intro {
+      margin-bottom: 45px;
+      max-width: 720px;
+    }
+
+    .process-intro p {
+      font-size: 14px;
+      line-height: 1.8;
+      opacity: 0.85;
     }
 
     .process-flow {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      position: relative;
-      margin-top: 40px;
+      gap: 16px;
     }
 
     .process-card {
       background: rgba(27, 42, 94, 0.02);
       border: 1px solid rgba(27, 42, 94, 0.06);
-      padding: 40px 30px;
+      padding: 35px 25px;
       border-radius: 2px;
-      transition: all 0.4s ease;
-      position: relative;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .process-card:hover {
       background: #1B2A5E;
       color: #EDE8DF;
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(27, 42, 94, 0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(27, 42, 94, 0.08);
     }
 
     .process-step {
-      font-size: 10px;
-      letter-spacing: 0.15em;
+      font-size: 9px;
+      letter-spacing: 0.1em;
       opacity: 0.4;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-weight: 500;
     }
     .process-card:hover .process-step { opacity: 0.6; }
 
     .process-card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 400;
-      margin-bottom: 14px;
-      letter-spacing: 0.04em;
+      margin-bottom: 12px;
     }
 
     .process-card p {
       font-size: 12px;
-      line-height: 1.7;
-      opacity: 0.7;
+      line-height: 1.6;
+      opacity: 0.73;
     }
-    .process-card:hover .process-p { opacity: 0.9; }
+    .process-card:hover p { opacity: 0.9; }
 
-    /* CORE GEOGRAPHIC FOCUS SECTION */
-    .markets-section {
-      padding: 100px 60px;
-      background-color: rgba(27, 42, 94, 0.02);
-    }
-
-    .markets-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .wa-hero-box {
-      background: #1B2A5E;
-      color: #EDE8DF;
-      padding: 80px 60px;
-      border-radius: 3px;
-      margin-bottom: 40px;
+    /* CREDIBILITY PORTFOLIO HUB */
+    .portfolio-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      transition: transform 0.4s ease;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.08);
+      padding-bottom: 20px;
     }
 
-    .wa-hero-box:hover {
-      transform: scale(1.01);
+    .portfolio-tabs {
+      display: flex;
+      gap: 15px;
     }
 
-    .wa-info h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      margin-bottom: 12px;
-    }
-
-    .wa-info p {
-      font-size: 13px;
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
       letter-spacing: 0.15em;
-      opacity: 0.8;
-    }
-
-    .secondary-markets-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-
-    .market-mini-card {
-      border-left: 1px solid rgba(27, 42, 94, 0.2);
-      padding: 15px 0 15px 30px;
-    }
-
-    .market-mini-card h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-
-    .market-mini-card p {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      opacity: 0.6;
-    }
-
-    /* PARTNER SECTION */
-    .cta-section {
-      text-align: center;
-      padding: 120px 40px;
-    }
-
-    .cta-section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 46px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      margin-bottom: 30px;
-    }
-
-    /* INTAKE / CONTACT FRAME */
-    .contact-section {
-      text-align: center;
-      padding: 100px 40px 120px;
-      border-top: 1px solid rgba(27, 42, 94, 0.06);
-    }
-
-    .contact-section p {
-      font-size: 11px;
-      letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 20px;
-    }
-
-    .contact-section a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
       color: #1B2A5E;
-      text-decoration: none;
-      letter-spacing: 0.02em;
+      cursor: pointer;
+      opacity: 0.4;
+      padding: 6px 12px;
       transition: opacity 0.3s;
     }
 
-    .contact-section a:hover { opacity: 0.5; }
+    .tab-btn.active-tab {
+      opacity: 1;
+      font-weight: 500;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .portfolio-card {
+      background: rgba(27, 42, 94, 0.01);
+      border: 1px solid rgba(27, 42, 94, 0.05);
+      padding: 40px;
+      border-radius: 2px;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .portfolio-card:hover {
+      background: rgba(27, 42, 94, 0.03);
+      border-color: rgba(27, 42, 94, 0.15);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      background-color: rgba(27, 42, 94, 0.06);
+      color: #1B2A5E;
+    }
+
+    .badge.escrow {
+      background-color: rgba(40, 70, 140, 0.1);
+      color: #1B2A5E;
+      border: 1px solid rgba(27, 42, 94, 0.15);
+    }
+
+    .portfolio-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .portfolio-card .meta {
+      font-size: 12px;
+      opacity: 0.5;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .portfolio-card p {
+      font-size: 13px;
+      line-height: 1.7;
+      opacity: 0.75;
+    }
+
+    /* GEOGRAPHIC REGIONS */
+    .markets-section {
+      background-color: rgba(27, 42, 94, 0.015);
+      border-top: 1px solid rgba(27, 42, 94, 0.04);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.04);
+    }
+
+    .wa-core-banner {
+      background: #1B2A5E;
+      color: #EDE8DF;
+      padding: 60px;
+      border-radius: 2px;
+      margin-bottom: 30px;
+    }
+
+    .wa-core-banner h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .wa-core-banner p {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+    }
+
+    .pipeline-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .pipeline-stub {
+      border-left: 1px solid rgba(27, 42, 94, 0.15);
+      padding-left: 24px;
+    }
+
+    .pipeline-stub h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .pipeline-stub p {
+      font-size: 12px;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+
+    /* CONTACT / CORRESPONDENCE */
+    .contact-pane {
+      text-align: center;
+      padding: 100px 40px;
+    }
+
+    .contact-pane p {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 15px;
+    }
+
+    .contact-pane a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      color: #1B2A5E;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .contact-pane a:hover { opacity: 0.5; }
 
     footer {
       text-align: center;
-      padding: 40px 24px;
+      padding: 35px 24px;
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
-      border-top: 1px solid rgba(27, 42, 94, 0.04);
+      border-top: 1px solid rgba(27, 42, 94, 0.03);
     }
 
-    /* PARTNER WINDOW INTAKE VIEW */
-    .partner-page {
+    /* DEVELOPER INTEGRATION VIEW */
+    .portal-frame {
       display: none;
       flex-direction: column;
       align-items: center;
       padding: 140px 40px 100px;
-      text-align: center;
-      background: #EDE8DF;
       min-height: 100vh;
     }
 
-    .partner-page.active { display: flex; }
+    .portal-frame.active { display: flex; }
     .main-content.hidden { display: none; }
 
-    .partner-page h2 {
+    .portal-frame h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 44px;
+      font-size: 40px;
       font-weight: 300;
-      letter-spacing: 0.05em;
-      margin-bottom: 40px;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      text-align: center;
     }
 
-    .partner-form {
+    .portal-frame .subtitle {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      text-transform: uppercase;
+      margin-bottom: 45px;
+      text-align: center;
+    }
+
+    .portal-form {
       width: 100%;
-      max-width: 550px;
-      text-align: left;
+      max-width: 540px;
     }
 
-    .form-group {
+    .form-element {
       display: flex;
       flex-direction: column;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
-    .form-group label {
+    .form-element label {
       font-size: 10px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.6;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    .form-group input, .form-group select, .form-group textarea {
+    .form-element input, .form-element select, .form-element textarea {
       background: transparent;
       border: none;
       border-bottom: 1px solid rgba(27, 42, 94, 0.2);
-      padding: 12px 0;
+      padding: 10px 0;
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
       color: #1B2A5E;
       outline: none;
     }
 
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
       border-bottom-color: #1B2A5E;
     }
 
-    .back-link {
-      display: inline-block;
+    .form-actions {
+      text-align: center;
       margin-top: 35px;
+    }
+
+    .return-trigger {
+      display: inline-block;
+      margin-top: 25px;
       font-size: 11px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       opacity: 0.5;
       cursor: pointer;
       color: #1B2A5E;
-      text-decoration: none;
     }
 
-    /* RESPONSIVE HOOPS */
+    /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid { grid-template-columns: 1fr; gap: 40px; }
-      .process-flow { grid-template-columns: repeat(2, 1fr); }
+      .walkthrough-grid, .portfolio-grid { grid-template-columns: 1fr; gap: 40px; }
+      .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
 
     @media (max-width: 768px) {
-      nav { padding: 30px; }
-      nav ul { display: none; } /* Mobile cleanliness */
-      .hero h1 { font-size: 42px; }
-      .walkthrough-section, .process-container, .markets-section { padding: 60px 24px; }
+      nav { padding: 20px; }
+      nav ul { display: none; }
+      .hero h1 { font-size: 38px; }
+      .section-spacing { padding: 60px 24px; }
       .process-flow { grid-template-columns: 1fr; }
-      .wa-hero-box { padding: 40px 30px; flex-direction: column; text-align: center; gap: 30px; }
-      .secondary-markets-row { grid-template-columns: 1fr; gap: 30px; }
+      .wa-core-banner { padding: 35px 25px; }
+      .pipeline-row { grid-template-columns: 1fr; gap: 20px; }
       .custom-cursor { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FLUID VISUAL MOUSE DOT -->
+  <!-- DYNAMIC TRAILING CONTAINER -->
   <div class="custom-cursor" id="cursor"></div>
 
+  <!-- NAVIGATION -->
   <nav>
-    <a href="#" onclick="hidePartner(); return false;">
+    <a href="#" onclick="navigateToHome(); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
     </a>
     <ul>
-      <li><a href="#sellers-walkthrough">Sellers Overview</a></li>
-      <li><a href="#" onclick="showPartner(); return false;">Partner Network</a></li>
+      <li><a href="#sellers-portal" id="navSellersLink" class="active-link" onclick="navigateToHome();">Sellers Overview</a></li>
+      <li><a href="#" id="navDevLink" onclick="togglePortalView(true); return false;">Developer Portal</a></li>
     </ul>
   </nav>
 
-  <!-- MAIN INTERACTIVE HUB -->
+  <!-- HOME INTERACTIVE COMPONENT -->
   <div class="main-content" id="mainContent">
 
-    <!-- HERO ENGINE -->
+    <!-- HERO PANEL -->
     <section class="hero">
-      <h1>Bridging Luxury Real Estate<br>With Elite Redevelopers</h1>
+      <p class="hero-sub">Off-Market Acquisitions</p>
+      <h1>Bridging Homeowners With<br>Trusted Building Teams</h1>
       <div class="divider"></div>
-      <p>We work directly with premium property owners to curate seamless, off-market exits—connecting your asset directly with capitalized building teams without the stress of public market timelines.</p>
+      <p>We work directly with premium property owners to curate seamless off-market exits — connecting your deal with our highest paying development partner best suited for your desired terms.</p>
       <div class="hero-ctas">
-        <a href="#sellers-walkthrough" class="btn">Sellers Portal</a>
-        <a href="#" class="btn secondary" onclick="showPartner(); return false;">Developer Portal</a>
+        <a href="#sellers-portal" class="btn">Sellers Overview</a>
+        <a href="#" class="btn secondary" onclick="togglePortalView(true); return false;">Developer Portal</a>
       </div>
     </section>
 
-    <!-- EXPLANATION / WALKTHROUGH SECTION -->
-    <section class="walkthrough-section" id="sellers-walkthrough">
+    <!-- PHILOSOPHY / INTRO -->
+    <section class="section-spacing scroll-reveal" id="sellers-portal">
       <p class="section-label">Our Philosophy</p>
       <div class="walkthrough-grid">
         <div class="walkthrough-statement">
-          <h2>"No deal closes unless a seller feels like they are winning."</h2>
+          <h2>No deal closes unless a seller feels like they are winning.</h2>
         </div>
         <div class="walkthrough-body">
-          <p>Stoneholdt Partners is an acquisition company operating entirely within the luxury redevelopment space. Our role is simple: we bridge high-end property owners with our trusted network of premium development partners.</p>
-          <p>We believe a successful transaction requires alignment from day one. It is our job to thoroughly understand exactly what you need out of a sale—whether that's a specific target price, tailored closing terms, or a flexible relocation timeline—and formulate an agreement we can confidently perform on.</p>
+          <p>Stoneholdt Partners is an acquisition company operating cleanly within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation parameters—and construct a transparent roadmap to perform on.</p>
         </div>
       </div>
     </section>
 
-    <!-- TRANSACTION PIPELINE FLOW CHART -->
-    <section class="process-container">
+    <!-- BLUEPRINT LAYOUT SYSTEM -->
+    <section class="section-spacing scroll-reveal">
       <p class="section-label">The Transaction Blueprint</p>
-      
-      <div style="margin: 24px 0 40px; max-width: 750px;">
-        <p style="font-size: 15px; line-height: 1.8; opacity: 0.8;">
-          Nobody wants surprises mid-transaction. We eliminate the typical points of friction inherent to traditional retail home sales. That means <strong>no public open houses, no structural repair negotiations, and absolutely no home inspection headaches</strong>. We set clear, upfront communication rules from the absolute start.
-        </p>
+      <div class="process-intro">
+        <p>Skip the hiring process, the public open houses, the structural repair negotiations, and the standard agent commission fees. We protect your transaction from standard retail fallouts by mapping out clear, predictable baseline parameters before we ever put pen to paper.</p>
       </div>
 
       <div class="process-flow">
-        
-        <!-- Step 1 -->
+        <!-- 01 -->
         <div class="process-card">
           <div class="process-step">STAGE 01</div>
           <h3>Under Contract</h3>
-          <p class="process-p">We lock in mutually structured parameters regarding asset pricing, absolute timeline limits, and custom closing dynamics.</p>
+          <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
         </div>
-
-        <!-- Step 2 -->
+        <!-- 02 -->
         <div class="process-card">
           <div class="process-step">STAGE 02</div>
           <h3>Feasibility Period</h3>
-          <p class="process-p">Our architectural and development teams evaluate land use footprints, building limits, and design variables cleanly without disturbing you.</p>
+          <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear engineering parameters.</p>
         </div>
-
-        <!-- Step 3 -->
+        <!-- 03 -->
         <div class="process-card">
           <div class="process-step">STAGE 03</div>
-          <h3>Earnest Deposit</h3>
-          <p class="process-p">Upon clearing base feasibility, strong capital deposits are released into escrow to secure performance guarantees explicitly.</p>
+          <h3>Earnest Money</h3>
+          <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
         </div>
-
-        <!-- Step 4 -->
+        <!-- 04 -->
         <div class="process-card">
           <div class="process-step">STAGE 04</div>
-          <h3>Sovereign Close</h3>
-          <p class="process-p">Funds are cleanly wired, title transfers securely, and your custom move-out timeline parameters execute perfectly.</p>
+          <h3>Close &amp; Record</h3>
+          <p>Title transfers safely through escrow, funds register instantly via direct wire, and your custom post-closing move-out parameters activate flawlessly.</p>
         </div>
-
       </div>
     </section>
 
-    <!-- GEOGRAPHIC CONTEXT REGIONS -->
-    <section class="markets-section">
-      <div class="markets-inner">
-        <p class="section-label" style="color: #1B2A5E; opacity: 0.5;">Active Acquisitions Infrastructure</p>
-        
-        <!-- Primary Focus: Washington -->
-        <div class="wa-hero-box">
-          <div class="wa-info">
-            <h2>Washington Core</h2>
-            <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + Supporting Submarkets</p>
-          </div>
-          <a href="mailto:stoneholdt.acquisitions@gmail.com" class="btn" style="border-color: #EDE8DF; color: #EDE8DF;">Inquire Privately</a>
+    <!-- CREDIBILITY DECK (PORTFOLIO) -->
+    <section class="section-spacing scroll-reveal">
+      <p class="section-label">Track Record &amp; Pipeline</p>
+      
+      <div class="portfolio-header">
+        <div class="portfolio-tabs">
+          <button class="tab-btn active-tab" id="tab2026" onclick="filterPortfolio('2026')">Active 2026</button>
+          <button class="tab-btn" id="tab2025" onclick="triggerArchivePrompt()">Archive 2025</button>
         </div>
+      </div>
 
-        <!-- Secondary Pipelines (Smaller, clean layout footprint) -->
-        <div class="secondary-markets-row">
-          <div class="market-mini-card">
-            <h4>California Pipeline</h4>
-            <p>West Hollywood &bull; Culver City &bull; Santa Monica Metro</p>
-          </div>
-          <div class="market-mini-card">
-            <h4>Arizona Pipeline</h4>
-            <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Enclaves</p>
-          </div>
+      <div class="portfolio-grid" id="portfolioContainer">
+        <!-- Card 1 -->
+        <div class="portfolio-card">
+          <div class="badge escrow">In Escrow</div>
+          <h4>Bellevue Infill Assemblage</h4>
+          <div class="meta">King County Metro Area</div>
+          <p>Successfully aligned terms with a multi-generation family property owner to bypass traditional market listings, clearing the site layout for a premier multi-home residential subdivision build.</p>
         </div>
-
+        <!-- Card 2 -->
+        <div class="portfolio-card">
+          <div class="badge escrow">In Escrow</div>
+          <h4>Kirkland Waterfront Lot</h4>
+          <div class="meta">Lake Washington Corridor</div>
+          <p>Structured a flexible 60-day post-close occupancy arrangement enabling the custom homeowner to secure their transition property, while coordinating feasibility parameters for a custom luxury builder.</p>
+        </div>
       </div>
     </section>
 
-    <!-- GENERAL CALL TO ACTION -->
-    <section class="cta-section">
-      <h2>Let's Discuss Your Asset's Value</h2>
-      <a href="mailto:stoneholdt.acquisitions@gmail.com" class="btn">Initiate Private Correspondence</a>
+    <!-- GEOGRAPHY PANE -->
+    <section class="section-spacing scroll-reveal">
+      <p class="section-label">Target Acquisition Footprint</p>
+      <div class="wa-core-banner">
+        <h3>Washington Core Focus</h3>
+        <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + Supporting Submarkets</p>
+      </div>
+      <div class="pipeline-row">
+        <div class="pipeline-stub">
+          <h4>California Pipeline</h4>
+          <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
+        </div>
+        <div class="pipeline-stub">
+          <h4>Arizona Pipeline</h4>
+          <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
+        </div>
+      </div>
     </section>
 
-    <!-- INTAKE & FOOTER SYSTEM -->
-    <section class="contact-section">
-      <p>Direct Inquiries</p>
+    <!-- FOOTER LINK -->
+    <section class="contact-pane scroll-reveal">
+      <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
-    <footer>&copy; 2026 Stoneholdt Partners &mdash; Architectural Land &amp; Asset Sourcing</footer>
+    <footer>&copy; 2026 Stoneholdt Partners &mdash; Land &amp; Asset Sourcing</footer>
 
   </div>
 
-  <!-- SEPARATE INTERACTIVE PORTAL FOR BUILDERS/PARTNERS -->
-  <div class="partner-page" id="partnerPage">
+  <!-- SEPARATE INTERACTIVE PORTAL FOR REGISTERED BUILDERS -->
+  <div class="portal-frame" id="partnerPage">
     <h2>Development Partner Verification</h2>
+    <p class="subtitle">Specify structural buying box criteria and capital allocation limits</p>
     
-    <form class="partner-form" action="https://formspree.io/f/mrerjjzo" method="POST">
-      <div class="form-group">
-        <label>Principal Representative Name</label>
-        <input type="text" name="name" placeholder="John Smith" required/>
+    <form class="portal-form" action="https://formspree.io/f/mrerjjzo" method="POST">
+      <div class="form-element">
+        <label>Principal Representative</label>
+        <input type="text" name="name" placeholder="Name" required/>
       </div>
-      <div class="form-group">
-        <label>Development Entity / Capital Fund</label>
-        <input type="text" name="firm" placeholder="e.g., Bellevue Construction Group" required/>
+      <div class="form-element">
+        <label>Development Entity</label>
+        <input type="text" name="firm" placeholder="Company Name" required/>
       </div>
-      <div class="form-group">
-        <label>Corporate Allocation Profile</label>
+      <div class="form-element">
+        <label>Allocation Matrix Profile</label>
         <select name="profile" required>
           <option value="" disabled selected>Select investment footprint</option>
-          <option>Institutional Home Builder</option>
-          <option>Luxury Custom Infill Developer</option>
+          <option>Custom Infill Single-Family Builder</option>
+          <option>Townhome / Multi-Family Developer</option>
           <option>Private Equity Real Estate Fund</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Direct Contact Information</label>
-        <input type="email" name="email" placeholder="principal@firm.com" required/>
+      <div class="form-element">
+        <label>Direct Workspace Email</label>
+        <input type="email" name="email" placeholder="email@firm.com" required/>
       </div>
-      <div class="form-group">
-        <label>Target Acquisition Parameters</label>
-        <textarea name="parameters" rows="4" placeholder="Zoning requirements, minimum lot sizes, or priority neighborhood buy-boxes..."></textarea>
+      <div class="form-element">
+        <label>Target Acquisition Profiles</label>
+        <textarea name="parameters" rows="3" placeholder="Zoning criteria, preferred square footage thresholds, or submarket target tiers..."></textarea>
       </div>
 
-      <div style="text-align: center; margin-top: 20px;">
+      <div class="form-actions">
         <button type="submit" class="btn">Register Buying Box</button>
         <br>
-        <a class="back-link" onclick="hidePartner(); return false;">← Back to Main Platform</a>
+        <span class="return-trigger" onclick="togglePortalView(false);">← Return to Platform Overview</span>
       </div>
     </form>
   </div>
 
-  <!-- INTERACTIVE LIQUID DYNAMICS ENGINE -->
+  <!-- LIQUID NAVIGATION & VIEW ANIMATION ENGINE -->
   <script>
-    // Smooth custom fluid tracking dot
+    // Visual tracking cursor node mechanics
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Make dot expand elegantly on clicking interactive zones
-    const links = document.querySelectorAll('a, .process-card, button');
-    links.forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        cursor.style.width = '40px';
-        cursor.style.height = '40px';
-        cursor.style.backgroundColor = 'rgba(27, 42, 94, 0.05)';
+    // Make dot expand on links
+    const interactiveElements = document.querySelectorAll('a, .process-card, button, .portfolio-card');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '38px';
+        cursor.style.height = '38px';
+        cursor.style.backgroundColor = 'rgba(27, 42, 94, 0.04)';
       });
-      link.addEventListener('mouseleave', () => {
+      el.addEventListener('mouseleave', () => {
         cursor.style.width = '20px';
         cursor.style.height = '20px';
         cursor.style.backgroundColor = 'transparent';
       });
     });
 
-    // Dynamic Navigation View Engine
-    function showPartner() {
+    // On-Scroll Fade-In Reveal Logic
+    const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+    // Dynamic Navigation View Switcher
+    function togglePortalView(showDev) {
       const main = document.getElementById('mainContent');
       const partner = document.getElementById('partnerPage');
-      main.classList.add('hidden');
-      partner.classList.add('active');
+      const navSellers = document.getElementById('navSellersLink');
+      const navDev = document.getElementById('navDevLink');
+
+      if (showDev) {
+        main.classList.add('hidden');
+        partner.classList.add('active');
+        navSellers.classList.remove('active-link');
+        navDev.classList.add('active-link');
+      } else {
+        partner.classList.remove('active');
+        main.classList.remove('hidden');
+        navDev.classList.remove('active-link');
+        navSellers.classList.add('active-link');
+      }
       window.scrollTo(0, 0);
     }
 
-    function hidePartner() {
-      const main = document.getElementById('mainContent');
-      const partner = document.getElementById('partnerPage');
-      partner.classList.remove('active');
-      main.classList.remove('hidden');
-      window.scrollTo(0, 0);
+    function navigateToHome() {
+      togglePortalView(false);
+    }
+
+    // Portfolio Archive Safe Gate
+    function triggerArchivePrompt() {
+      alert("Historical 2025 acquisition records and architectural data sets are available strictly upon direct private request.");
     }
   </script>
 
