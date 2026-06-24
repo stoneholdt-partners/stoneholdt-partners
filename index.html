@@ -33,13 +33,13 @@
     .custom-cursor {
       width: 20px;
       height: 20px;
-      border: 1px solid rgba(27, 42, 94, 0.4);
+      border: 1px solid rgba(74, 103, 173, 0.4);
       border-radius: 50%;
       position: fixed;
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 9999;
-      transition: width 0.25s, height 0.25s, background-color 0.25s;
+      transition: width 0.25s, height 0.25s, background-color 0.25s, border-color 0.25s;
     }
 
     /* NAVIGATION ARCHITECTURE */
@@ -53,14 +53,20 @@
       top: 0;
       z-index: 100;
       background: rgba(237, 232, 223, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(27, 42, 94, 0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.05);
+      transition: all 0.3s ease;
     }
 
     nav img.nav-logo {
       height: 34px;
       opacity: 0.95;
       cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    nav img.nav-logo:hover {
+      opacity: 1;
     }
 
     nav ul {
@@ -79,16 +85,25 @@
       transition: all 0.3s ease;
       opacity: 0.6;
       cursor: pointer;
+      position: relative;
     }
 
     nav ul li a:hover, nav ul li a.active-link { 
       opacity: 1; 
     }
     
-    nav ul li a.active-link {
-      font-weight: 500;
-      border-bottom: 1px solid var(--primary-blue);
-      padding-bottom: 4px;
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent-blue);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover::after, nav ul li a.active-link::after {
+      width: 100%;
     }
 
     /* SCREEN VIEWS CONTAINER */
@@ -98,6 +113,12 @@
     }
     .view-panel.active-view {
       display: block;
+      animation: fadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* HERO LAYOUT */
@@ -125,7 +146,7 @@
       font-size: 13px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.75;
+      opacity: 0.85;
       margin-bottom: 30px;
       font-weight: 400;
       color: var(--accent-blue);
@@ -134,9 +155,9 @@
     .divider {
       width: 40px;
       height: 1px;
-      background-color: var(--primary-blue);
+      background-color: var(--accent-blue);
       margin-bottom: 35px;
-      opacity: 0.25;
+      opacity: 0.4;
     }
 
     .hero p {
@@ -152,12 +173,13 @@
       gap: 15px;
     }
 
-    /* CORE COMPONENTS & BUTTONS */
+    /* CORE COMPONENTS & ACCENT BUTTONS */
     .btn {
       display: inline-block;
       padding: 15px 32px;
-      border: 1px solid var(--primary-blue);
-      color: var(--primary-blue);
+      border: 1px solid var(--accent-blue);
+      color: #EDE8DF;
+      background-color: var(--accent-blue);
       text-decoration: none;
       font-size: 10px;
       letter-spacing: 0.2em;
@@ -165,22 +187,16 @@
       font-weight: 400;
       transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       cursor: pointer;
-      background: transparent;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
     }
 
     .btn:hover {
       background-color: var(--primary-blue);
-      color: var(--bg-cream);
-    }
-
-    .btn.secondary {
-      background-color: var(--primary-blue);
-      color: var(--bg-cream);
-    }
-
-    .btn.secondary:hover {
-      background-color: transparent;
-      color: var(--primary-blue);
+      border-color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 42, 94, 0.2);
     }
 
     /* SCROLL ANIMATION WRAPPER */
@@ -210,10 +226,10 @@
       font-size: 10px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.5;
+      opacity: 0.6;
       margin-bottom: 35px;
       font-weight: 500;
-      color: var(--primary-blue);
+      color: var(--accent-blue);
     }
 
     /* ASYMMETRICAL GEOGRAPHIC IMAGE GRID */
@@ -226,8 +242,6 @@
 
     .market-block {
       position: relative;
-      background-size: cover;
-      background-position: center;
       border-radius: 2px;
       overflow: hidden;
       display: flex;
@@ -235,7 +249,21 @@
       justify-content: flex-end;
       padding: 40px;
       min-height: 460px;
-      transition: all 0.5s ease;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* Visual enhancement: Smooth scaling image container inside the block */
+    .market-block-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+    }
+
+    .market-block:hover .market-block-bg {
+      transform: scale(1.03);
     }
 
     .market-overlay {
@@ -614,10 +642,8 @@
 </head>
 <body>
 
-  <!-- DYNAMIC TRAILING CONTAINER -->
   <div class="custom-cursor" id="cursor"></div>
 
-  <!-- NAVIGATION -->
   <nav>
     <a href="#" onclick="showView('home'); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
@@ -628,12 +654,8 @@
     </ul>
   </nav>
 
-  <!-- ========================================== -->
-  <!-- VIEW 1: MAIN LANDING OVERVIEW VIEW         -->
-  <!-- ========================================== -->
   <div id="homeView" class="view-panel active-view">
     
-    <!-- HERO PANEL -->
     <section class="hero">
       <h1>Off-Market Acquisitions</h1>
       <p class="hero-sub">Bridging Homeowners With Trusted Development Partners</p>
@@ -641,32 +663,32 @@
       <p>We work directly with premium property owners to curate seamless off-market exits — connecting your deal with our highest paying development partner best suited for your desired terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
-        <button class="btn secondary" onclick="showView('developer');">Developer Portal</button>
+        <button class="btn" onclick="showView('developer');">Developer Portal</button>
       </div>
     </section>
 
-    <!-- GEOGRAPHY REGIONS MATRIX -->
     <section class="section-spacing scroll-reveal">
       <p class="section-label">Target Acquisition Footprint</p>
       <div class="market-matrix">
-        <!-- Left Big Block (WA) -->
-        <div class="market-block" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80');">
+        <div class="market-block">
+          <div class="market-block-bg" style="background-image: url('washington.png');"></div>
           <div class="market-overlay"></div>
           <div class="market-text">
             <h3>Washington Core</h3>
             <p>Bellevue &bull; Kirkland &bull; Seattle &bull; Supporting Submarkets</p>
           </div>
         </div>
-        <!-- Right Stacked Blocks (CA & AZ) -->
         <div class="market-right-stack">
-          <div class="market-block half-height" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80');">
+          <div class="market-block half-height">
+            <div class="market-block-bg" style="background-image: url('california.png');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
               <h3>California Pipeline</h3>
               <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
             </div>
           </div>
-          <div class="market-block half-height" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80');">
+          <div class="market-block half-height">
+            <div class="market-block-bg" style="background-image: url('arizona.png');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
               <h3>Arizona Pipeline</h3>
@@ -677,7 +699,6 @@
       </div>
     </section>
 
-    <!-- CREDIBILITY DECK (PORTFOLIO) -->
     <section class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
         <p class="section-label">Track Record &amp; Pipeline</p>
@@ -690,14 +711,12 @@
         </div>
 
         <div class="portfolio-grid" id="portfolioActiveGrid">
-          <!-- Card 1 -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
             <h4>Bellevue Infill Assemblage</h4>
             <div class="meta">King County Metro Area</div>
             <p>Successfully aligned terms with a multi-generation family property owner to bypass traditional market listings, clearing the site layout for a premier multi-home residential subdivision build.</p>
           </div>
-          <!-- Card 2 -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
             <h4>Kirkland Waterfront Lot</h4>
@@ -712,7 +731,6 @@
       </div>
     </section>
 
-    <!-- FOOTER PANEL -->
     <section class="contact-pane scroll-reveal">
       <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
@@ -722,16 +740,12 @@
   </div>
 
 
-  <!-- ========================================== -->
-  <!-- VIEW 2: DEDICATED SELLERS OVERVIEW VIEW   -->
-  <!-- ========================================== -->
   <div id="sellerView" class="view-panel">
     <header class="portal-frame-header">
       <h2>Sellers Overview</h2>
       <p class="subtitle">A straightforward approach to premium property exits</p>
     </header>
 
-    <!-- PHILOSOPHY / INTRO -->
     <section class="section-spacing">
       <p class="section-label">Our Philosophy</p>
       <div class="walkthrough-grid">
@@ -744,7 +758,6 @@
       </div>
     </section>
 
-    <!-- BLUEPRINT LAYOUT SYSTEM -->
     <section class="section-spacing bg-break">
       <div style="max-width: 1100px; margin: 0 auto;">
         <p class="section-label">The Transaction Blueprint</p>
@@ -753,25 +766,21 @@
         </div>
 
         <div class="process-flow">
-          <!-- 01 -->
           <div class="process-card">
             <div class="process-step">STAGE 01</div>
             <h3>Under Contract</h3>
             <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
           </div>
-          <!-- 02 -->
           <div class="process-card">
             <div class="process-step">STAGE 02</div>
             <h3>Feasibility Period</h3>
             <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
           </div>
-          <!-- 03 -->
           <div class="process-card">
             <div class="process-step">STAGE 03</div>
             <h3>Earnest Money</h3>
             <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
           </div>
-          <!-- 04 -->
           <div class="process-card">
             <div class="process-step">STAGE 04</div>
             <h3>Close &amp; Record</h3>
@@ -787,9 +796,6 @@
   </div>
 
 
-  <!-- ========================================== -->
-  <!-- VIEW 3: DEDICATED DEVELOPER PORTAL VIEW    -->
-  <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
       <h2>Development Partner Verification</h2>
@@ -835,7 +841,6 @@
     </div>
   </div>
 
-  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
   <script>
     // Visual tracking cursor node mechanics
     const cursor = document.getElementById('cursor');
@@ -844,7 +849,7 @@
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Make trailing ring expand on interactive boundaries
+    // Make trailing ring expand dynamically
     function applyCursorDynamics() {
       const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
       interactives.forEach(el => {
@@ -858,7 +863,7 @@
           cursor.style.width = '20px';
           cursor.style.height = '20px';
           cursor.style.backgroundColor = 'transparent';
-          cursor.style.borderColor = 'rgba(27, 42, 94, 0.4)';
+          cursor.style.borderColor = 'rgba(74, 103, 173, 0.4)';
         });
       });
     }
@@ -882,16 +887,13 @@
 
     // Dynamic Navigation View Engine Matrix
     function showView(viewId) {
-      // Hide all panels
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
       document.getElementById('developerView').classList.remove('active-view');
 
-      // Unset active navigation items
       document.getElementById('navSellersLink').classList.remove('active-link');
       document.getElementById('navDevLink').classList.remove('active-link');
 
-      // Route view execution
       if (viewId === 'home') {
         document.getElementById('homeView').classList.add('active-view');
       } else if (viewId === 'seller') {
@@ -904,6 +906,7 @@
 
       window.scrollTo({ top: 0, behavior: 'instant' });
       trackScrollReveals();
+      applyCursorDynamics(); // Re-bind events to current view elements
     }
 
     // Dynamic Tracking Portfolio Tabs Setup
