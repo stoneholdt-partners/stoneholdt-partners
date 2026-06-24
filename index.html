@@ -121,7 +121,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* HERO LAYOUT */
+    /* HERO LAYOUT WITH PARTICLE CANVASES */
     .hero {
       min-height: 75vh;
       display: flex;
@@ -130,6 +130,22 @@
       align-items: center;
       text-align: center;
       padding: 160px 40px 40px;
+      position: relative;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero h1, .hero .hero-sub, .hero .divider, .hero p, .hero .hero-ctas {
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
@@ -358,6 +374,8 @@
       padding: 40px;
       border-radius: 2px;
       position: relative;
+      display: flex;
+      flex-direction: column;
       transition: all 0.4s ease;
     }
 
@@ -367,6 +385,7 @@
     }
 
     .badge {
+      align-self: flex-start;
       display: inline-block;
       font-size: 9px;
       letter-spacing: 0.15em;
@@ -389,35 +408,86 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 28px;
       font-weight: 400;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .portfolio-card .meta {
-      font-size: 12px;
+      font-size: 11px;
       opacity: 0.5;
-      margin-bottom: 16px;
-      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
     }
 
-    .portfolio-card p {
-      font-size: 13px;
-      line-height: 1.7;
-      opacity: 0.75;
+    /* SPLIT-MEDIA SECURITY CONTAINER */
+    .card-media-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: auto;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .media-pane {
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .media-pane-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(27, 42, 94, 0.88);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-pane-overlay span {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg-cream);
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-card:hover .media-pane-overlay {
+      background-color: rgba(27, 42, 94, 0.15);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    .portfolio-card:hover .media-pane-overlay span {
+      opacity: 0;
+    }
+
+    .portfolio-card:hover .media-pane {
+      transform: scale(1.02);
     }
 
     .archive-fallback {
       display: none;
       grid-column: 1 / -1;
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px 20px;
       border: 1px dashed rgba(27, 42, 94, 0.15);
       border-radius: 2px;
     }
     .archive-fallback p {
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      opacity: 0.7;
-      line-height: 1.6;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+      line-height: 1.7;
     }
 
     /* SELLERS OVERVIEW VIEW DYNAMICS */
@@ -636,13 +706,16 @@
       .section-spacing { padding: 60px 24px; }
       .process-flow { grid-template-columns: 1fr; }
       .custom-cursor { display: none; }
+      .card-media-split { height: 100px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- DYNAMIC TRAILING CONTAINER -->
   <div class="custom-cursor" id="cursor"></div>
 
+  <!-- NAVIGATION -->
   <nav>
     <a href="#" onclick="showView('home'); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
@@ -653,9 +726,14 @@
     </ul>
   </nav>
 
+  <!-- ========================================== -->
+  <!-- VIEW 1: MAIN LANDING OVERVIEW VIEW         -->
+  <!-- ========================================== -->
   <div id="homeView" class="view-panel active-view">
     
+    <!-- HERO PANEL WITH AMBIENT PARTICLES -->
     <section class="hero">
+      <canvas id="particle-canvas"></canvas>
       <h1>Off-Market Acquisitions</h1>
       <p class="hero-sub">Bridging Homeowners With Trusted Development Partners</p>
       <div class="divider"></div>
@@ -666,72 +744,96 @@
       </div>
     </section>
 
+    <!-- GEOGRAPHY REGIONS MATRIX -->
     <section class="section-spacing scroll-reveal">
       <p class="section-label">Target Acquisition Footprint</p>
       <div class="market-matrix">
+        <!-- Left Big Block (WA) -->
         <div class="market-block">
           <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
           <div class="market-overlay"></div>
           <div class="market-text">
             <h3>Washington Core</h3>
-            <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
+            <p>Bellevue &bull; Kirkland &bull; Seattle &bull; Supporting Submarkets</p>
           </div>
         </div>
+        <!-- Right Stacked Blocks (CA & AZ) -->
         <div class="market-right-stack">
           <div class="market-block half-height">
             <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
-              <h3>California</h3>
-              <p>West Hollywood &bull; Culver City &bull; Santa Monica</p>
+              <h3>California Pipeline</h3>
+              <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
             </div>
           </div>
           <div class="market-block half-height">
             <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
-              <h3>Arizona</h3>
-              <p>Scottsdale &bull; Phoenix &bull; Paradise Valley</p>
+              <h3>Arizona Pipeline</h3>
+              <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- CREDIBILITY DECK (PORTFOLIO) -->
     <section class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
-        <p class="section-label">Portfolio</p>
+        <p class="section-label">Track Record &amp; Pipeline</p>
         
         <div class="portfolio-header">
           <div class="portfolio-tabs">
-            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">2026</button>
-            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">2025</button>
+            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">Active 2026</button>
+            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">Archive 2025</button>
           </div>
         </div>
 
         <div class="portfolio-grid" id="portfolioActiveGrid">
+          <!-- Card 1: Enatai -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
-            <h4>Bellevue Infill Assemblage</h4>
-            <div class="meta">King County Metro Area</div>
-            <p>Successfully aligned terms with a multi-generation family property owner to bypass traditional market listings, clearing the site layout for a premier multi-home residential subdivision build.</p>
+            <h4>Enatai SFR Redevelopment</h4>
+            <div class="meta">West Bellevue</div>
+            
+            <div class="card-media-split">
+              <div class="media-pane" style="background-image: url('1646-Street.jpg');">
+                <div class="media-pane-overlay"><span>Street Index</span></div>
+              </div>
+              <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
+                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              </div>
+            </div>
           </div>
+          
+          <!-- Card 2: Eastgate -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
-            <h4>Kirkland Waterfront Lot</h4>
-            <div class="meta">Lake Washington Corridor</div>
-            <p>Structured a flexible 60-day post-close occupancy arrangement enabling the custom homeowner to secure their transition property, while coordinating timelines for a custom luxury builder.</p>
+            <h4>Eastgate SFR Redevelopment</h4>
+            <div class="meta">East Bellevue</div>
+            
+            <div class="card-media-split">
+              <div class="media-pane" style="background-image: url('15126-Street.jpg');">
+                <div class="media-pane-overlay"><span>Street Index</span></div>
+              </div>
+              <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
+                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="archive-fallback" id="portfolioArchiveGrid">
-          <p>Specific addresses undisclosed to respect seller privacy.</p>
+          <p>Specific transaction indexes and historic property coordinates are unlisted to respect seller privacy.</p>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER PANEL -->
     <section class="contact-pane scroll-reveal">
-      <p>Get In Touch</p>
+      <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
@@ -739,12 +841,16 @@
   </div>
 
 
+  <!-- ========================================== -->
+  <!-- VIEW 2: DEDICATED SELLERS OVERVIEW VIEW   -->
+  <!-- ========================================== -->
   <div id="sellerView" class="view-panel">
     <header class="portal-frame-header">
       <h2>Sellers Overview</h2>
       <p class="subtitle">A straightforward approach to premium property exits</p>
     </header>
 
+    <!-- PHILOSOPHY / INTRO -->
     <section class="section-spacing">
       <p class="section-label">Our Philosophy</p>
       <div class="walkthrough-grid">
@@ -757,6 +863,7 @@
       </div>
     </section>
 
+    <!-- BLUEPRINT LAYOUT SYSTEM -->
     <section class="section-spacing bg-break">
       <div style="max-width: 1100px; margin: 0 auto;">
         <p class="section-label">The Transaction Blueprint</p>
@@ -765,21 +872,25 @@
         </div>
 
         <div class="process-flow">
+          <!-- 01 -->
           <div class="process-card">
             <div class="process-step">STAGE 01</div>
             <h3>Under Contract</h3>
             <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
           </div>
+          <!-- 02 -->
           <div class="process-card">
             <div class="process-step">STAGE 02</div>
             <h3>Feasibility Period</h3>
             <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
           </div>
+          <!-- 03 -->
           <div class="process-card">
             <div class="process-step">STAGE 03</div>
             <h3>Earnest Money</h3>
             <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
           </div>
+          <!-- 04 -->
           <div class="process-card">
             <div class="process-step">STAGE 04</div>
             <h3>Close &amp; Record</h3>
@@ -795,6 +906,9 @@
   </div>
 
 
+  <!-- ========================================== -->
+  <!-- VIEW 3: DEDICATED DEVELOPER PORTAL VIEW    -->
+  <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
       <h2>Development Partner Verification</h2>
@@ -840,6 +954,7 @@
     </div>
   </div>
 
+  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
   <script>
     // Visual tracking cursor node mechanics
     const cursor = document.getElementById('cursor');
@@ -905,7 +1020,7 @@
 
       window.scrollTo({ top: 0, behavior: 'instant' });
       trackScrollReveals();
-      applyCursorDynamics(); // Re-bind events to current view elements
+      applyCursorDynamics(); 
     }
 
     // Dynamic Tracking Portfolio Tabs Setup
@@ -927,6 +1042,67 @@
         archiveGrid.style.display = 'block';
       }
     }
+
+    // SUBTLE FLOATING PARTICLE ENGINE
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1; 
+        this.speedX = (Math.random() * 0.2) - 0.1;
+        this.speedY = (Math.random() * 0.15) - 0.075;
+        this.alpha = Math.random() * 0.25 + 0.05; // Soft, low-contrast alpha values
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Clean wrapping mechanics at borders
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = '#1B2A5E'; // Uses theme primary dark blue at ultra low visibility
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      const numberOfParticles = 35; // Lower count preserves premium clean layout feel
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
   </script>
 
 </body>
