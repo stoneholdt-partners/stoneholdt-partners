@@ -16,6 +16,17 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* SMOOTH ENTRANCE ANIMATION */
+    .fade-in-up {
+      animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* NAV */
@@ -23,14 +34,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 60px;
+      padding: 30px 60px;
+      z-index: 10;
     }
 
     nav img.nav-logo {
-      height: 48px;
-      opacity: 0.92;
+      height: 42px;
+      opacity: 0.95;
       cursor: pointer;
+      transition: opacity 0.3s;
     }
+
+    nav img.nav-logo:hover { opacity: 0.7; }
 
     nav ul {
       list-style: none;
@@ -42,8 +57,9 @@
       text-decoration: none;
       color: #1B2A5E;
       font-size: 11px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
+      font-weight: 400;
     }
 
     nav ul li a:hover { opacity: 0.5; transition: opacity 0.3s; }
@@ -51,202 +67,267 @@
     /* HERO */
     .hero {
       text-align: center;
-      padding: 72px 40px 56px;
+      padding: 100px 40px 60px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
+      font-size: 56px;
       font-weight: 300;
       letter-spacing: 0.08em;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      line-height: 1.25;
+      margin-bottom: 24px;
     }
 
     .divider {
-      width: 50px;
+      width: 60px;
       height: 1px;
       background-color: #1B2A5E;
-      margin: 0 auto 24px;
+      margin: 0 auto 28px;
       opacity: 0.35;
     }
 
     .hero p {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      line-height: 2;
-      opacity: 0.65;
-      max-width: 600px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      opacity: 0.7;
+      max-width: 650px;
       margin: 0 auto;
       text-transform: uppercase;
     }
 
-    /* MARKETS */
+    /* CORE MARKET SECTION (WASHINGTON FOCUS) */
     .markets-section {
-      padding: 56px 48px;
+      padding: 60px 60px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
     }
 
     .markets-label {
       text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.25em;
+      font-size: 11px;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 32px;
+      opacity: 0.5;
+      margin-bottom: 40px;
+      font-weight: 400;
     }
 
-    .markets-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .market-card {
+    /* Dynamic Featured Main WA Banner */
+    .primary-market-showcase {
       position: relative;
-      height: 420px;
+      height: 500px;
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 40px rgba(27, 42, 94, 0.06);
     }
 
-    .market-card .bg {
+    .primary-market-showcase .bg {
       position: absolute;
       inset: 0;
+      background-image: url('WA.jpg');
       background-size: cover;
       background-position: center;
-      transition: transform 0.6s ease;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .market-card:hover .bg {
-      transform: scale(1.05);
+    .primary-market-showcase:hover .bg {
+      transform: scale(1.03);
     }
 
-    .market-card .overlay {
+    .primary-market-showcase .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(20, 30, 70, 0.52);
-      transition: background 0.4s ease;
+      background: linear-gradient(to bottom, rgba(20, 30, 70, 0.2) 0%, rgba(20, 30, 70, 0.75) 100%);
+      transition: opacity 0.4s ease;
     }
 
-    .market-card:hover .overlay {
-      background: rgba(20, 30, 70, 0.38);
-    }
-
-    .market-card .content {
+    .primary-market-showcase .content {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 32px 28px;
+      padding: 50px 60px;
       color: #EDE8DF;
     }
 
-
-    .market-card .state-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  margin-bottom: 14px;
-  margin-top: auto;
-}
-    .market-card .hover-tag {
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      opacity: 0;
-      margin-top: 16px;
-      transition: opacity 0.4s ease;
-      border-top: 1px solid rgba(237, 232, 223, 0.3);
-      padding-top: 14px;
+    .primary-market-showcase .state-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 46px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
     }
 
-    .market-card:hover .hover-tag {
-      opacity: 0.8;
+    .primary-market-showcase .neighborhoods {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    .primary-market-showcase .hover-tag {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-top: 24px;
+      border-top: 1px solid rgba(237, 232, 223, 0.25);
+      padding-top: 16px;
+      width: fit-content;
+    }
+
+    /* Cross-Market Pipeline Grid (CA & AZ Side-By-Side) */
+    .secondary-markets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .secondary-card {
+      position: relative;
+      height: 320px;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .secondary-card .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .secondary-card:hover .bg {
+      transform: scale(1.04);
+    }
+
+    .secondary-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 30, 70, 0.65);
+      transition: background 0.4s ease;
+    }
+
+    .secondary-card:hover .overlay {
+      background: rgba(20, 30, 70, 0.55);
+    }
+
+    .secondary-card .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+      color: #EDE8DF;
+    }
+
+    .secondary-card .state-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .secondary-card .neighborhoods {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      line-height: 1.6;
+      opacity: 0.75;
     }
 
     /* PARTNER CTA */
     .cta-section {
       text-align: center;
-      padding: 72px 40px;
+      padding: 100px 40px;
+      background-color: rgba(27, 42, 94, 0.03);
     }
 
     .cta-section p {
       font-size: 11px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.45;
-      margin-bottom: 20px;
+      opacity: 0.5;
+      margin-bottom: 24px;
     }
 
     .cta-section h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 300;
       letter-spacing: 0.06em;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
     .btn {
       display: inline-block;
-      padding: 14px 40px;
+      padding: 16px 44px;
       border: 1px solid #1B2A5E;
       color: #1B2A5E;
       text-decoration: none;
       font-size: 10px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       background: transparent;
       cursor: pointer;
       font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
     }
 
     .btn:hover {
       background-color: #1B2A5E;
       color: #EDE8DF;
+      transform: translateY(-2px);
     }
 
     /* CONTACT */
     .contact-section {
       text-align: center;
-      padding: 56px 40px;
-      border-top: 1px solid rgba(27, 42, 94, 0.12);
+      padding: 80px 40px;
+      border-top: 1px solid rgba(27, 42, 94, 0.08);
     }
 
     .contact-section p {
-      font-size: 10px;
-      letter-spacing: 0.22em;
+      font-size: 11px;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 14px;
+      opacity: 0.5;
+      margin-bottom: 16px;
     }
 
     .contact-section a {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 28px;
       color: #1B2A5E;
       text-decoration: none;
       letter-spacing: 0.04em;
+      transition: opacity 0.3s;
     }
 
     .contact-section a:hover { opacity: 0.5; }
 
     footer {
       text-align: center;
-      padding: 24px;
+      padding: 40px 24px;
       font-size: 9px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.25;
+      opacity: 0.3;
+      border-top: 1px solid rgba(27, 42, 94, 0.04);
     }
 
     /* TRANSITIONS */
     .main-content {
-      transition: opacity 0.35s ease;
+      transition: opacity 0.4s ease, transform 0.4s ease;
       opacity: 1;
     }
 
@@ -262,10 +343,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 80px 40px;
+      padding: 100px 40px;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.4s ease;
     }
 
     .partner-page.active {
@@ -275,45 +356,45 @@
 
     .partner-page h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 40px;
+      font-size: 44px;
       font-weight: 300;
       letter-spacing: 0.06em;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     .partner-page .sub {
       font-size: 11px;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       opacity: 0.5;
-      margin-bottom: 48px;
+      margin-bottom: 60px;
     }
 
     .partner-form {
       width: 100%;
-      max-width: 520px;
+      max-width: 560px;
       text-align: left;
     }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+      gap: 24px;
+      margin-bottom: 20px;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .form-group label {
       font-size: 9px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 8px;
+      opacity: 0.6;
+      margin-bottom: 10px;
     }
 
     .form-group input,
@@ -321,10 +402,10 @@
     .form-group textarea {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(27, 42, 94, 0.3);
-      padding: 10px 0;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.25);
+      padding: 12px 0;
       font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       color: #1B2A5E;
       outline: none;
       width: 100%;
@@ -341,106 +422,60 @@
       appearance: none;
       cursor: pointer;
       background-color: transparent;
+      border-radius: 0;
     }
 
     .form-group textarea {
       resize: none;
-      height: 80px;
+      height: 100px;
       margin-top: 4px;
     }
 
     .form-submit {
-      margin-top: 32px;
+      margin-top: 40px;
       text-align: center;
     }
 
     .back-link {
       display: inline-block;
-      margin-top: 24px;
-      font-size: 9px;
+      margin-top: 30px;
+      font-size: 10px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.4;
+      opacity: 0.5;
       cursor: pointer;
       text-decoration: none;
       color: #1B2A5E;
+      transition: opacity 0.3s;
     }
 
-    .back-link:hover { opacity: 0.8; }
+    .back-link:hover { opacity: 0.9; }
 
-    /* MOBILE */
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 992px) {
+      .primary-market-showcase { height: 400px; }
+      .primary-market-showcase .content { padding: 40px; }
+    }
+
     @media (max-width: 768px) {
-      nav {
-        padding: 20px 24px;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      nav img.nav-logo {
-        height: 72px;
-      }
-
-      nav ul {
-        gap: 20px;
-      }
-
-      .hero {
-        padding: 48px 24px 40px;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-        letter-spacing: 0.04em;
-      }
-
-      .hero p {
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        max-width: 90%;
-      }
-
-      .markets-section {
-        padding: 40px 20px;
-      }
-
-      .markets-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .market-card {
-        height: 300px;
-      }
-
-      .cta-section {
-        padding: 48px 24px;
-      }
-
-      .cta-section h2 {
-        font-size: 28px;
-      }
-
-      .contact-section {
-        padding: 40px 24px;
-      }
-
-      .partner-page {
-        padding: 48px 24px;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .partner-page h2 {
-        font-size: 30px;
-      }
+      nav { padding: 24px 30px; }
+      nav ul { gap: 20px; }
+      .hero { padding: 60px 24px 40px; }
+      .hero h1 { font-size: 38px; }
+      .markets-section { padding: 40px 24px; }
+      .primary-market-showcase { height: 340px; }
+      .primary-market-showcase .content { padding: 30px; }
+      .primary-market-showcase .state-name { font-size: 34px; }
+      .secondary-markets-grid { grid-template-columns: 1fr; gap: 20px; }
+      .secondary-card { height: 260px; }
+      .cta-section h2 { font-size: 32px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
+  <nav class="fade-in-up">
     <a href="#" onclick="hidePartner(); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
     </a>
@@ -449,75 +484,69 @@
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
-  <div class="main-content" id="mainContent">
+  <!-- MAIN CONTENT CONTAINER -->
+  <div class="main-content fade-in-up" id="mainContent">
 
+    <!-- HERO PANEL -->
     <section class="hero">
-      <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
+      <h1>Off-Market Luxury<br>Asset Acquisitions</h1>
       <div class="divider"></div>
-      <p>Sourcing exclusive teardown and redevelopment opportunities<br>for premier developers, investors &amp; funds.</p>
+      <p>Sourcing institutional development land, high-end teardowns,<br>and premium redevelopments for elite funds and builders.</p>
     </section>
 
+    <!-- GEOGRAPHIC ACQUISITIONS FOCUS -->
     <section class="markets-section">
-      <p class="markets-label">Active Markets</p>
-      <div class="markets-grid">
+      <p class="markets-label">Core Sourcing Infrastructure</p>
+      
+      <!-- PRIMARY FOCUS: PACIFIC NORTHWEST CORE -->
+      <div class="primary-market-showcase" onclick="showPartner(); return false;">
+        <div class="bg"></div>
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="state-name">Washington Core Focus</div>
+          <div class="neighborhoods">
+            Bellevue &bull; Kirkland &bull; Greater Seattle Residential &amp; Commercial Assemblages
+          </div>
+          <div class="hover-tag">Primary Off-Market Pipeline</div>
+        </div>
+      </div>
 
-        <div class="market-card">
+      <!-- SECONDARY FOCUS: PARTNER PIPELINES -->
+      <div class="secondary-markets-grid">
+        
+        <!-- California Cross-Market Card -->
+        <div class="secondary-card" onclick="showPartner(); return false;">
           <div class="bg" style="background-image: url('CA.jpg')"></div>
           <div class="overlay"></div>
           <div class="content">
             <div class="state-name">California</div>
-            <div class="neighborhoods">
-              West Hollywood<br>
-              Culver City<br>
-              Santa Monica<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
+            <div class="neighborhoods">West Hollywood &bull; Culver City &bull; Santa Monica</div>
           </div>
         </div>
 
-        <div class="market-card">
-          <div class="bg" style="background-image: url('WA.jpg')"></div>
-          <div class="overlay"></div>
-          <div class="content">
-            <div class="state-name">Washington</div>
-            <div class="neighborhoods">
-              Bellevue<br>
-              Kirkland<br>
-              Seattle<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
-          </div>
-        </div>
-
-        <div class="market-card">
+        <!-- Arizona Cross-Market Card -->
+        <div class="secondary-card" onclick="showPartner(); return false;">
           <div class="bg" style="background-image: url('AZ.jpg')"></div>
           <div class="overlay"></div>
           <div class="content">
             <div class="state-name">Arizona</div>
-            <div class="neighborhoods">
-              Scottsdale<br>
-              Phoenix<br>
-              Paradise Valley<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
+            <div class="neighborhoods">Scottsdale &bull; Phoenix &bull; Paradise Valley</div>
           </div>
         </div>
 
       </div>
     </section>
 
+    <!-- CALL TO ACTION PANEL -->
     <section class="cta-section">
-      <p>For Developers &amp; Acquisition Teams</p>
-      <h2>Looking to Source More Deals?</h2>
+      <p>Institutional Delivery Framework</p>
+      <h2>Expand Your Capital Buy-Box</h2>
       <a href="#" class="btn" onclick="showPartner(); return false;">Partner With Us</a>
     </section>
 
+    <!-- INTAKE & FOOTER CONTACT -->
     <section class="contact-section" id="contact">
-      <p>Get in touch</p>
+      <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
@@ -525,103 +554,108 @@
 
   </div>
 
-  <!-- PARTNER PAGE -->
+  <!-- INTERACTIVE INTAKE/PARTNER FRAME -->
   <div class="partner-page" id="partnerPage">
-    <h2>Partner With Stoneholdt</h2>
-    <p class="sub">For developers, fund managers &amp; acquisition teams</p>
+    <h2>Institutional Partnership</h2>
+    <p class="sub">Specify your underwriting footprint and deployment targets</p>
 
     <form class="partner-form" action="https://formspree.io/f/mrerjjzo" method="POST">
 
       <div class="form-row">
         <div class="form-group">
           <label>First Name</label>
-          <input type="text" name="first_name" placeholder="John"/>
+          <input type="text" name="first_name" placeholder="John" required/>
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" name="last_name" placeholder="Smith"/>
+          <input type="text" name="last_name" placeholder="Smith" required/>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Company Name</label>
-        <input type="text" name="company" placeholder="Smith Development Group"/>
+        <label>Company Entity</label>
+        <input type="text" name="company" placeholder="e.g., Bellevue Development Partners" required/>
       </div>
 
       <div class="form-group">
-        <label>Role</label>
-        <select name="role">
-          <option value="" disabled selected>Select your role</option>
-          <option>Developer</option>
-          <option>Fund Manager</option>
-          <option>Acquisition Manager</option>
-          <option>Holding Company</option>
-          <option>Other</option>
+        <label>Corporate Allocation Profile</label>
+        <select name="role" required>
+          <option value="" disabled selected>Select investment profile</option>
+          <option>Institutional Developer</option>
+          <option>Private Equity Fund Manager</option>
+          <option>Lead Acquisition Officer</option>
+          <option>Sovereign Capital/Holding Company</option>
+          <option>Joint Venture / Disposition Partner</option>
         </select>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="john@smithdev.com"/>
+          <label>Direct Email</label>
+          <input type="email" name="email" placeholder="john@company.com" required/>
         </div>
         <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" name="phone" placeholder="(310) 000-0000"/>
+          <label>Secure Phone</label>
+          <input type="tel" name="phone" placeholder="(425) 000-0000"/>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Primary Market</label>
-        <select name="market">
-          <option value="" disabled selected>Select a market</option>
-          <option>Los Angeles, CA</option>
-          <option>Bellevue, WA</option>
-          <option>Scottsdale, AZ</option>
-          <option>Multiple Markets</option>
-          <option>Other</option>
+        <label>Target Underwriting Footprint</label>
+        <select name="market" required>
+          <option value="" disabled selected>Select key focus market</option>
+          <option>Bellevue / Kirkland Metro (WA Core)</option>
+          <option>Southern California / Coastal Metro</option>
+          <option>Scottsdale / Paradise Valley (AZ Core)</option>
+          <option>Multi-State Capital Allocation</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label>Notes</label>
-        <textarea name="notes" placeholder="Tell us about your buy box, target neighborhoods, or current pipeline..."></textarea>
+        <label>Acquisition Sourcing Parameters</label>
+        <textarea name="notes" placeholder="Outline neighborhood tiers, zoning requirements, target lot sizes, or capital allocation parameters..."></textarea>
       </div>
 
       <div class="form-submit">
-        <button type="submit" class="btn">Submit</button>
+        <button type="submit" class="btn">Submit Portfolio Criteria</button>
         <br>
-        <a class="back-link" onclick="hidePartner(); return false;">← Back to Home</a>
+        <a class="back-link" onclick="hidePartner(); return false;">← Return to Overview</a>
       </div>
 
     </form>
-
   </div>
 
+  <!-- INTERACTIVE SCROLL NAVIGATION CONTROLLER -->
   <script>
   function showPartner() {
-  const main = document.getElementById('mainContent');
-  const partner = document.getElementById('partnerPage');
-  main.style.opacity = '0';
-  setTimeout(() => {
-    main.classList.add('hidden');
-    partner.classList.add('active');
-    window.scrollTo(0, 0);
-    setTimeout(() => { partner.style.opacity = '1'; }, 20);
-  }, 350);
-}
+    const main = document.getElementById('mainContent');
+    const partner = document.getElementById('partnerPage');
+    main.style.opacity = '0';
+    main.style.transform = 'translateY(-15px)';
+    setTimeout(() => {
+      main.classList.add('hidden');
+      partner.classList.add('active');
+      window.scrollTo(0, 0);
+      setTimeout(() => { 
+        partner.style.opacity = '1'; 
+      }, 50);
+    }, 400);
+  }
 
-   function hidePartner() {
-  const main = document.getElementById('mainContent');
-  const partner = document.getElementById('partnerPage');
-  partner.style.opacity = '0';
-  setTimeout(() => {
-    partner.classList.remove('active');
-    main.classList.remove('hidden');
-    window.scrollTo(0, 0);
-    setTimeout(() => { main.style.opacity = '1'; }, 20);
-  }, 350);
-}
+  function hidePartner() {
+    const main = document.getElementById('mainContent');
+    const partner = document.getElementById('partnerPage');
+    partner.style.opacity = '0';
+    setTimeout(() => {
+      partner.classList.remove('active');
+      main.classList.remove('hidden');
+      window.scrollTo(0, 0);
+      setTimeout(() => { 
+        main.style.opacity = '1'; 
+        main.style.transform = 'translateY(0)';
+      }, 50);
+    }, 400);
+  }
   </script>
 
 </body>
