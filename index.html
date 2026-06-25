@@ -4,9 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stoneholdt Partners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background-color: #EDE8DF;
@@ -14,614 +18,1149 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-x: hidden;
     }
 
-    /* NAV */
+    :root {
+      --primary-blue: #1B2A5E;
+      --accent-blue: #4A67AD;
+      --bg-cream: #EDE8DF;
+      --bg-cream-light: #F4F0E6;
+    }
+
+    /* FLUID MOUSE TRAILING EFFECT */
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(74, 103, 173, 0.4);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.25s, height 0.25s, background-color 0.25s, border-color 0.25s;
+    }
+
+    /* NAVIGATION ARCHITECTURE */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 60px;
+      padding: 35px 60px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      background: rgba(237, 232, 223, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.05);
+      transition: all 0.3s ease;
     }
 
     nav img.nav-logo {
-      height: 48px;
-      opacity: 0.92;
+      height: 34px;
+      opacity: 0.95;
       cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    nav img.nav-logo:hover {
+      opacity: 1;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 40px;
+      gap: 35px;
     }
 
     nav ul li a {
       text-decoration: none;
-      color: #1B2A5E;
+      color: var(--primary-blue);
       font-size: 11px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
+      font-weight: 400;
+      transition: all 0.3s ease;
+      opacity: 0.6;
+      cursor: pointer;
+      position: relative;
     }
 
-    nav ul li a:hover { opacity: 0.5; transition: opacity 0.3s; }
+    nav ul li a:hover, nav ul li a.active-link { 
+      opacity: 1; 
+    }
+    
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent-blue);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover::after, nav ul li a.active-link::after {
+      width: 100%;
+    }
 
-    /* HERO */
+    /* SCREEN VIEWS CONTAINER */
+    .view-panel {
+      display: none;
+      min-height: 100vh;
+    }
+    .view-panel.active-view {
+      display: block;
+      animation: fadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO LAYOUT WITH PARTICLE CANVASES */
     .hero {
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 72px 40px 56px;
+      padding: 160px 40px 40px;
+      position: relative;
+    }
+
+    .particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero h1, .hero .hero-sub, .hero .divider, .hero p, .hero .hero-ctas {
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
+      font-size: 64px;
       font-weight: 300;
-      letter-spacing: 0.08em;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--primary-blue);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 30px;
+      font-weight: 400;
+      color: var(--accent-blue);
     }
 
     .divider {
-      width: 50px;
+      width: 40px;
       height: 1px;
-      background-color: #1B2A5E;
-      margin: 0 auto 24px;
-      opacity: 0.35;
+      background-color: var(--accent-blue);
+      margin-bottom: 35px;
+      opacity: 0.4;
     }
 
     .hero p {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      line-height: 2;
-      opacity: 0.65;
-      max-width: 600px;
-      margin: 0 auto;
-      text-transform: uppercase;
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 680px;
+      margin-bottom: 45px;
+      opacity: 0.85;
     }
 
-    /* MARKETS */
-    .markets-section {
-      padding: 56px 48px;
-    }
-
-    .markets-label {
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 32px;
-    }
-
-    .markets-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .market-card {
-      position: relative;
-      height: 420px;
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .market-card .bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.6s ease;
-    }
-
-    .market-card:hover .bg {
-      transform: scale(1.05);
-    }
-
-    .market-card .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(20, 30, 70, 0.52);
-      transition: background 0.4s ease;
-    }
-
-    .market-card:hover .overlay {
-      background: rgba(20, 30, 70, 0.38);
-    }
-
-    .market-card .content {
-      position: absolute;
-      inset: 0;
+    .hero-ctas {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 32px 28px;
-      color: #EDE8DF;
+      gap: 15px;
     }
 
-
-    .market-card .state-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  margin-bottom: 14px;
-  margin-top: auto;
-}
-    .market-card .hover-tag {
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      opacity: 0;
-      margin-top: 16px;
-      transition: opacity 0.4s ease;
-      border-top: 1px solid rgba(237, 232, 223, 0.3);
-      padding-top: 14px;
-    }
-
-    .market-card:hover .hover-tag {
-      opacity: 0.8;
-    }
-
-    /* PARTNER CTA */
-    .cta-section {
-      text-align: center;
-      padding: 72px 40px;
-    }
-
-    .cta-section p {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.45;
-      margin-bottom: 20px;
-    }
-
-    .cta-section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-      margin-bottom: 32px;
-    }
-
+    /* CORE COMPONENTS & ACCENT BUTTONS */
     .btn {
       display: inline-block;
-      padding: 14px 40px;
-      border: 1px solid #1B2A5E;
-      color: #1B2A5E;
+      padding: 15px 32px;
+      border: 1px solid var(--accent-blue);
+      color: #EDE8DF;
+      background-color: var(--accent-blue);
       text-decoration: none;
       font-size: 10px;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      transition: all 0.3s ease;
-      background: transparent;
+      font-weight: 400;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
     }
 
     .btn:hover {
-      background-color: #1B2A5E;
+      background-color: var(--primary-blue);
+      border-color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 42, 94, 0.2);
+    }
+
+    /* SCROLL ANIMATION WRAPPER */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SECTION STANDARDS */
+    .section-spacing {
+      padding: 90px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    .bg-break {
+      background-color: var(--bg-cream-light);
+      max-width: 100%;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 35px;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+
+    /* FIXED & BALANCED GEOGRAPHIC ASYMMETRICAL GRID */
+    .market-matrix {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .market-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .market-column .section-label,
+    .market-column .market-column-header {
+      margin-bottom: 20px; /* Aligns headings perfectly above cards */
+    }
+
+    .market-block {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      height: 480px; /* Universal anchor matching left and right elements */
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .market-block-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+    }
+
+    .market-block:hover .market-block-bg {
+      transform: scale(1.03);
+    }
+
+    .market-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.1) 0%, rgba(27, 42, 94, 0.75) 100%);
+      z-index: 1;
+      transition: background 0.4s ease;
+    }
+
+    .market-block:hover .market-overlay {
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.2) 0%, rgba(27, 42, 94, 0.85) 100%);
+    }
+
+    .market-right-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      height: 480px; /* Aligns perfectly with left tile height */
+    }
+
+    .market-column-header {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+
+    .market-block.half-height {
+      height: 228px; /* Balanced split accounting exactly for the 24px gap */
+      padding: 30px;
+    }
+
+    .market-text {
+      position: relative;
+      z-index: 2;
       color: #EDE8DF;
     }
 
-    /* CONTACT */
-    .contact-section {
-      text-align: center;
-      padding: 56px 40px;
-      border-top: 1px solid rgba(27, 42, 94, 0.12);
-    }
-
-    .contact-section p {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      opacity: 0.4;
-      margin-bottom: 14px;
-    }
-
-    .contact-section a {
+    .market-text h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      color: #1B2A5E;
-      text-decoration: none;
-      letter-spacing: 0.04em;
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+    .market-block.half-height .market-text h3 {
+      font-size: 26px;
     }
 
-    .contact-section a:hover { opacity: 0.5; }
+    .market-text p {
+      font-size: 12px;
+      opacity: 0.85;
+      letter-spacing: 0.08em;
+    }
 
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 9px;
-      letter-spacing: 0.18em;
+    /* CREDIBILITY PORTFOLIO HUB */
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.08);
+      padding-bottom: 20px;
+    }
+
+    .portfolio-tabs {
+      display: flex;
+      gap: 15px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.25;
+      color: var(--primary-blue);
+      cursor: pointer;
+      opacity: 0.4;
+      padding: 6px 12px;
+      transition: opacity 0.3s;
     }
 
-    /* TRANSITIONS */
-    .main-content {
-      transition: opacity 0.35s ease;
+    .tab-btn.active-tab {
       opacity: 1;
+      font-weight: 500;
+      color: var(--accent-blue);
     }
 
-    .main-content.hidden {
-      display: none;
-      opacity: 0;
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
     }
 
-    /* PARTNER PAGE */
-    .partner-page {
-      display: none;
-      flex: 1;
+    .portfolio-card {
+      background: rgba(27, 42, 94, 0.01);
+      border: 1px solid rgba(27, 42, 94, 0.05);
+      padding: 40px;
+      border-radius: 2px;
+      position: relative;
+      display: flex;
       flex-direction: column;
+      transition: all 0.4s ease;
+    }
+
+    .portfolio-card:hover {
+      background: rgba(27, 42, 94, 0.02);
+      border-color: rgba(27, 42, 94, 0.12);
+    }
+
+    .badge {
+      align-self: flex-start;
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      background-color: rgba(27, 42, 94, 0.06);
+      color: var(--primary-blue);
+    }
+
+    .badge.escrow {
+      background-color: rgba(74, 103, 173, 0.08);
+      color: var(--accent-blue);
+      border: 1px solid rgba(74, 103, 173, 0.2);
+    }
+
+    .portfolio-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .portfolio-card .meta {
+      font-size: 11px;
+      opacity: 0.5;
+      margin-bottom: 24px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* SPLIT-MEDIA SECURITY CONTAINER */
+    .card-media-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: auto;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .media-pane {
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .media-pane-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(74, 103, 173, 0.85);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      transition: all 0.4s ease;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 40px;
-      text-align: center;
+    }
+
+    .media-pane-overlay span {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #EDE8DF;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-card:hover .media-pane-overlay {
+      background-color: rgba(27, 42, 94, 0.15);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    .portfolio-card:hover .media-pane-overlay span {
       opacity: 0;
-      transition: opacity 0.35s ease;
     }
 
-    .partner-page.active {
-      display: flex;
-      opacity: 1;
+    .portfolio-card:hover .media-pane {
+      transform: scale(1.02);
     }
 
-    .partner-page h2 {
+    .archive-fallback {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      border: 1px dashed rgba(27, 42, 94, 0.15);
+      border-radius: 2px;
+    }
+    .archive-fallback p {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+      line-height: 1.7;
+    }
+
+    /* SELLERS OVERVIEW VIEW DYNAMICS */
+    .walkthrough-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .walkthrough-statement h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 300;
-      letter-spacing: 0.06em;
+      line-height: 1.3;
+      color: var(--primary-blue);
+    }
+
+    .walkthrough-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .process-intro {
+      margin-bottom: 45px;
+      max-width: 720px;
+    }
+
+    .process-intro p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-card {
+      background: rgba(27, 42, 94, 0.02);
+      border: 1px solid rgba(27, 42, 94, 0.06);
+      padding: 35px 25px;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .process-card:hover {
+      background: var(--primary-blue);
+      color: var(--bg-cream);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(27, 42, 94, 0.08);
+    }
+
+    .process-step {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      opacity: 0.4;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .process-card:hover .process-step { opacity: 0.6; color: var(--accent-blue); }
+
+    .process-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
       margin-bottom: 12px;
     }
 
-    .partner-page .sub {
-      font-size: 11px;
-      letter-spacing: 0.15em;
+    .process-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 0.73;
+    }
+    .process-card:hover p { opacity: 0.9; }
+
+    /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
+    .portal-frame-header {
+      text-align: center;
+      padding: 175px 40px 65px; /* Increased padding height to push quote content down */
+      background-color: var(--bg-cream-light);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.03);
+      position: relative;
+    }
+
+    .portal-frame-header h2, .portal-frame-header .subtitle {
+      position: relative;
+      z-index: 2; /* Keeps all text safely above background particle layers */
+    }
+
+    .portal-frame-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 46px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--primary-blue);
+    }
+
+    .portal-frame-header .subtitle {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
       text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 48px;
+      margin-top: 10px;
     }
 
-    .partner-form {
-      width: 100%;
-      max-width: 520px;
-      text-align: left;
+    .view-return-block {
+      text-align: center;
+      padding: 60px 40px 100px;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .form-group {
+    /* DEVELOPER INTEGRATION FORM */
+    .portal-form-wrapper {
+      padding: 60px 40px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 16px;
+      align-items: center;
     }
 
-    .form-group label {
-      font-size: 9px;
-      letter-spacing: 0.22em;
+    .portal-form {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .form-element {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .form-element label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.5;
+      opacity: 0.6;
       margin-bottom: 8px;
     }
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-element input, .form-element select, .form-element textarea {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(27, 42, 94, 0.3);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.2);
       padding: 10px 0;
       font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      color: #1B2A5E;
+      font-size: 14px;
+      color: var(--primary-blue);
       outline: none;
-      width: 100%;
-      transition: border-color 0.3s;
     }
 
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-bottom-color: #1B2A5E;
+    .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
+      border-bottom-color: var(--accent-blue);
     }
 
-    .form-group select {
-      appearance: none;
-      cursor: pointer;
-      background-color: transparent;
-    }
-
-    .form-group textarea {
-      resize: none;
-      height: 80px;
-      margin-top: 4px;
-    }
-
-    .form-submit {
-      margin-top: 32px;
+    .form-actions {
       text-align: center;
+      margin-top: 35px;
     }
 
-    .back-link {
+    .return-trigger {
       display: inline-block;
-      margin-top: 24px;
-      font-size: 9px;
+      margin-top: 25px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      cursor: pointer;
+      color: var(--primary-blue);
+      transition: opacity 0.2s;
+    }
+    .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
+
+    /* CONTACT / CORRESPONDENCE */
+    .contact-pane {
+      text-align: center;
+      padding: 110px 40px;
+    }
+
+    .contact-pane p {
+      font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.4;
-      cursor: pointer;
-      text-decoration: none;
-      color: #1B2A5E;
+      opacity: 0.5;
+      margin-bottom: 15px;
     }
 
-    .back-link:hover { opacity: 0.8; }
+    .contact-pane a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
 
-    /* MOBILE */
+    .contact-pane a:hover { color: var(--accent-blue); }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      border-top: 1px solid rgba(27, 42, 94, 0.03);
+    }
+
+    /* RESPONSIVE STRUCTURE */
+    @media (max-width: 992px) {
+      .walkthrough-grid, .portfolio-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
+      .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .market-block { height: 380px; }
+      .market-right-stack { height: auto; }
+      .market-block.half-height { height: 380px; }
+    }
+
     @media (max-width: 768px) {
-      nav {
-        padding: 20px 24px;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      nav img.nav-logo {
-        height: 72px;
-      }
-
-      nav ul {
-        gap: 20px;
-      }
-
-      .hero {
-        padding: 48px 24px 40px;
-      }
-
-      .hero h1 {
-        font-size: 34px;
-        letter-spacing: 0.04em;
-      }
-
-      .hero p {
-        font-size: 10px;
-        letter-spacing: 0.06em;
-        max-width: 90%;
-      }
-
-      .markets-section {
-        padding: 40px 20px;
-      }
-
-      .markets-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .market-card {
-        height: 300px;
-      }
-
-      .cta-section {
-        padding: 48px 24px;
-      }
-
-      .cta-section h2 {
-        font-size: 28px;
-      }
-
-      .contact-section {
-        padding: 40px 24px;
-      }
-
-      .partner-page {
-        padding: 48px 24px;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-
-      .partner-page h2 {
-        font-size: 30px;
-      }
+      nav { padding: 20px; }
+      nav ul { display: none; }
+      .hero h1 { font-size: 44px; }
+      .section-spacing { padding: 60px 24px; }
+      .process-flow { grid-template-columns: 1fr; }
+      .custom-cursor { display: none; }
+      .card-media-split { height: 100px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- DYNAMIC TRAILING CONTAINER -->
+  <div class="custom-cursor" id="cursor"></div>
+
+  <!-- NAVIGATION -->
   <nav>
-    <a href="#" onclick="hidePartner(); return false;">
+    <a href="#" onclick="showView('home'); return false;">
       <img src="Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
     </a>
     <ul>
-      <li><a href="#" onclick="showPartner(); return false;">Partner With Us</a></li>
+      <li><a id="navSellersLink" onclick="showView('seller');">Sellers Overview</a></li>
+      <li><a id="navDevLink" onclick="showView('developer');">Developer Portal</a></li>
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
-  <div class="main-content" id="mainContent">
-
+  <!-- ========================================== -->
+  <!-- VIEW 1: MAIN LANDING OVERVIEW VIEW         -->
+  <!-- ========================================== -->
+  <div id="homeView" class="view-panel active-view">
+    
+    <!-- HERO PANEL WITH AMBIENT PARTICLES -->
     <section class="hero">
-      <h1>Off-Market Luxury<br>Real Estate Acquisitions</h1>
+      <canvas id="particle-canvas-home" class="particle-canvas"></canvas>
+      <h1>Off-Market Acquisitions</h1>
+      <p class="hero-sub">Leveraged Developer Network</p>
       <div class="divider"></div>
-      <p>Sourcing exclusive teardown and redevelopment opportunities<br>for premier developers, investors &amp; funds.</p>
-    </section>
-
-    <section class="markets-section">
-      <p class="markets-label">Active Markets</p>
-      <div class="markets-grid">
-
-        <div class="market-card">
-          <div class="bg" style="background-image: url('CA.jpg')"></div>
-          <div class="overlay"></div>
-          <div class="content">
-            <div class="state-name">California</div>
-            <div class="neighborhoods">
-              West Hollywood<br>
-              Culver City<br>
-              Santa Monica<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
-          </div>
-        </div>
-
-        <div class="market-card">
-          <div class="bg" style="background-image: url('WA.jpg')"></div>
-          <div class="overlay"></div>
-          <div class="content">
-            <div class="state-name">Washington</div>
-            <div class="neighborhoods">
-              Bellevue<br>
-              Kirkland<br>
-              Seattle<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
-          </div>
-        </div>
-
-        <div class="market-card">
-          <div class="bg" style="background-image: url('AZ.jpg')"></div>
-          <div class="overlay"></div>
-          <div class="content">
-            <div class="state-name">Arizona</div>
-            <div class="neighborhoods">
-              Scottsdale<br>
-              Phoenix<br>
-              Paradise Valley<br>
-              &amp; more
-            </div>
-            <div class="hover-tag">Luxury Teardown Acquisitions</div>
-          </div>
-        </div>
-
+      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the underwriting and deal structuring so they can focus on construction. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <div class="hero-ctas">
+        <button class="btn" onclick="showView('seller');">Sellers Overview</button>
+        <button class="btn" onclick="showView('developer');">Developer Portal</button>
       </div>
     </section>
 
-    <section class="cta-section">
-      <p>For Developers &amp; Acquisition Teams</p>
-      <h2>Looking to Source More Deals?</h2>
-      <a href="#" class="btn" onclick="showPartner(); return false;">Partner With Us</a>
+    <!-- GEOGRAPHY REGIONS MATRIX -->
+    <section class="section-spacing scroll-reveal">
+      <div class="market-matrix">
+        <!-- Left Column: Core Market Focus Wrapper -->
+        <div class="market-column">
+          <p class="section-label">Core Market Focus</p>
+          <div class="market-block">
+            <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
+            <div class="market-overlay"></div>
+            <div class="market-text">
+              <h3>Washington</h3>
+              <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Secondary Markets Split Wrapper -->
+        <div class="market-column">
+          <p class="market-column-header">Secondary Markets</p>
+          <div class="market-right-stack">
+            <div class="market-block half-height">
+              <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
+              <div class="market-overlay"></div>
+              <div class="market-text">
+                <h3>California</h3>
+                <p>West Hollywood &bull; Culver City &bull; Santa Monica</p>
+              </div>
+            </div>
+            <div class="market-block half-height">
+              <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
+              <div class="market-overlay"></div>
+              <div class="market-text">
+                <h3>Arizona</h3>
+                <p>Scottsdale &bull; Phoenix &bull; Paradise Valley</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="contact-section" id="contact">
-      <p>Get in touch</p>
+    <!-- CREDIBILITY DECK (PORTFOLIO) -->
+    <section class="section-spacing scroll-reveal bg-break">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
+        <p class="section-label">Portfolio</p>
+        
+        <div class="portfolio-header">
+          <div class="portfolio-tabs">
+            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">2026</button>
+            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">2025</button>
+          </div>
+        </div>
+
+        <div class="portfolio-grid" id="portfolioActiveGrid">
+          <!-- Card 1: Enatai -->
+          <div class="portfolio-card">
+            <div class="badge escrow">In Escrow</div>
+            <h4>Enatai Redevelopment</h4>
+            <div class="meta">West Bellevue</div>
+            
+            <div class="card-media-split">
+              <div class="media-pane" style="background-image: url('1646-Street.jpg');">
+                <div class="media-pane-overlay"><span>Street Index</span></div>
+              </div>
+              <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
+                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card 2: Eastgate -->
+          <div class="portfolio-card">
+            <div class="badge escrow">In Escrow</div>
+            <h4>Eastgate Redevelopment</h4>
+            <div class="meta">East Bellevue</div>
+            
+            <div class="card-media-split">
+              <div class="media-pane" style="background-image: url('15126-Street.jpg');">
+                <div class="media-pane-overlay"><span>Street Index</span></div>
+              </div>
+              <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
+                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="archive-fallback" id="portfolioArchiveGrid">
+          <p>Undisclosed for seller privacy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER PANEL -->
+    <section class="contact-pane scroll-reveal">
+      <p>Get in Touch</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
-    <footer>&copy; 2026 Stoneholdt Partners &mdash; All Rights Reserved</footer>
-
+    <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
   </div>
 
-  <!-- PARTNER PAGE -->
-  <div class="partner-page" id="partnerPage">
-    <h2>Partner With Stoneholdt</h2>
-    <p class="sub">For developers, fund managers &amp; acquisition teams</p>
 
-    <form class="partner-form" action="https://formspree.io/f/mrerjjzo" method="POST">
+  <!-- ========================================== -->
+  <!-- VIEW 2: DEDICATED SELLERS OVERVIEW VIEW   -->
+  <!-- ========================================== -->
+  <div id="sellerView" class="view-panel">
+    <header class="portal-frame-header">
+      <canvas id="particle-canvas-seller" class="particle-canvas"></canvas>
+      <h2>Sellers Overview</h2>
+      <p class="subtitle">A straightforward approach to premium property exits</p>
+    </header>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" name="first_name" placeholder="John"/>
+    <!-- PHILOSOPHY / INTRO -->
+    <section class="section-spacing">
+      <p class="section-label">Our Philosophy</p>
+      <div class="walkthrough-grid">
+        <div class="walkthrough-statement">
+          <h2>No deal closes unless a seller feels like they are winning.</h2>
         </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" name="last_name" placeholder="Smith"/>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Company Name</label>
-        <input type="text" name="company" placeholder="Smith Development Group"/>
-      </div>
-
-      <div class="form-group">
-        <label>Role</label>
-        <select name="role">
-          <option value="" disabled selected>Select your role</option>
-          <option>Developer</option>
-          <option>Fund Manager</option>
-          <option>Acquisition Manager</option>
-          <option>Holding Company</option>
-          <option>Other</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="john@smithdev.com"/>
-        </div>
-        <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" name="phone" placeholder="(310) 000-0000"/>
+        <div class="walkthrough-body">
+          <p>Stoneholdt Partners is an acquisition company operating cleanly within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation expectations—and construct a transparent roadmap to perform on.</p>
         </div>
       </div>
+    </section>
 
-      <div class="form-group">
-        <label>Primary Market</label>
-        <select name="market">
-          <option value="" disabled selected>Select a market</option>
-          <option>Los Angeles, CA</option>
-          <option>Bellevue, WA</option>
-          <option>Scottsdale, AZ</option>
-          <option>Multiple Markets</option>
-          <option>Other</option>
-        </select>
+    <!-- BLUEPRINT LAYOUT SYSTEM -->
+    <section class="section-spacing bg-break">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <p class="section-label">The Transaction Blueprint</p>
+        <div class="process-intro">
+          <p>Skip the hiring process, the public open houses, the structural repair negotiations, and the standard agent commission fees. We protect your transaction from standard retail fallouts by mapping out clear, predictable baseline expectations before we ever put pen to paper.</p>
+        </div>
+
+        <div class="process-flow">
+          <!-- 01 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 01</div>
+            <h3>Under Contract</h3>
+            <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
+          </div>
+          <!-- 02 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 02</div>
+            <h3>Feasibility Period</h3>
+            <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
+          </div>
+          <!-- 03 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 03</div>
+            <h3>Earnest Money</h3>
+            <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
+          </div>
+          <!-- 04 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 04</div>
+            <h3>Close &amp; Record</h3>
+            <p>Title transfers safely through escrow, funds register instantly via direct wire, and your custom post-closing move-out arrangements activate flawlessly.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="form-group">
-        <label>Notes</label>
-        <textarea name="notes" placeholder="Tell us about your buy box, target neighborhoods, or current pipeline..."></textarea>
-      </div>
-
-      <div class="form-submit">
-        <button type="submit" class="btn">Submit</button>
-        <br>
-        <a class="back-link" onclick="hidePartner(); return false;">← Back to Home</a>
-      </div>
-
-    </form>
-
+    <div class="view-return-block">
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
+    </div>
   </div>
 
+
+  <!-- ========================================== -->
+  <!-- VIEW 3: DEDICATED DEVELOPER PORTAL VIEW    -->
+  <!-- ========================================== -->
+  <div id="developerView" class="view-panel">
+    <header class="portal-frame-header">
+      <h2>Partner With Us</h2>
+      <p class="subtitle">let us know what to look for</p>
+    </header>
+
+    <div class="portal-form-wrapper">
+      <form class="portal-form" action="https://formspree.io/f/mrerjjzo" method="POST">
+        <div class="form-element">
+          <label>Principal Representative</label>
+          <input type="text" name="name" placeholder="Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Development Entity</label>
+          <input type="text" name="firm" placeholder="Company Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Investment Criteria Profile</label>
+          <select name="profile" required>
+            <option value="" disabled selected>Select investment footprint</option>
+            <option>Custom Infill Single-Family Builder</option>
+            <option>Townhome / Multi-Family Developer</option>
+            <option>Private Equity Real Estate Fund</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label>Direct Workspace Email</label>
+          <input type="email" name="email" placeholder="email@firm.com" required/>
+        </div>
+        <div class="form-element">
+          <label>Target Acquisition Profiles</label>
+          <textarea name="parameters" rows="3" placeholder="Zoning criteria, preferred square footage thresholds, or target submarkets..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Register Buy Box</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="view-return-block" style="padding-top: 0;">
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
+    </div>
+  </div>
+
+  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
   <script>
-  function showPartner() {
-  const main = document.getElementById('mainContent');
-  const partner = document.getElementById('partnerPage');
-  main.style.opacity = '0';
-  setTimeout(() => {
-    main.classList.add('hidden');
-    partner.classList.add('active');
-    window.scrollTo(0, 0);
-    setTimeout(() => { partner.style.opacity = '1'; }, 20);
-  }, 350);
-}
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
 
-   function hidePartner() {
-  const main = document.getElementById('mainContent');
-  const partner = document.getElementById('partnerPage');
-  partner.style.opacity = '0';
-  setTimeout(() => {
-    partner.classList.remove('active');
-    main.classList.remove('hidden');
-    window.scrollTo(0, 0);
-    setTimeout(() => { main.style.opacity = '1'; }, 20);
-  }, 350);
-}
+    function applyCursorDynamics() {
+      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '38px';
+          cursor.style.height = '38px';
+          cursor.style.backgroundColor = 'rgba(74, 103, 173, 0.06)';
+          cursor.style.borderColor = '#4A67AD';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '20px';
+          cursor.style.height = '20px';
+          cursor.style.backgroundColor = 'transparent';
+          cursor.style.borderColor = 'rgba(74, 103, 173, 0.4)';
+        });
+      });
+    }
+    applyCursorDynamics();
+
+    const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    function trackScrollReveals() {
+      document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+    }
+    trackScrollReveals();
+
+    function showView(viewId) {
+      document.getElementById('homeView').classList.remove('active-view');
+      document.getElementById('sellerView').classList.remove('active-view');
+      document.getElementById('developerView').classList.remove('active-view');
+
+      document.getElementById('navSellersLink').classList.remove('active-link');
+      document.getElementById('navDevLink').classList.remove('active-link');
+
+      if (viewId === 'home') {
+        document.getElementById('homeView').classList.add('active-view');
+      } else if (viewId === 'seller') {
+        document.getElementById('sellerView').classList.add('active-view');
+        document.getElementById('navSellersLink').classList.add('active-link');
+      } else if (viewId === 'developer') {
+        document.getElementById('developerView').classList.add('active-view');
+        document.getElementById('navDevLink').classList.add('active-link');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      trackScrollReveals();
+      applyCursorDynamics(); 
+      resizeCanvases(); // Triggers immediate particle recalibration across page fields
+    }
+
+    function togglePortfolioTab(year) {
+      const tab2026 = document.getElementById('tab2026');
+      const tab2025 = document.getElementById('tab2025');
+      const activeGrid = document.getElementById('portfolioActiveGrid');
+      const archiveGrid = document.getElementById('portfolioArchiveGrid');
+
+      if (year === '2026') {
+        tab2026.classList.add('active-tab');
+        tab2025.classList.remove('active-tab');
+        activeGrid.style.display = 'grid';
+        archiveGrid.style.display = 'none';
+      } else {
+        tab2025.classList.add('active-tab');
+        tab2026.classList.remove('active-tab');
+        activeGrid.style.display = 'none';
+        archiveGrid.style.display = 'block';
+      }
+    }
+
+    // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
+    const homeCanvas = document.getElementById('particle-canvas-home');
+    const sellerCanvas = document.getElementById('particle-canvas-seller');
+    
+    let homeParticles = [];
+    let sellerParticles = [];
+
+    function resizeCanvases() {
+      if (homeCanvas) {
+        homeCanvas.width = homeCanvas.offsetWidth;
+        homeCanvas.height = homeCanvas.offsetHeight;
+      }
+      if (sellerCanvas) {
+        sellerCanvas.width = sellerCanvas.offsetWidth;
+        sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
+    }
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
+
+    class Particle {
+      constructor(canvasWidth, canvasHeight) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
+        this.size = Math.random() * 2 + 1; 
+        this.speedX = (Math.random() * 0.6) - 0.3; 
+        this.speedY = (Math.random() * 0.45) - 0.225;
+      }
+      update(w, h) {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > w) this.x = 0;
+        if (this.x < 0) this.x = w;
+        if (this.y > h) this.y = 0;
+        if (this.y < 0) this.y = h;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = 0.45; 
+        ctx.fillStyle = '#1B2A5E';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initEngine() {
+      homeParticles = [];
+      sellerParticles = [];
+      
+      const homeCount = 35;
+      for (let i = 0; i < homeCount; i++) {
+        homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
+      }
+      
+      const sellerCount = 20; // Lower footprint deployment for space constraints
+      for (let i = 0; i < sellerCount; i++) {
+        sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
+      }
+    }
+    setTimeout(initEngine, 100); // Small timeout to ensure containers settle dimensionally first
+
+    function runGlobalEngine() {
+      // Home loop process
+      if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
+        const ctxHome = homeCanvas.getContext('2d');
+        ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+        for (let i = 0; i < homeParticles.length; i++) {
+          homeParticles[i].update(homeCanvas.width, homeCanvas.height);
+          homeParticles[i].draw(ctxHome);
+        }
+      }
+      
+      // Seller header loop process
+      if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
+        const ctxSeller = sellerCanvas.getContext('2d');
+        ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
+        for (let i = 0; i < sellerParticles.length; i++) {
+          sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
+          sellerParticles[i].draw(ctxSeller);
+        }
+      }
+      
+      requestAnimationFrame(runGlobalEngine);
+    }
+    runGlobalEngine();
   </script>
 
 </body>
