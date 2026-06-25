@@ -132,7 +132,7 @@
       position: relative;
     }
 
-    #particle-canvas {
+    .particle-canvas {
       position: absolute;
       top: 0;
       left: 0;
@@ -247,12 +247,21 @@
       color: var(--accent-blue);
     }
 
-    /* ASYMMETRICAL GEOGRAPHIC IMAGE GRID */
+    /* FIXED & BALANCED GEOGRAPHIC ASYMMETRICAL GRID */
     .market-matrix {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 24px;
-      margin-bottom: 40px;
+    }
+
+    .market-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .market-column .section-label,
+    .market-column .market-column-header {
+      margin-bottom: 20px; /* Aligns headings perfectly above cards */
     }
 
     .market-block {
@@ -263,7 +272,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      min-height: 460px;
+      height: 480px; /* Universal anchor matching left and right elements */
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -296,21 +305,20 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+      height: 480px; /* Aligns perfectly with left tile height */
     }
 
-    /* Sub-Label inserted cleanly above the second column */
     .market-column-header {
       font-size: 10px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       opacity: 0.6;
-      margin-bottom: 11px;
       font-weight: 500;
       color: var(--accent-blue);
     }
 
     .market-block.half-height {
-      min-height: 218px;
+      height: 228px; /* Balanced split accounting exactly for the 24px gap */
       padding: 30px;
     }
 
@@ -578,12 +586,18 @@
     }
     .process-card:hover p { opacity: 0.9; }
 
-    /* INNER PAGES STRUCTURAL HEADERS */
+    /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
     .portal-frame-header {
       text-align: center;
-      padding: 140px 40px 40px;
+      padding: 175px 40px 65px; /* Increased padding height to push quote content down */
       background-color: var(--bg-cream-light);
       border-bottom: 1px solid rgba(27, 42, 94, 0.03);
+      position: relative;
+    }
+
+    .portal-frame-header h2, .portal-frame-header .subtitle {
+      position: relative;
+      z-index: 2; /* Keeps all text safely above background particle layers */
     }
 
     .portal-frame-header h2 {
@@ -705,8 +719,9 @@
     @media (max-width: 992px) {
       .walkthrough-grid, .portfolio-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .market-block { min-height: 380px; }
-      .market-block.half-height { min-height: 380px; }
+      .market-block { height: 380px; }
+      .market-right-stack { height: auto; }
+      .market-block.half-height { height: 380px; }
     }
 
     @media (max-width: 768px) {
@@ -743,11 +758,11 @@
     
     <!-- HERO PANEL WITH AMBIENT PARTICLES -->
     <section class="hero">
-      <canvas id="particle-canvas"></canvas>
-      <h1>Leveraged Developer Network</h1>
-      <p class="hero-sub">Direct Integration With Local Builders</p>
+      <canvas id="particle-canvas-home" class="particle-canvas"></canvas>
+      <h1>Off-Market Acquisitions</h1>
+      <p class="hero-sub">Leveraged Developer Network</p>
       <div class="divider"></div>
-      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing outreach, initial underwriting, and coordination so they can focus on what they do best. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the underwriting and deal structuring so they can focus on construction. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
         <button class="btn" onclick="showView('developer');">Developer Portal</button>
@@ -757,8 +772,8 @@
     <!-- GEOGRAPHY REGIONS MATRIX -->
     <section class="section-spacing scroll-reveal">
       <div class="market-matrix">
-        <!-- Left Column: Core Market Focus -->
-        <div>
+        <!-- Left Column: Core Market Focus Wrapper -->
+        <div class="market-column">
           <p class="section-label">Core Market Focus</p>
           <div class="market-block">
             <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
@@ -770,8 +785,8 @@
           </div>
         </div>
 
-        <!-- Right Column: Secondary Markets Split -->
-        <div>
+        <!-- Right Column: Secondary Markets Split Wrapper -->
+        <div class="market-column">
           <p class="market-column-header">Secondary Markets</p>
           <div class="market-right-stack">
             <div class="market-block half-height">
@@ -862,6 +877,7 @@
   <!-- ========================================== -->
   <div id="sellerView" class="view-panel">
     <header class="portal-frame-header">
+      <canvas id="particle-canvas-seller" class="particle-canvas"></canvas>
       <h2>Sellers Overview</h2>
       <p class="subtitle">A straightforward approach to premium property exits</p>
     </header>
@@ -917,7 +933,7 @@
     </section>
 
     <div class="view-return-block">
-      <span class="return-trigger" onclick="showView('home');">← Back to Platform Overview</span>
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
     </div>
   </div>
 
@@ -927,8 +943,8 @@
   <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
-      <h2>Development Partner Verification</h2>
-      <p class="subtitle">Specify structural buying box criteria and capital allocation limits</p>
+      <h2>Partner With Us</h2>
+      <p class="subtitle">let us know what to look for</p>
     </header>
 
     <div class="portal-form-wrapper">
@@ -966,7 +982,7 @@
     </div>
 
     <div class="view-return-block" style="padding-top: 0;">
-      <span class="return-trigger" onclick="showView('home');">← Back to Platform Overview</span>
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
     </div>
   </div>
 
@@ -1033,6 +1049,7 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
       trackScrollReveals();
       applyCursorDynamics(); 
+      resizeCanvases(); // Triggers immediate particle recalibration across page fields
     }
 
     function togglePortfolioTab(year) {
@@ -1054,38 +1071,48 @@
       }
     }
 
-    // SPEED AND COLOR UPDATED ENGINE LOOPS
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    let particlesArray = [];
+    // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
+    const homeCanvas = document.getElementById('particle-canvas-home');
+    const sellerCanvas = document.getElementById('particle-canvas-seller');
+    
+    let homeParticles = [];
+    let sellerParticles = [];
 
-    function resizeCanvas() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    function resizeCanvases() {
+      if (homeCanvas) {
+        homeCanvas.width = homeCanvas.offsetWidth;
+        homeCanvas.height = homeCanvas.offsetHeight;
+      }
+      if (sellerCanvas) {
+        sellerCanvas.width = sellerCanvas.offsetWidth;
+        sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
 
     class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+      constructor(canvasWidth, canvasHeight) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
         this.size = Math.random() * 2 + 1; 
-        this.speedX = (Math.random() * 0.6) - 0.3; // Responsive velocity
+        this.speedX = (Math.random() * 0.6) - 0.3; 
         this.speedY = (Math.random() * 0.45) - 0.225;
       }
-      update() {
+      update(w, h) {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
+        if (this.x > w) this.x = 0;
+        if (this.x < 0) this.x = w;
+        if (this.y > h) this.y = 0;
+        if (this.y < 0) this.y = h;
       }
-      draw() {
+      draw(ctx) {
         ctx.save();
-        ctx.globalAlpha = 0.45; // Enhanced dark blue contrast pop
+        ctx.globalAlpha = 0.45; 
         ctx.fillStyle = '#1B2A5E';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1094,24 +1121,46 @@
       }
     }
 
-    function initParticles() {
-      particlesArray = [];
-      const numberOfParticles = 35; 
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
+    function initEngine() {
+      homeParticles = [];
+      sellerParticles = [];
+      
+      const homeCount = 35;
+      for (let i = 0; i < homeCount; i++) {
+        homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
+      }
+      
+      const sellerCount = 20; // Lower footprint deployment for space constraints
+      for (let i = 0; i < sellerCount; i++) {
+        sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
       }
     }
-    initParticles();
+    setTimeout(initEngine, 100); // Small timeout to ensure containers settle dimensionally first
 
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
+    function runGlobalEngine() {
+      // Home loop process
+      if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
+        const ctxHome = homeCanvas.getContext('2d');
+        ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+        for (let i = 0; i < homeParticles.length; i++) {
+          homeParticles[i].update(homeCanvas.width, homeCanvas.height);
+          homeParticles[i].draw(ctxHome);
+        }
       }
-      requestAnimationFrame(animateParticles);
+      
+      // Seller header loop process
+      if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
+        const ctxSeller = sellerCanvas.getContext('2d');
+        ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
+        for (let i = 0; i < sellerParticles.length; i++) {
+          sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
+          sellerParticles[i].draw(ctxSeller);
+        }
+      }
+      
+      requestAnimationFrame(runGlobalEngine);
     }
-    animateParticles();
+    runGlobalEngine();
   </script>
 
 </body>
