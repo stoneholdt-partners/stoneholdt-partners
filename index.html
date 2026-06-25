@@ -21,7 +21,6 @@
       overflow-x: hidden;
     }
 
-    /* PREMIUM ACCENT VARIATIONS */
     :root {
       --primary-blue: #1B2A5E;
       --accent-blue: #4A67AD;
@@ -299,6 +298,17 @@
       gap: 24px;
     }
 
+    /* Sub-Label inserted cleanly above the second column */
+    .market-column-header {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 11px;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+
     .market-block.half-height {
       min-height: 218px;
       padding: 30px;
@@ -443,7 +453,7 @@
     .media-pane-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(27, 42, 94, 0.65);
+      background-color: rgba(74, 103, 173, 0.85);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
       transition: all 0.4s ease;
@@ -456,8 +466,8 @@
       font-size: 9px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--bg-cream);
-      opacity: 0.4;
+      color: #EDE8DF;
+      opacity: 0.7;
       transition: opacity 0.3s ease;
     }
 
@@ -734,10 +744,10 @@
     <!-- HERO PANEL WITH AMBIENT PARTICLES -->
     <section class="hero">
       <canvas id="particle-canvas"></canvas>
-      <h1>Off-Market Acquisitions</h1>
-      <p class="hero-sub">Bridging Homeowners With Trusted Development Partners</p>
+      <h1>Leveraged Developer Network</h1>
+      <p class="hero-sub">Direct Integration With Local Builders</p>
       <div class="divider"></div>
-      <p>We work directly with premium property owners to curate seamless off-market exits — connecting your deal with our highest paying development partner best suited for your desired terms.</p>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing outreach, initial underwriting, and coordination so they can focus on what they do best. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
         <button class="btn" onclick="showView('developer');">Developer Portal</button>
@@ -746,33 +756,39 @@
 
     <!-- GEOGRAPHY REGIONS MATRIX -->
     <section class="section-spacing scroll-reveal">
-      <p class="section-label">Target Acquisition Footprint</p>
       <div class="market-matrix">
-        <!-- Left Big Block (WA) -->
-        <div class="market-block">
-          <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
-          <div class="market-overlay"></div>
-          <div class="market-text">
-            <h3>Washington Core</h3>
-            <p>Bellevue &bull; Kirkland &bull; Seattle &bull; Supporting Submarkets</p>
-          </div>
-        </div>
-        <!-- Right Stacked Blocks (CA & AZ) -->
-        <div class="market-right-stack">
-          <div class="market-block half-height">
-            <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
+        <!-- Left Column: Core Market Focus -->
+        <div>
+          <p class="section-label">Core Market Focus</p>
+          <div class="market-block">
+            <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
-              <h3>California Pipeline</h3>
-              <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
+              <h3>Washington</h3>
+              <p>Bellevue &bull; Kirkland &bull; Seattle &bull; Supporting Submarkets</p>
             </div>
           </div>
-          <div class="market-block half-height">
-            <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
-            <div class="market-overlay"></div>
-            <div class="market-text">
-              <h3>Arizona Pipeline</h3>
-              <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
+        </div>
+
+        <!-- Right Column: Secondary Markets Split -->
+        <div>
+          <p class="market-column-header">Secondary Markets</p>
+          <div class="market-right-stack">
+            <div class="market-block half-height">
+              <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
+              <div class="market-overlay"></div>
+              <div class="market-text">
+                <h3>California</h3>
+                <p>West Hollywood &bull; Culver City &bull; Santa Monica Locations</p>
+              </div>
+            </div>
+            <div class="market-block half-height">
+              <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
+              <div class="market-overlay"></div>
+              <div class="market-text">
+                <h3>Arizona</h3>
+                <p>Scottsdale &bull; Phoenix &bull; Paradise Valley Communities</p>
+              </div>
             </div>
           </div>
         </div>
@@ -782,12 +798,12 @@
     <!-- CREDIBILITY DECK (PORTFOLIO) -->
     <section class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
-        <p class="section-label">Portfolio</p>
+        <p class="section-label">Track Record &amp; Pipeline</p>
         
         <div class="portfolio-header">
           <div class="portfolio-tabs">
-            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">2026</button>
-            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">2025</button>
+            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">Active 2026</button>
+            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">Archive 2025</button>
           </div>
         </div>
 
@@ -795,7 +811,7 @@
           <!-- Card 1: Enatai -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
-            <h4>Enatai Redevelopment</h4>
+            <h4>Enatai SFR Redevelopment</h4>
             <div class="meta">West Bellevue</div>
             
             <div class="card-media-split">
@@ -811,7 +827,7 @@
           <!-- Card 2: Eastgate -->
           <div class="portfolio-card">
             <div class="badge escrow">In Escrow</div>
-            <h4>Eastgate Redevelopment</h4>
+            <h4>Eastgate SFR Redevelopment</h4>
             <div class="meta">East Bellevue</div>
             
             <div class="card-media-split">
@@ -833,11 +849,11 @@
 
     <!-- FOOTER PANEL -->
     <section class="contact-pane scroll-reveal">
-      <p>Get in Touch</p>
+      <p>Private Correspondence</p>
       <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
-    <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
+    <footer>&copy; 2026 Stoneholdt Partners &mdash; Land &amp; Asset Sourcing</footer>
   </div>
 
 
@@ -956,14 +972,12 @@
 
   <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
   <script>
-    // Visual tracking cursor node mechanics
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Make trailing ring expand dynamically
     function applyCursorDynamics() {
       const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
       interactives.forEach(el => {
@@ -983,7 +997,6 @@
     }
     applyCursorDynamics();
 
-    // On-Scroll Fade-In Reveal Logic
     const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -999,7 +1012,6 @@
     }
     trackScrollReveals();
 
-    // Dynamic Navigation View Engine Matrix
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
@@ -1023,7 +1035,6 @@
       applyCursorDynamics(); 
     }
 
-    // Dynamic Tracking Portfolio Tabs Setup
     function togglePortfolioTab(year) {
       const tab2026 = document.getElementById('tab2026');
       const tab2025 = document.getElementById('tab2025');
@@ -1043,7 +1054,7 @@
       }
     }
 
-    // SUBTLE FLOATING PARTICLE ENGINE
+    // SPEED AND COLOR UPDATED ENGINE LOOPS
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
@@ -1060,15 +1071,13 @@
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 1; 
-        this.speedX = (Math.random() * 0.6) - 0.3;
+        this.speedX = (Math.random() * 0.6) - 0.3; // Responsive velocity
         this.speedY = (Math.random() * 0.45) - 0.225;
-        this.alpha = Math.random() * 0.25 + 0.05; // Soft, low-contrast alpha values
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // Clean wrapping mechanics at borders
         if (this.x > canvas.width) this.x = 0;
         if (this.x < 0) this.x = canvas.width;
         if (this.y > canvas.height) this.y = 0;
@@ -1076,8 +1085,8 @@
       }
       draw() {
         ctx.save();
-        ctx.globalAlpha = 0.45;
-        ctx.fillStyle = '#1B2A5E'; // Uses theme primary dark blue at ultra low visibility
+        ctx.globalAlpha = 0.45; // Enhanced dark blue contrast pop
+        ctx.fillStyle = '#1B2A5E';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -1087,7 +1096,7 @@
 
     function initParticles() {
       particlesArray = [];
-      const numberOfParticles = 35; // Lower count preserves premium clean layout feel
+      const numberOfParticles = 35; 
       for (let i = 0; i < numberOfParticles; i++) {
         particlesArray.push(new Particle());
       }
