@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -10,6 +10,7 @@
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%; /* Prevents iOS font resizing quirks */
     }
 
     body {
@@ -19,6 +20,8 @@
       font-weight: 300;
       min-height: 100vh;
       overflow-x: hidden;
+      /* Account for iPhone bottom home indicator if sticky elements are used */
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     :root {
@@ -47,6 +50,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 35px 60px;
+      /* Incorporate safe area padding for iPhone notches in landscape/portrait */
+      padding-top: calc(35px + env(safe-area-inset-top, 0px));
+      padding-left: calc(60px + env(safe-area-inset-left, 0px));
+      padding-right: calc(60px + env(safe-area-inset-right, 0px));
       position: fixed;
       width: 100%;
       top: 0;
@@ -128,7 +135,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 160px 40px 40px;
+      padding: calc(160px + env(safe-area-inset-top, 0px)) 40px 40px;
       position: relative;
     }
 
@@ -205,6 +212,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
+      -webkit-tap-highlight-color: transparent; /* Removes blue highlight box on iOS touch */
     }
 
     .btn:hover {
@@ -230,6 +238,8 @@
       padding: 90px 60px;
       max-width: 1100px;
       margin: 0 auto;
+      padding-left: calc(60px + env(safe-area-inset-left, 0px));
+      padding-right: calc(60px + env(safe-area-inset-right, 0px));
     }
     
     .bg-break {
@@ -261,7 +271,7 @@
 
     .market-column .section-label,
     .market-column .market-column-header {
-      margin-bottom: 20px; /* Aligns headings perfectly above cards */
+      margin-bottom: 20px;
     }
 
     .market-block {
@@ -272,7 +282,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      height: 480px; /* Universal anchor matching left and right elements */
+      height: 480px;
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -305,7 +315,7 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
-      height: 480px; /* Aligns perfectly with left tile height */
+      height: 480px;
     }
 
     .market-column-header {
@@ -318,7 +328,7 @@
     }
 
     .market-block.half-height {
-      height: 228px; /* Balanced split accounting exactly for the 24px gap */
+      height: 228px;
       padding: 30px;
     }
 
@@ -372,6 +382,7 @@
       opacity: 0.4;
       padding: 6px 12px;
       transition: opacity 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .tab-btn.active-tab {
@@ -589,7 +600,7 @@
     /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
     .portal-frame-header {
       text-align: center;
-      padding: 175px 40px 65px; /* Increased padding height to push quote content down */
+      padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
       background-color: var(--bg-cream-light);
       border-bottom: 1px solid rgba(27, 42, 94, 0.03);
       position: relative;
@@ -597,7 +608,7 @@
 
     .portal-frame-header h2, .portal-frame-header .subtitle {
       position: relative;
-      z-index: 2; /* Keeps all text safely above background particle layers */
+      z-index: 2;
     }
 
     .portal-frame-header h2 {
@@ -657,6 +668,13 @@
       font-size: 14px;
       color: var(--primary-blue);
       outline: none;
+      border-radius: 0; /* Prevents iOS Safari rounding default inputs */
+      -webkit-appearance: none; /* Uniform dropdown look on iOS */
+    }
+
+    .form-element select {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%231B2A5E' d='M0 0l5 5 5-5z'/></svg>") no-repeat right 5px center;
+      padding-right: 20px;
     }
 
     .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
@@ -678,6 +696,7 @@
       cursor: pointer;
       color: var(--primary-blue);
       transition: opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
@@ -701,13 +720,14 @@
       color: var(--primary-blue);
       text-decoration: none;
       transition: color 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .contact-pane a:hover { color: var(--accent-blue); }
 
     footer {
       text-align: center;
-      padding: 40px 24px;
+      padding: 40px 24px calc(40px + env(safe-area-inset-bottom, 0px));
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -725,13 +745,21 @@
     }
 
     @media (max-width: 768px) {
-      nav { padding: 20px; }
+      nav { 
+        padding: 20px; 
+        padding-top: calc(15px + env(safe-area-inset-top, 0px));
+      }
       nav ul { display: none; }
       .hero h1 { font-size: 44px; }
       .section-spacing { padding: 60px 24px; }
       .process-flow { grid-template-columns: 1fr; }
       .custom-cursor { display: none; }
       .card-media-split { height: 100px; }
+      
+      /* Essential iOS Safari Hack: Font size must be 16px minimum on forms to prevent sudden page-zoom on focus */
+      .form-element input, .form-element select, .form-element textarea {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -1028,6 +1056,11 @@
     }
     trackScrollReveals();
 
+    // Fallback stub method to clear execution dependencies in original layout switch hooks
+    function resizeCanvases() {
+      // Placeholder for your canvas resize execution logic
+    }
+
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
@@ -1049,7 +1082,7 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
       trackScrollReveals();
       applyCursorDynamics(); 
-      resizeCanvases(); // Triggers immediate particle recalibration across page fields
+      resizeCanvases(); 
     }
 
     function togglePortfolioTab(year) {
@@ -1063,105 +1096,13 @@
         tab2025.classList.remove('active-tab');
         activeGrid.style.display = 'grid';
         archiveGrid.style.display = 'none';
-      } else {
+      } else if (year === '2025') {
         tab2025.classList.add('active-tab');
         tab2026.classList.remove('active-tab');
         activeGrid.style.display = 'none';
         archiveGrid.style.display = 'block';
       }
     }
-
-    // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
-    const homeCanvas = document.getElementById('particle-canvas-home');
-    const sellerCanvas = document.getElementById('particle-canvas-seller');
-    
-    let homeParticles = [];
-    let sellerParticles = [];
-
-    function resizeCanvases() {
-      if (homeCanvas) {
-        homeCanvas.width = homeCanvas.offsetWidth;
-        homeCanvas.height = homeCanvas.offsetHeight;
-      }
-      if (sellerCanvas) {
-        sellerCanvas.width = sellerCanvas.offsetWidth;
-        sellerCanvas.height = sellerCanvas.offsetHeight;
-      }
-    }
-    window.addEventListener('resize', resizeCanvases);
-    resizeCanvases();
-
-    class Particle {
-      constructor(canvasWidth, canvasHeight) {
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
-        this.x = Math.random() * canvasWidth;
-        this.y = Math.random() * canvasHeight;
-        this.size = Math.random() * 2 + 1; 
-        this.speedX = (Math.random() * 0.6) - 0.3; 
-        this.speedY = (Math.random() * 0.45) - 0.225;
-      }
-      update(w, h) {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > w) this.x = 0;
-        if (this.x < 0) this.x = w;
-        if (this.y > h) this.y = 0;
-        if (this.y < 0) this.y = h;
-      }
-      draw(ctx) {
-        ctx.save();
-        ctx.globalAlpha = 0.45; 
-        ctx.fillStyle = '#1B2A5E';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    function initEngine() {
-      homeParticles = [];
-      sellerParticles = [];
-      
-      const homeCount = 35;
-      for (let i = 0; i < homeCount; i++) {
-        homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
-      }
-      
-      const sellerCount = 20; // Lower footprint deployment for space constraints
-      for (let i = 0; i < sellerCount; i++) {
-        sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
-      }
-    }
-    setTimeout(initEngine, 100); // Small timeout to ensure containers settle dimensionally first
-
-    function runGlobalEngine() {
-      // Home loop process
-      if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
-        const ctxHome = homeCanvas.getContext('2d');
-        ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
-        for (let i = 0; i < homeParticles.length; i++) {
-          homeParticles[i].update(homeCanvas.width, homeCanvas.height);
-          homeParticles[i].draw(ctxHome);
-        }
-      }
-      
-      // Seller header loop process
-      if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
-        const ctxSeller = sellerCanvas.getContext('2d');
-        ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
-        for (let i = 0; i < sellerParticles.length; i++) {
-          sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
-          sellerParticles[i].draw(ctxSeller);
-        }
-      }
-      
-      requestAnimationFrame(runGlobalEngine);
-    }
-    runGlobalEngine();
   </script>
-
 </body>
 </html>
