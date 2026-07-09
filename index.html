@@ -10,7 +10,7 @@
 
     html {
       scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%; /* Prevents iOS font resizing quirks */
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -20,7 +20,6 @@
       font-weight: 300;
       min-height: 100vh;
       overflow-x: hidden;
-      /* Account for iPhone bottom home indicator if sticky elements are used */
       padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
@@ -50,7 +49,6 @@
       justify-content: space-between;
       align-items: center;
       padding: 35px 60px;
-      /* Incorporate safe area padding for iPhone notches in landscape/portrait */
       padding-top: calc(35px + env(safe-area-inset-top, 0px));
       padding-left: calc(60px + env(safe-area-inset-left, 0px));
       padding-right: calc(60px + env(safe-area-inset-right, 0px));
@@ -212,7 +210,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
-      -webkit-tap-highlight-color: transparent; /* Removes blue highlight box on iOS touch */
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn:hover {
@@ -238,8 +236,6 @@
       padding: 90px 60px;
       max-width: 1100px;
       margin: 0 auto;
-      padding-left: calc(60px + env(safe-area-inset-left, 0px));
-      padding-right: calc(60px + env(safe-area-inset-right, 0px));
     }
     
     .bg-break {
@@ -391,10 +387,24 @@
       color: var(--accent-blue);
     }
 
+    /* HORIZONTAL SCROLL ENHANCEMENTS */
+    .portfolio-grid-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 15px;
+    }
+    
+    .portfolio-grid-wrapper::-webkit-scrollbar {
+      display: none; /* Safari/Chrome */
+    }
+
     .portfolio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      display: flex;
+      gap: 20px; /* Brought boxes slightly closer together */
+      width: max-content;
     }
 
     .portfolio-card {
@@ -406,6 +416,10 @@
       display: flex;
       flex-direction: column;
       transition: all 0.4s ease;
+      /* Constrain widths uniformly to mathematically preview ~2.25 cards inside container bounding boundaries */
+      width: 480px; 
+      scroll-snap-align: start;
+      flex-shrink: 0;
     }
 
     .portfolio-card:hover {
@@ -506,11 +520,11 @@
 
     .archive-fallback {
       display: none;
-      grid-column: 1 / -1;
       text-align: center;
       padding: 50px 20px;
       border: 1px dashed rgba(27, 42, 94, 0.15);
       border-radius: 2px;
+      width: 100%;
     }
     .archive-fallback p {
       font-size: 12px;
@@ -668,13 +682,8 @@
       font-size: 14px;
       color: var(--primary-blue);
       outline: none;
-      border-radius: 0; /* Prevents iOS Safari rounding default inputs */
-      -webkit-appearance: none; /* Uniform dropdown look on iOS */
-    }
-
-    .form-element select {
-      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%231B2A5E' d='M0 0l5 5 5-5z'/></svg>") no-repeat right 5px center;
-      padding-right: 20px;
+      border-radius: 0;
+      -webkit-appearance: none;
     }
 
     .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
@@ -737,29 +746,61 @@
 
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid, .portfolio-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
+      .walkthrough-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .market-block { height: 380px; }
       .market-right-stack { height: auto; }
       .market-block.half-height { height: 380px; }
     }
 
+    /* COMPREHENSIVE PHONE OPTIMIZATION MEDIA LAYER */
     @media (max-width: 768px) {
       nav { 
         padding: 20px; 
         padding-top: calc(15px + env(safe-area-inset-top, 0px));
       }
       nav ul { display: none; }
-      .hero h1 { font-size: 44px; }
-      .section-spacing { padding: 60px 24px; }
-      .process-flow { grid-template-columns: 1fr; }
-      .custom-cursor { display: none; }
-      .card-media-split { height: 100px; }
+      nav img.nav-logo { height: 28px; }
+
+      /* Tighter layouts & scaled down typography for mobile viewports */
+      .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
+      .hero h1 { font-size: 38px; line-height: 1.2; }
+      .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
+      .hero-sub { font-size: 11px; margin-bottom: 20px; }
       
-      /* Essential iOS Safari Hack: Font size must be 16px minimum on forms to prevent sudden page-zoom on focus */
-      .form-element input, .form-element select, .form-element textarea {
-        font-size: 16px;
+      .section-spacing { padding: 50px 20px; }
+      .section-label { margin-bottom: 20px; }
+      
+      .market-block { height: 320px; padding: 25px; }
+      .market-block.half-height { height: 240px; }
+      .market-text h3 { font-size: 26px; }
+
+      /* Horizontal Slider Optimization for Small Viewports */
+      .portfolio-card {
+        width: 290px; /* Adapts clean viewport tracking on phones */
+        padding: 25px;
       }
+      .portfolio-card h4 { font-size: 22px; }
+      .card-media-split { height: 90px; }
+
+      .walkthrough-statement h2 { font-size: 30px; }
+      .walkthrough-body p { font-size: 14px; line-height: 1.7; }
+      
+      .process-flow { grid-template-columns: 1fr; gap: 15px; }
+      .process-card { padding: 25px 20px; }
+      
+      .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
+      .portal-frame-header h2 { font-size: 32px; }
+      .portal-form-wrapper { padding: 40px 20px; }
+      
+      .form-element input, .form-element select, .form-element textarea {
+        font-size: 16px; /* Prevents automated zoom on focus inputs in iOS Safari */
+      }
+      
+      .contact-pane { padding: 70px 20px; }
+      .contact-pane a { font-size: 22px; }
+
+      .custom-cursor { display: none; }
     }
   </style>
 </head>
@@ -790,7 +831,7 @@
       <h1>Off-Market Acquisitions</h1>
       <p class="hero-sub">Leveraged Developer Network</p>
       <div class="divider"></div>
-      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the underwriting and deal structuring so they can focus on construction. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
         <button class="btn" onclick="showView('developer');">Developer Portal</button>
@@ -850,35 +891,53 @@
           </div>
         </div>
 
-        <div class="portfolio-grid" id="portfolioActiveGrid">
-          <!-- Card 1: Enatai -->
-          <div class="portfolio-card">
-            <div class="badge escrow">In Escrow</div>
-            <h4>Enatai Redevelopment</h4>
-            <div class="meta">West Bellevue</div>
-            
-            <div class="card-media-split">
-              <div class="media-pane" style="background-image: url('1646-Street.jpg');">
-                <div class="media-pane-overlay"><span>Street Index</span></div>
-              </div>
-              <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
-                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+        <div class="portfolio-grid-wrapper">
+          <div class="portfolio-grid" id="portfolioActiveGrid">
+            <!-- Card 1: NW Bellevue (New Leftmost Addition) -->
+            <div class="portfolio-card">
+              <div class="badge escrow">In Escrow</div>
+              <h4>NW Bellevue Redevelopment</h4>
+              <div class="meta">Northwest Bellevue</div>
+              
+              <div class="card-media-split">
+                <div class="media-pane" style="background-image: url('1520-Street.jpg');">
+                  <div class="media-pane-overlay"><span>Street Index</span></div>
+                </div>
+                <div class="media-pane" style="background-image: url('1520-Parcel.jpg');">
+                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Card 2: Eastgate -->
-          <div class="portfolio-card">
-            <div class="badge escrow">In Escrow</div>
-            <h4>Eastgate Redevelopment</h4>
-            <div class="meta">East Bellevue</div>
-            
-            <div class="card-media-split">
-              <div class="media-pane" style="background-image: url('15126-Street.jpg');">
-                <div class="media-pane-overlay"><span>Street Index</span></div>
+
+            <!-- Card 2: Enatai -->
+            <div class="portfolio-card">
+              <div class="badge escrow">In Escrow</div>
+              <h4>Enatai Redevelopment</h4>
+              <div class="meta">West Bellevue</div>
+              
+              <div class="card-media-split">
+                <div class="media-pane" style="background-image: url('1646-Street.jpg');">
+                  <div class="media-pane-overlay"><span>Street Index</span></div>
+                </div>
+                <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
+                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                </div>
               </div>
-              <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
-                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+            </div>
+            
+            <!-- Card 3: Eastgate -->
+            <div class="portfolio-card">
+              <div class="badge escrow">In Escrow</div>
+              <h4>Eastgate Redevelopment</h4>
+              <div class="meta">East Bellevue</div>
+              
+              <div class="card-media-split">
+                <div class="media-pane" style="background-image: url('15126-Street.jpg');">
+                  <div class="media-pane-overlay"><span>Street Index</span></div>
+                </div>
+                <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
+                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -918,7 +977,7 @@
           <h2>No deal closes unless a seller feels like they are winning.</h2>
         </div>
         <div class="walkthrough-body">
-          <p>Stoneholdt Partners is an acquisition company operating cleanly within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation expectations—and construct a transparent roadmap to perform on.</p>
+          <p>Stoneholdt Partners is an acquisition company operating within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation expectations—and construct a transparent roadmap to perform on.</p>
         </div>
       </div>
     </section>
@@ -936,25 +995,25 @@
           <div class="process-card">
             <div class="process-step">STAGE 01</div>
             <h3>Under Contract</h3>
-            <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and cleanly open escrow.</p>
+            <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and open escrow.</p>
           </div>
           <!-- 02 -->
           <div class="process-card">
             <div class="process-step">STAGE 02</div>
             <h3>Feasibility Period</h3>
-            <p>A structured 30-day window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
+            <p>A 30-day feasibility window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
           </div>
           <!-- 03 -->
           <div class="process-card">
             <div class="process-step">STAGE 03</div>
             <h3>Earnest Money</h3>
-            <p>Upon successfully clearing the standard base milestones, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
+            <p>Upon completion of the quick feasibility period, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
           </div>
           <!-- 04 -->
           <div class="process-card">
             <div class="process-step">STAGE 04</div>
             <h3>Close &amp; Record</h3>
-            <p>Title transfers safely through escrow, funds register instantly via direct wire, and your custom post-closing move-out arrangements activate flawlessly.</p>
+            <p>Title and funds are recorded & disbursed via the local escrow team, and you are free to take & leave what you wish from the property.</p>
           </div>
         </div>
       </div>
@@ -1056,11 +1115,6 @@
     }
     trackScrollReveals();
 
-    // Fallback stub method to clear execution dependencies in original layout switch hooks
-    function resizeCanvases() {
-      // Placeholder for your canvas resize execution logic
-    }
-
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
@@ -1088,21 +1142,111 @@
     function togglePortfolioTab(year) {
       const tab2026 = document.getElementById('tab2026');
       const tab2025 = document.getElementById('tab2025');
-      const activeGrid = document.getElementById('portfolioActiveGrid');
+      const activeGridWrapper = document.querySelector('.portfolio-grid-wrapper');
       const archiveGrid = document.getElementById('portfolioArchiveGrid');
 
       if (year === '2026') {
         tab2026.classList.add('active-tab');
         tab2025.classList.remove('active-tab');
-        activeGrid.style.display = 'grid';
+        activeGridWrapper.style.display = 'block';
         archiveGrid.style.display = 'none';
-      } else if (year === '2025') {
+      } else {
         tab2025.classList.add('active-tab');
         tab2026.classList.remove('active-tab');
-        activeGrid.style.display = 'none';
+        activeGridWrapper.style.display = 'none';
         archiveGrid.style.display = 'block';
       }
     }
+
+    // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
+    const homeCanvas = document.getElementById('particle-canvas-home');
+    const sellerCanvas = document.getElementById('particle-canvas-seller');
+    
+    let homeParticles = [];
+    let sellerParticles = [];
+
+    function resizeCanvases() {
+      if (homeCanvas) {
+        homeCanvas.width = homeCanvas.offsetWidth;
+        homeCanvas.height = homeCanvas.offsetHeight;
+      }
+      if (sellerCanvas) {
+        sellerCanvas.width = sellerCanvas.offsetWidth;
+        sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
+    }
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
+
+    class Particle {
+      constructor(canvasWidth, canvasHeight) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
+        this.size = Math.random() * 2 + 1; 
+        this.speedX = (Math.random() * 0.6) - 0.3; 
+        this.speedY = (Math.random() * 0.45) - 0.225;
+      }
+      update(w, h) {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > w) this.x = 0;
+        if (this.x < 0) this.x = w;
+        if (this.y > h) this.y = 0;
+        if (this.y < 0) this.y = h;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = 0.45; 
+        ctx.fillStyle = '#1B2A5E';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initEngine() {
+      homeParticles = [];
+      sellerParticles = [];
+      
+      const homeCount = 35;
+      for (let i = 0; i < homeCount; i++) {
+        homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
+      }
+      
+      const sellerCount = 20; 
+      for (let i = 0; i < sellerCount; i++) {
+        sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
+      }
+    }
+    setTimeout(initEngine, 100); 
+
+    function runGlobalEngine() {
+      if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
+        const ctxHome = homeCanvas.getContext('2d');
+        ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+        for (let i = 0; i < homeParticles.length; i++) {
+          homeParticles[i].update(homeCanvas.width, homeCanvas.height);
+          homeParticles[i].draw(ctxHome);
+        }
+      }
+      
+      if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
+        const ctxSeller = sellerCanvas.getContext('2d');
+        ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
+        for (let i = 0; i < sellerParticles.length; i++) {
+          sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
+          sellerParticles[i].draw(ctxSeller);
+        }
+      }
+      
+      requestAnimationFrame(runGlobalEngine);
+    }
+    runGlobalEngine();
   </script>
+
 </body>
 </html>
