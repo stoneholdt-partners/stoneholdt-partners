@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -10,6 +10,7 @@
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -19,6 +20,7 @@
       font-weight: 300;
       min-height: 100vh;
       overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     :root {
@@ -47,6 +49,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 35px 60px;
+      padding-top: calc(35px + env(safe-area-inset-top, 0px));
+      padding-left: calc(60px + env(safe-area-inset-left, 0px));
+      padding-right: calc(60px + env(safe-area-inset-right, 0px));
       position: fixed;
       width: 100%;
       top: 0;
@@ -128,7 +133,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 160px 40px 40px;
+      padding: calc(160px + env(safe-area-inset-top, 0px)) 40px 40px;
       position: relative;
     }
 
@@ -205,6 +210,7 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn:hover {
@@ -218,11 +224,11 @@
     .scroll-reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .scroll-reveal.visible {
       opacity: 1;
       transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     /* SECTION STANDARDS */
@@ -261,7 +267,7 @@
 
     .market-column .section-label,
     .market-column .market-column-header {
-      margin-bottom: 20px; /* Aligns headings perfectly above cards */
+      margin-bottom: 20px;
     }
 
     .market-block {
@@ -272,7 +278,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      height: 480px; /* Universal anchor matching left and right elements */
+      height: 480px;
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -305,7 +311,7 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
-      height: 480px; /* Aligns perfectly with left tile height */
+      height: 480px;
     }
 
     .market-column-header {
@@ -318,7 +324,7 @@
     }
 
     .market-block.half-height {
-      height: 228px; /* Balanced split accounting exactly for the 24px gap */
+      height: 228px;
       padding: 30px;
     }
 
@@ -372,6 +378,7 @@
       opacity: 0.4;
       padding: 6px 12px;
       transition: opacity 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .tab-btn.active-tab {
@@ -380,10 +387,30 @@
       color: var(--accent-blue);
     }
 
+    /* HORIZONTAL SCROLL INTERFACE LAYER */
+    .portfolio-container-rel {
+      position: relative;
+      width: 100%;
+    }
+
+    .portfolio-grid-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+    
+    .portfolio-grid-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
     .portfolio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      display: flex;
+      gap: 20px;
+      width: max-content;
     }
 
     .portfolio-card {
@@ -395,11 +422,64 @@
       display: flex;
       flex-direction: column;
       transition: all 0.4s ease;
+      width: 480px; 
+      scroll-snap-align: start;
+      flex-shrink: 0;
     }
 
     .portfolio-card:hover {
       background: rgba(27, 42, 94, 0.02);
       border-color: rgba(27, 42, 94, 0.12);
+    }
+
+    /* SUBTLE SCROLL ARROWS CODE */
+    .slider-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(244, 240, 230, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(27, 42, 94, 0.1);
+      border-radius: 50%;
+      color: var(--primary-blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .slider-nav-btn.visible {
+      opacity: 0.7;
+      pointer-events: auto;
+    }
+
+    .slider-nav-btn:hover {
+      opacity: 1;
+      background: var(--primary-blue);
+      color: var(--bg-cream-light);
+      border-color: var(--primary-blue);
+    }
+
+    .slider-nav-btn.prev-btn { left: -22px; }
+    .slider-nav-btn.next-btn { right: -22px; }
+
+    .slider-nav-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .badge {
@@ -495,11 +575,11 @@
 
     .archive-fallback {
       display: none;
-      grid-column: 1 / -1;
       text-align: center;
       padding: 50px 20px;
       border: 1px dashed rgba(27, 42, 94, 0.15);
       border-radius: 2px;
+      width: 100%;
     }
     .archive-fallback p {
       font-size: 12px;
@@ -589,7 +669,7 @@
     /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
     .portal-frame-header {
       text-align: center;
-      padding: 175px 40px 65px; /* Increased padding height to push quote content down */
+      padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
       background-color: var(--bg-cream-light);
       border-bottom: 1px solid rgba(27, 42, 94, 0.03);
       position: relative;
@@ -597,7 +677,7 @@
 
     .portal-frame-header h2, .portal-frame-header .subtitle {
       position: relative;
-      z-index: 2; /* Keeps all text safely above background particle layers */
+      z-index: 2;
     }
 
     .portal-frame-header h2 {
@@ -657,6 +737,8 @@
       font-size: 14px;
       color: var(--primary-blue);
       outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
     }
 
     .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
@@ -678,6 +760,7 @@
       cursor: pointer;
       color: var(--primary-blue);
       transition: opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
@@ -701,13 +784,14 @@
       color: var(--primary-blue);
       text-decoration: none;
       transition: color 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .contact-pane a:hover { color: var(--accent-blue); }
 
     footer {
       text-align: center;
-      padding: 40px 24px;
+      padding: 40px 24px calc(40px + env(safe-area-inset-bottom, 0px));
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -717,21 +801,63 @@
 
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid, .portfolio-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
+      .walkthrough-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .market-block { height: 380px; }
       .market-right-stack { height: auto; }
       .market-block.half-height { height: 380px; }
     }
 
+    /* COMPREHENSIVE PHONE OPTIMIZATION MEDIA LAYER */
     @media (max-width: 768px) {
-      nav { padding: 20px; }
+      nav { 
+        padding: 20px; 
+        padding-top: calc(15px + env(safe-area-inset-top, 0px));
+      }
       nav ul { display: none; }
-      .hero h1 { font-size: 44px; }
-      .section-spacing { padding: 60px 24px; }
-      .process-flow { grid-template-columns: 1fr; }
+      nav img.nav-logo { height: 28px; }
+
+      .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
+      .hero h1 { font-size: 38px; line-height: 1.2; }
+      .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
+      .hero-sub { font-size: 11px; margin-bottom: 20px; }
+      
+      .section-spacing { padding: 50px 20px; }
+      .section-label { margin-bottom: 20px; }
+      
+      .market-block { height: 320px; padding: 25px; }
+      .market-block.half-height { height: 240px; }
+      .market-text h3 { font-size: 26px; }
+
+      /* Mobile Swipe Layout Override */
+      .portfolio-card {
+        width: 290px;
+        padding: 25px;
+      }
+      .portfolio-card h4 { font-size: 22px; }
+      .card-media-split { height: 90px; }
+      
+      /* Hide click arrows entirely on phone touch screens */
+      .slider-nav-btn { display: none !important; }
+
+      .walkthrough-statement h2 { font-size: 30px; }
+      .walkthrough-body p { font-size: 14px; line-height: 1.7; }
+      
+      .process-flow { grid-template-columns: 1fr; gap: 15px; }
+      .process-card { padding: 25px 20px; }
+      
+      .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
+      .portal-frame-header h2 { font-size: 32px; }
+      .portal-form-wrapper { padding: 40px 20px; }
+      
+      .form-element input, .form-element select, .form-element textarea {
+        font-size: 16px;
+      }
+      
+      .contact-pane { padding: 70px 20px; }
+      .contact-pane a { font-size: 22px; }
+
       .custom-cursor { display: none; }
-      .card-media-split { height: 100px; }
     }
   </style>
 </head>
@@ -822,35 +948,63 @@
           </div>
         </div>
 
-        <div class="portfolio-grid" id="portfolioActiveGrid">
-          <!-- Card 1: Enatai -->
-          <div class="portfolio-card">
-            <div class="badge escrow">In Escrow</div>
-            <h4>Enatai Redevelopment</h4>
-            <div class="meta">West Bellevue</div>
-            
-            <div class="card-media-split">
-              <div class="media-pane" style="background-image: url('1646-Street.jpg');">
-                <div class="media-pane-overlay"><span>Street Index</span></div>
+        <div class="portfolio-container-rel">
+          <!-- Navigation Arrow Triggers -->
+          <button class="slider-nav-btn prev-btn" id="slidePrev" onclick="scrollPortfolio('left')" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="slider-nav-btn next-btn" id="slideNext" onclick="scrollPortfolio('right')" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="portfolio-grid-wrapper" id="portfolioWrapper">
+            <div class="portfolio-grid" id="portfolioActiveGrid">
+              <!-- Card 1: NW Bellevue -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>NW Bellevue Redevelopment</h4>
+                <div class="meta">Northwest Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('1520-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('1520-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
-                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+
+              <!-- Card 2: Enatai -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Enatai Redevelopment</h4>
+                <div class="meta">West Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('1646-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          
-          <!-- Card 2: Eastgate -->
-          <div class="portfolio-card">
-            <div class="badge escrow">In Escrow</div>
-            <h4>Eastgate Redevelopment</h4>
-            <div class="meta">East Bellevue</div>
-            
-            <div class="card-media-split">
-              <div class="media-pane" style="background-image: url('15126-Street.jpg');">
-                <div class="media-pane-overlay"><span>Street Index</span></div>
-              </div>
-              <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
-                <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              
+              <!-- Card 3: Eastgate -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Eastgate Redevelopment</h4>
+                <div class="meta">East Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('15126-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -926,7 +1080,7 @@
           <div class="process-card">
             <div class="process-step">STAGE 04</div>
             <h3>Close &amp; Record</h3>
-            <p>Title and funds are recorded & disbused via the local escrow team, and you are free to take & leave what you wish from the property.</p>
+            <p>Title and funds are recorded & disbursed via the local escrow team, and you are free to take & leave what you wish from the property.</p>
           </div>
         </div>
       </div>
@@ -995,7 +1149,7 @@
     });
 
     function applyCursorDynamics() {
-      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
+      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block, .slider-nav-btn');
       interactives.forEach(el => {
         el.addEventListener('mouseenter', () => {
           cursor.style.width = '38px';
@@ -1026,7 +1180,8 @@
     function trackScrollReveals() {
       document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
     }
-    trackScrollReveals();
+    // Added a small, intentional structural timeout initialization to prevent viewports from calculating layout bounds too early.
+    setTimeout(trackScrollReveals, 150);
 
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
@@ -1049,24 +1204,70 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
       trackScrollReveals();
       applyCursorDynamics(); 
-      resizeCanvases(); // Triggers immediate particle recalibration across page fields
+      resizeCanvases(); 
+      updateSliderArrows();
+    }
+
+    /* SLIDER BUTTON SCROLL CONTROLLERS */
+    const portfolioWrapper = document.getElementById('portfolioWrapper');
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+
+    function scrollPortfolio(direction) {
+      if (!portfolioWrapper) return;
+      const cardWidth = portfolioWrapper.querySelector('.portfolio-card').offsetWidth;
+      const scrollAmount = cardWidth + 20; // card thickness + gap offset
+      
+      if (direction === 'left') {
+        portfolioWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        portfolioWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
+    function updateSliderArrows() {
+      if (!portfolioWrapper || window.innerWidth <= 768) return;
+      
+      const scrollLeft = portfolioWrapper.scrollLeft;
+      const maxScroll = portfolioWrapper.scrollWidth - portfolioWrapper.clientWidth;
+
+      // Toggle state thresholds
+      if (scrollLeft <= 5) {
+        prevBtn.classList.remove('visible');
+      } else {
+        prevBtn.classList.add('visible');
+      }
+
+      if (scrollLeft >= maxScroll - 5) {
+        nextBtn.classList.remove('visible');
+      } else {
+        nextBtn.classList.add('visible');
+      }
+    }
+
+    if (portfolioWrapper) {
+      portfolioWrapper.addEventListener('scroll', updateSliderArrows);
+      window.addEventListener('resize', updateSliderArrows);
+      // Run right after construction loop processes settle
+      setTimeout(updateSliderArrows, 300);
     }
 
     function togglePortfolioTab(year) {
       const tab2026 = document.getElementById('tab2026');
       const tab2025 = document.getElementById('tab2025');
-      const activeGrid = document.getElementById('portfolioActiveGrid');
+      const activeGridWrapper = document.querySelector('.portfolio-container-rel');
       const archiveGrid = document.getElementById('portfolioArchiveGrid');
 
       if (year === '2026') {
         tab2026.classList.add('active-tab');
         tab2025.classList.remove('active-tab');
-        activeGrid.style.display = 'grid';
+        activeGridWrapper.style.display = 'block';
         archiveGrid.style.display = 'none';
+        setTimeout(updateSliderArrows, 50);
       } else {
         tab2025.classList.add('active-tab');
         tab2026.classList.remove('active-tab');
-        activeGrid.style.display = 'none';
+        activeGridWrapper.style.display = 'none';
         archiveGrid.style.display = 'block';
       }
     }
@@ -1130,15 +1331,14 @@
         homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
       }
       
-      const sellerCount = 20; // Lower footprint deployment for space constraints
+      const sellerCount = 20; 
       for (let i = 0; i < sellerCount; i++) {
         sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
       }
     }
-    setTimeout(initEngine, 100); // Small timeout to ensure containers settle dimensionally first
+    setTimeout(initEngine, 100); 
 
     function runGlobalEngine() {
-      // Home loop process
       if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
         const ctxHome = homeCanvas.getContext('2d');
         ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
@@ -1148,7 +1348,6 @@
         }
       }
       
-      // Seller header loop process
       if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
         const ctxSeller = sellerCanvas.getContext('2d');
         ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
