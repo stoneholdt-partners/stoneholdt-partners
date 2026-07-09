@@ -224,11 +224,11 @@
     .scroll-reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .scroll-reveal.visible {
       opacity: 1;
       transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     /* SECTION STANDARDS */
@@ -387,23 +387,29 @@
       color: var(--accent-blue);
     }
 
-    /* HORIZONTAL SCROLL ENHANCEMENTS */
+    /* HORIZONTAL SCROLL INTERFACE LAYER */
+    .portfolio-container-rel {
+      position: relative;
+      width: 100%;
+    }
+
     .portfolio-grid-wrapper {
       width: 100%;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 15px;
+      scroll-behavior: smooth;
     }
     
     .portfolio-grid-wrapper::-webkit-scrollbar {
-      display: none; /* Safari/Chrome */
+      display: none;
     }
 
     .portfolio-grid {
       display: flex;
-      gap: 20px; /* Brought boxes slightly closer together */
+      gap: 20px;
       width: max-content;
     }
 
@@ -416,7 +422,6 @@
       display: flex;
       flex-direction: column;
       transition: all 0.4s ease;
-      /* Constrain widths uniformly to mathematically preview ~2.25 cards inside container bounding boundaries */
       width: 480px; 
       scroll-snap-align: start;
       flex-shrink: 0;
@@ -425,6 +430,56 @@
     .portfolio-card:hover {
       background: rgba(27, 42, 94, 0.02);
       border-color: rgba(27, 42, 94, 0.12);
+    }
+
+    /* SUBTLE SCROLL ARROWS CODE */
+    .slider-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(244, 240, 230, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(27, 42, 94, 0.1);
+      border-radius: 50%;
+      color: var(--primary-blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .slider-nav-btn.visible {
+      opacity: 0.7;
+      pointer-events: auto;
+    }
+
+    .slider-nav-btn:hover {
+      opacity: 1;
+      background: var(--primary-blue);
+      color: var(--bg-cream-light);
+      border-color: var(--primary-blue);
+    }
+
+    .slider-nav-btn.prev-btn { left: -22px; }
+    .slider-nav-btn.next-btn { right: -22px; }
+
+    .slider-nav-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .badge {
@@ -762,7 +817,6 @@
       nav ul { display: none; }
       nav img.nav-logo { height: 28px; }
 
-      /* Tighter layouts & scaled down typography for mobile viewports */
       .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
       .hero h1 { font-size: 38px; line-height: 1.2; }
       .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
@@ -775,13 +829,16 @@
       .market-block.half-height { height: 240px; }
       .market-text h3 { font-size: 26px; }
 
-      /* Horizontal Slider Optimization for Small Viewports */
+      /* Mobile Swipe Layout Override */
       .portfolio-card {
-        width: 290px; /* Adapts clean viewport tracking on phones */
+        width: 290px;
         padding: 25px;
       }
       .portfolio-card h4 { font-size: 22px; }
       .card-media-split { height: 90px; }
+      
+      /* Hide click arrows entirely on phone touch screens */
+      .slider-nav-btn { display: none !important; }
 
       .walkthrough-statement h2 { font-size: 30px; }
       .walkthrough-body p { font-size: 14px; line-height: 1.7; }
@@ -794,7 +851,7 @@
       .portal-form-wrapper { padding: 40px 20px; }
       
       .form-element input, .form-element select, .form-element textarea {
-        font-size: 16px; /* Prevents automated zoom on focus inputs in iOS Safari */
+        font-size: 16px;
       }
       
       .contact-pane { padding: 70px 20px; }
@@ -891,52 +948,62 @@
           </div>
         </div>
 
-        <div class="portfolio-grid-wrapper">
-          <div class="portfolio-grid" id="portfolioActiveGrid">
-            <!-- Card 1: NW Bellevue (New Leftmost Addition) -->
-            <div class="portfolio-card">
-              <div class="badge escrow">In Escrow</div>
-              <h4>NW Bellevue Redevelopment</h4>
-              <div class="meta">Northwest Bellevue</div>
-              
-              <div class="card-media-split">
-                <div class="media-pane" style="background-image: url('1520-Street.jpg');">
-                  <div class="media-pane-overlay"><span>Street Index</span></div>
-                </div>
-                <div class="media-pane" style="background-image: url('1520-Parcel.jpg');">
-                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
-                </div>
-              </div>
-            </div>
+        <div class="portfolio-container-rel">
+          <!-- Navigation Arrow Triggers -->
+          <button class="slider-nav-btn prev-btn" id="slidePrev" onclick="scrollPortfolio('left')" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="slider-nav-btn next-btn" id="slideNext" onclick="scrollPortfolio('right')" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
 
-            <!-- Card 2: Enatai -->
-            <div class="portfolio-card">
-              <div class="badge escrow">In Escrow</div>
-              <h4>Enatai Redevelopment</h4>
-              <div class="meta">West Bellevue</div>
-              
-              <div class="card-media-split">
-                <div class="media-pane" style="background-image: url('1646-Street.jpg');">
-                  <div class="media-pane-overlay"><span>Street Index</span></div>
-                </div>
-                <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
-                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+          <div class="portfolio-grid-wrapper" id="portfolioWrapper">
+            <div class="portfolio-grid" id="portfolioActiveGrid">
+              <!-- Card 1: NW Bellevue -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>NW Bellevue Redevelopment</h4>
+                <div class="meta">Northwest Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('1520-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('1520-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            <!-- Card 3: Eastgate -->
-            <div class="portfolio-card">
-              <div class="badge escrow">In Escrow</div>
-              <h4>Eastgate Redevelopment</h4>
-              <div class="meta">East Bellevue</div>
-              
-              <div class="card-media-split">
-                <div class="media-pane" style="background-image: url('15126-Street.jpg');">
-                  <div class="media-pane-overlay"><span>Street Index</span></div>
+
+              <!-- Card 2: Enatai -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Enatai Redevelopment</h4>
+                <div class="meta">West Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('1646-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('1646-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
                 </div>
-                <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
-                  <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+              </div>
+              
+              <!-- Card 3: Eastgate -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Eastgate Redevelopment</h4>
+                <div class="meta">East Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('15126-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('15126-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1082,7 +1149,7 @@
     });
 
     function applyCursorDynamics() {
-      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block');
+      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block, .slider-nav-btn');
       interactives.forEach(el => {
         el.addEventListener('mouseenter', () => {
           cursor.style.width = '38px';
@@ -1113,7 +1180,8 @@
     function trackScrollReveals() {
       document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
     }
-    trackScrollReveals();
+    // Added a small, intentional structural timeout initialization to prevent viewports from calculating layout bounds too early.
+    setTimeout(trackScrollReveals, 150);
 
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
@@ -1137,12 +1205,57 @@
       trackScrollReveals();
       applyCursorDynamics(); 
       resizeCanvases(); 
+      updateSliderArrows();
+    }
+
+    /* SLIDER BUTTON SCROLL CONTROLLERS */
+    const portfolioWrapper = document.getElementById('portfolioWrapper');
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+
+    function scrollPortfolio(direction) {
+      if (!portfolioWrapper) return;
+      const cardWidth = portfolioWrapper.querySelector('.portfolio-card').offsetWidth;
+      const scrollAmount = cardWidth + 20; // card thickness + gap offset
+      
+      if (direction === 'left') {
+        portfolioWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        portfolioWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
+    function updateSliderArrows() {
+      if (!portfolioWrapper || window.innerWidth <= 768) return;
+      
+      const scrollLeft = portfolioWrapper.scrollLeft;
+      const maxScroll = portfolioWrapper.scrollWidth - portfolioWrapper.clientWidth;
+
+      // Toggle state thresholds
+      if (scrollLeft <= 5) {
+        prevBtn.classList.remove('visible');
+      } else {
+        prevBtn.classList.add('visible');
+      }
+
+      if (scrollLeft >= maxScroll - 5) {
+        nextBtn.classList.remove('visible');
+      } else {
+        nextBtn.classList.add('visible');
+      }
+    }
+
+    if (portfolioWrapper) {
+      portfolioWrapper.addEventListener('scroll', updateSliderArrows);
+      window.addEventListener('resize', updateSliderArrows);
+      // Run right after construction loop processes settle
+      setTimeout(updateSliderArrows, 300);
     }
 
     function togglePortfolioTab(year) {
       const tab2026 = document.getElementById('tab2026');
       const tab2025 = document.getElementById('tab2025');
-      const activeGridWrapper = document.querySelector('.portfolio-grid-wrapper');
+      const activeGridWrapper = document.querySelector('.portfolio-container-rel');
       const archiveGrid = document.getElementById('portfolioArchiveGrid');
 
       if (year === '2026') {
@@ -1150,6 +1263,7 @@
         tab2025.classList.remove('active-tab');
         activeGridWrapper.style.display = 'block';
         archiveGrid.style.display = 'none';
+        setTimeout(updateSliderArrows, 50);
       } else {
         tab2025.classList.add('active-tab');
         tab2026.classList.remove('active-tab');
