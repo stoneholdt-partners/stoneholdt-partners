@@ -272,8 +272,10 @@
       flex-direction: column;
     }
 
+    /* Aligns the section labels perfectly in-line vertically */
     .market-column .section-label {
       margin-bottom: 20px;
+      line-height: 1.2;
     }
 
     .market-block {
@@ -339,16 +341,16 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%;
-      gap: 15px; /* Slightly tightened container gap */
+      flex-grow: 1;
+      padding: 24px 0; /* Creates an exact 1/4 inch (24px) spacing boundary top & bottom */
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 12px; /* Marginally tightened padding for values spacing */
+      padding-top: 14px; /* Tightened padding above the lines */
     }
 
-    /* Removes the top line from the first core value */
+    /* Removes the line above Value #1 and eliminates top spacing */
     .value-item:first-child {
       border-top: none;
       padding-top: 0;
@@ -365,7 +367,7 @@
 
     .value-desc {
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.55;
       opacity: 0.8;
     }
 
@@ -1145,6 +1147,7 @@
       cursor.style.top = e.clientY + 'px';
     });
 
+    // CURSOR HOVER DYNAMICS
     function applyCursorDynamics() {
       const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block, .slider-nav-btn');
       interactives.forEach(el => {
@@ -1164,6 +1167,7 @@
     }
     applyCursorDynamics();
 
+    // INTERSECTION OBSERVER FOR SCROLL REVEAL EFFECT
     const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -1179,6 +1183,7 @@
     }
     setTimeout(trackScrollReveals, 150);
 
+    // VIEW ROUTING ARCHITECTURE
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
@@ -1204,6 +1209,7 @@
       updateSliderArrows();
     }
 
+    // SLIDER ENGINE CONTROLLERS
     const portfolioWrapper = document.getElementById('portfolioWrapper');
     const prevBtn = document.getElementById('slidePrev');
     const nextBtn = document.getElementById('slideNext');
@@ -1233,7 +1239,7 @@
       }
 
       if (scrollLeft >= maxScroll - 5) {
-        nextBtn.classList.add('visible');
+        nextBtn.classList.remove('visible');
       } else {
         nextBtn.classList.add('visible');
       }
