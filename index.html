@@ -661,8 +661,9 @@
     .portal-frame-header {
       text-align: center;
       padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
-      background-color: var(--bg-cream-light);
-      border-bottom: 1px solid rgba(27, 42, 94, 0.03);
+      /* Updated header background to transparent accent blue */
+      background-color: rgba(74, 103, 173, 0.08);
+      border-bottom: 1px solid rgba(74, 103, 173, 0.15);
       position: relative;
     }
 
@@ -1087,6 +1088,8 @@
   <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
+      <!-- Added particle canvas for the Developer Header too to keep it dynamic and consistent -->
+      <canvas id="particle-canvas-developer" class="particle-canvas"></canvas>
       <h2>Partner With Us</h2>
       <p class="subtitle">let us know what to look for</p>
     </header>
@@ -1241,9 +1244,11 @@
     // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
     const homeCanvas = document.getElementById('particle-canvas-home');
     const sellerCanvas = document.getElementById('particle-canvas-seller');
+    const developerCanvas = document.getElementById('particle-canvas-developer');
     
     let homeParticles = [];
     let sellerParticles = [];
+    let developerParticles = [];
 
     function resizeCanvases() {
       if (homeCanvas) {
@@ -1253,6 +1258,10 @@
       if (sellerCanvas) {
         sellerCanvas.width = sellerCanvas.offsetWidth;
         sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
+      if (developerCanvas) {
+        developerCanvas.width = developerCanvas.offsetWidth;
+        developerCanvas.height = developerCanvas.offsetHeight;
       }
     }
     window.addEventListener('resize', resizeCanvases);
@@ -1291,6 +1300,7 @@
     function initEngine() {
       homeParticles = [];
       sellerParticles = [];
+      developerParticles = [];
       
       const homeCount = 35;
       for (let i = 0; i < homeCount; i++) {
@@ -1300,6 +1310,11 @@
       const sellerCount = 20; 
       for (let i = 0; i < sellerCount; i++) {
         sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
+      }
+
+      const developerCount = 20; 
+      for (let i = 0; i < developerCount; i++) {
+        developerParticles.push(new Particle(developerCanvas.width, developerCanvas.height));
       }
     }
     setTimeout(initEngine, 100); 
@@ -1320,6 +1335,15 @@
         for (let i = 0; i < sellerParticles.length; i++) {
           sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
           sellerParticles[i].draw(ctxSeller);
+        }
+      }
+
+      if (developerCanvas && document.getElementById('developerView').classList.contains('active-view')) {
+        const ctxDeveloper = developerCanvas.getContext('2d');
+        ctxDeveloper.clearRect(0, 0, developerCanvas.width, developerCanvas.height);
+        for (let i = 0; i < developerParticles.length; i++) {
+          developerParticles[i].update(developerCanvas.width, developerCanvas.height);
+          developerParticles[i].draw(ctxDeveloper);
         }
       }
       
