@@ -237,6 +237,11 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+
+    /* WIDER CONTAINER FOR THE MIDDLE SECTION */
+    .section-spacing.wide-bounds {
+      max-width: 1250px;
+    }
     
     .bg-break {
       background-color: var(--bg-cream-light);
@@ -253,12 +258,12 @@
       color: var(--accent-blue);
     }
 
-    /* BALANCED EQUAL-WIDTH GEOGRAPHIC & VALUES GRID (50/50 SPLIT) */
+    /* REFINED BALANCED MATRIX GRIDS */
     .market-matrix {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: start;
+      gap: 55px;
+      align-items: stretch;
     }
 
     .market-column {
@@ -278,7 +283,8 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      height: 520px;
+      flex-grow: 1;
+      min-height: 480px;
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -331,7 +337,9 @@
     .values-container {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      justify-content: space-between;
+      height: 100%;
+      gap: 20px;
     }
 
     .values-header {
@@ -340,30 +348,26 @@
       font-weight: 400;
       letter-spacing: 0.04em;
       color: var(--primary-blue);
-      margin-bottom: 12px;
+      margin-bottom: 25px;
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 18px;
+      padding-top: 15px;
     }
 
     .value-title {
-      font-family: 'Montserrat', sans-serif;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent-blue);
       margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .value-desc {
       font-size: 13px;
-      line-height: 1.65;
+      line-height: 1.6;
       opacity: 0.8;
     }
 
@@ -386,21 +390,13 @@
       background: transparent;
       border: none;
       font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--primary-blue);
-      cursor: pointer;
-      opacity: 0.4;
-      padding: 6px 12px;
-      transition: opacity 0.3s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .tab-btn.active-tab {
-      opacity: 1;
-      font-weight: 500;
       color: var(--accent-blue);
+      font-weight: 500;
+      padding: 6px 0;
+      user-select: none;
     }
 
     /* HORIZONTAL SCROLL INTERFACE LAYER */
@@ -448,7 +444,7 @@
       border-color: rgba(27, 42, 94, 0.12);
     }
 
-    /* SUBTLE SCROLL ARROWS CODE */
+    /* SUBTLE SCROLL ARROWS */
     .slider-nav-btn {
       position: absolute;
       top: 50%;
@@ -590,21 +586,6 @@
       transform: scale(1.02);
     }
 
-    .archive-fallback {
-      display: none;
-      text-align: center;
-      padding: 50px 20px;
-      border: 1px dashed rgba(27, 42, 94, 0.15);
-      border-radius: 2px;
-      width: 100%;
-    }
-    .archive-fallback p {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      opacity: 0.6;
-      line-height: 1.7;
-    }
-
     /* SELLERS OVERVIEW VIEW DYNAMICS */
     .walkthrough-grid {
       display: grid;
@@ -684,7 +665,7 @@
     }
     .process-card:hover p { opacity: 0.9; }
 
-    /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
+    /* EXTENDED PAGES STRUCTURAL HEADERS */
     .portal-frame-header {
       text-align: center;
       padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
@@ -821,11 +802,10 @@
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
       .walkthrough-grid { grid-template-columns: 1fr; gap: 30px; }
-      .market-matrix { grid-template-columns: 1fr; gap: 45px; }
+      .market-matrix { grid-template-columns: 1fr; gap: 40px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
 
-    /* COMPREHENSIVE PHONE OPTIMIZATION MEDIA LAYER */
     @media (max-width: 768px) {
       nav { 
         padding: 20px; 
@@ -842,17 +822,14 @@
       .section-spacing { padding: 50px 20px; }
       .section-label { margin-bottom: 15px; }
       
-      /* Reduced size & optimized text for iOS */
-      .market-block { height: 240px; padding: 20px; }
+      .market-block { min-height: 300px; padding: 25px; }
       .market-text h3 { font-size: 24px; }
       .market-text p { font-size: 11px; }
 
-      /* Core Values text downsizing for tighter look */
-      .values-header { font-size: 26px; }
+      .values-header { font-size: 26px; margin-bottom: 15px; }
       .value-desc { font-size: 12px; line-height: 1.6; }
       .values-container { gap: 20px; }
 
-      /* Mobile Swipe Layout Override */
       .portfolio-card {
         width: 290px;
         padding: 25px;
@@ -860,7 +837,6 @@
       .portfolio-card h4 { font-size: 20px; }
       .card-media-split { height: 90px; }
       
-      /* Hide click arrows entirely on phone touch screens */
       .slider-nav-btn { display: none !important; }
 
       .walkthrough-statement h2 { font-size: 26px; }
@@ -918,8 +894,8 @@
       </div>
     </section>
 
-    <!-- GEOGRAPHY REGION & CORE VALUES GRID -->
-    <section class="section-spacing scroll-reveal">
+    <!-- WIDER MATRIX BLOCK GRAPHICS & CORE VALUES GRID -->
+    <section class="section-spacing wide-bounds scroll-reveal">
       <div class="market-matrix">
         <!-- Left Column: Core Market Focus -->
         <div class="market-column">
@@ -934,7 +910,7 @@
           </div>
         </div>
 
-        <!-- Right Column: 50% Desktop Width Core Values -->
+        <!-- Right Column: Core Values Component -->
         <div class="market-column">
           <h2 class="values-header">Core Values</h2>
           <div class="values-container">
@@ -942,21 +918,21 @@
             <div class="value-item">
               <div class="value-title">1) Unwavering Communication</div>
               <div class="value-desc">
-                Between market uncertainties and buyer fall-outs, our priority is keeping you informed at every milestone. We're not afraid to have the hard conversations upfront in order to reduce friction down the road. Every real estate transaction encounters hurdles; we'd simply rather solve them immediately than let them fester and stew into late-game surprises.
+                Between market uncertainties and buyer fall-outs, our priority is keeping you informed at every milestone. We are not afraid to have the hard conversations upfront to reduce friction down the road. Real estate transactions have hurdles; we would rather solve them immediately than let them fester into late-game problems.
               </div>
             </div>
             <!-- Value 2 -->
             <div class="value-item">
               <div class="value-title">2) Transaction Transparency</div>
               <div class="value-desc">
-                No two deals are the same. Development transactions are intrinsically complicated—permitting, entitlements, soil quality, and complex lot topography are constantly shifting components. While these logistical headaches aren't your problem to manage, absolute visibility is our standard. When variables change, you will be the first to know, fostering a smoother transaction for everyone involved.
+                No two deals are the same. Development transactions are complicated—permitting, entitlements, soil quality, and lot topography are constantly shifting variables. While these challenges aren't your problem, absolute visibility is our standard. If something comes up, you will know immediately, keeping the process smooth for everyone.
               </div>
             </div>
             <!-- Value 3 -->
             <div class="value-item">
               <div class="value-title">3) Singular Focus</div>
               <div class="value-desc">
-                Our development partners have an immense amount of moving pieces on their plates. They are orchestrating heavy equipment, supervising field crews, managing corporate scale, and debating the latest premium trim trends. Stoneholdt Partners exists because this is our entire universe. We focus exclusively on acquisitions, meaning your transaction gets our absolute, undivided attention.
+                Our development partners manage moving sites, field crews, and countertop trends. Stoneholdt Partners exists because acquisitions are all we do. With no extra projects filling our plates, your transaction gets our absolute, undivided attention from start to finish.
               </div>
             </div>
           </div>
@@ -971,8 +947,7 @@
         
         <div class="portfolio-header">
           <div class="portfolio-tabs">
-            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">2026</button>
-            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">2025</button>
+            <span class="tab-btn">2026 Showcase</span>
           </div>
         </div>
 
@@ -986,7 +961,7 @@
           </button>
 
           <div class="portfolio-grid-wrapper" id="portfolioWrapper">
-            <div class="portfolio-grid" id="portfolioActiveGrid">
+            <div class="portfolio-grid">
               <!-- Card 1: NW Bellevue -->
               <div class="portfolio-card">
                 <div class="badge escrow">In Escrow</div>
@@ -1036,10 +1011,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="archive-fallback" id="portfolioArchiveGrid">
-          <p>Undisclosed for seller privacy.</p>
         </div>
       </div>
     </section>
@@ -1168,7 +1139,7 @@
     </div>
   </div>
 
-  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
+  <!-- NAVIGATION & ENGINE SCRIPT -->
   <script>
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
@@ -1235,7 +1206,6 @@
       updateSliderArrows();
     }
 
-    /* SLIDER BUTTON SCROLL CONTROLLERS */
     const portfolioWrapper = document.getElementById('portfolioWrapper');
     const prevBtn = document.getElementById('slidePrev');
     const nextBtn = document.getElementById('slideNext');
@@ -1275,26 +1245,6 @@
       portfolioWrapper.addEventListener('scroll', updateSliderArrows);
       window.addEventListener('resize', updateSliderArrows);
       setTimeout(updateSliderArrows, 300);
-    }
-
-    function togglePortfolioTab(year) {
-      const tab2026 = document.getElementById('tab2026');
-      const tab2025 = document.getElementById('tab2025');
-      const activeGridWrapper = document.querySelector('.portfolio-container-rel');
-      const archiveGrid = document.getElementById('portfolioArchiveGrid');
-
-      if (year === '2026') {
-        tab2026.classList.add('active-tab');
-        tab2025.classList.remove('active-tab');
-        activeGridWrapper.style.display = 'block';
-        archiveGrid.style.display = 'none';
-        setTimeout(updateSliderArrows, 50);
-      } else {
-        tab2025.classList.add('active-tab');
-        tab2026.classList.remove('active-tab');
-        activeGridWrapper.style.display = 'none';
-        archiveGrid.style.display = 'block';
-      }
     }
 
     // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
