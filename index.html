@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <!-- Updated to correctly pull in Cormorant Garamond -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -29,7 +30,7 @@
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
     }
-    
+
     /* FLUID MOUSE TRAILING EFFECT */
     .custom-cursor {
       width: 20px;
@@ -153,12 +154,12 @@
     }
 
     .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 56px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 15px;
       color: var(--primary-blue);
     }
 
@@ -320,10 +321,10 @@
     }
 
     .market-text h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 32px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       margin-bottom: 6px;
     }
 
@@ -340,15 +341,6 @@
       justify-content: space-between;
       height: 100%;
       gap: 20px;
-    }
-
-    .values-header {
-      font-family: 'Cinzel', serif;
-      font-size: 36px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: var(--primary-blue);
-      margin-bottom: 25px;
     }
 
     .value-item {
@@ -515,10 +507,10 @@
     }
 
     .portfolio-card h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 26px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
       margin-bottom: 4px;
     }
 
@@ -595,11 +587,11 @@
     }
 
     .walkthrough-statement h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 38px;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      line-height: 1.3;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
       color: var(--primary-blue);
     }
 
@@ -652,9 +644,9 @@
     .process-card:hover .process-step { opacity: 0.6; color: var(--accent-blue); }
 
     .process-card h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 20px;
-      font-weight: 400;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
       margin-bottom: 12px;
     }
 
@@ -680,10 +672,10 @@
     }
 
     .portal-frame-header h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 42px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       color: var(--primary-blue);
     }
 
@@ -766,7 +758,7 @@
     /* CONTACT / CORRESPONDENCE */
     .contact-pane {
       text-align: center;
-      padding: 110px 40px;
+      padding: 70px 40px 30px;
     }
 
     .contact-pane p {
@@ -778,8 +770,9 @@
     }
 
     .contact-pane a {
-      font-family: 'Cinzel', serif;
-      font-size: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 500;
       letter-spacing: 0.02em;
       color: var(--primary-blue);
       text-decoration: none;
@@ -791,12 +784,11 @@
 
     footer {
       text-align: center;
-      padding: 40px 24px calc(40px + env(safe-area-inset-bottom, 0px));
+      padding: 0px 24px calc(40px + env(safe-area-inset-bottom, 0px));
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
-      border-top: 1px solid rgba(27, 42, 94, 0.03);
     }
 
     /* RESPONSIVE STRUCTURE */
@@ -815,7 +807,7 @@
       nav img.nav-logo { height: 28px; }
 
       .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
-      .hero h1 { font-size: 34px; line-height: 1.25; }
+      .hero h1 { font-size: 42px; line-height: 1.1; }
       .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
       .hero-sub { font-size: 11px; margin-bottom: 20px; }
       
@@ -823,10 +815,9 @@
       .section-label { margin-bottom: 15px; }
       
       .market-block { min-height: 300px; padding: 25px; }
-      .market-text h3 { font-size: 24px; }
+      .market-text h3 { font-size: 28px; }
       .market-text p { font-size: 11px; }
 
-      .values-header { font-size: 26px; margin-bottom: 15px; }
       .value-desc { font-size: 12px; line-height: 1.6; }
       .values-container { gap: 20px; }
 
@@ -834,27 +825,27 @@
         width: 290px;
         padding: 25px;
       }
-      .portfolio-card h4 { font-size: 20px; }
+      .portfolio-card h4 { font-size: 24px; }
       .card-media-split { height: 90px; }
       
       .slider-nav-btn { display: none !important; }
 
-      .walkthrough-statement h2 { font-size: 26px; }
+      .walkthrough-statement h2 { font-size: 32px; }
       .walkthrough-body p { font-size: 14px; line-height: 1.7; }
       
       .process-flow { grid-template-columns: 1fr; gap: 15px; }
       .process-card { padding: 25px 20px; }
       
       .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
-      .portal-frame-header h2 { font-size: 28px; }
+      .portal-frame-header h2 { font-size: 36px; }
       .portal-form-wrapper { padding: 40px 20px; }
       
       .form-element input, .form-element select, .form-element textarea {
         font-size: 16px;
       }
       
-      .contact-pane { padding: 70px 20px; }
-      .contact-pane a { font-size: 20px; }
+      .contact-pane { padding: 60px 20px 25px; }
+      .contact-pane a { font-size: 22px; }
 
       .custom-cursor { display: none; }
     }
@@ -912,7 +903,7 @@
 
         <!-- Right Column: Core Values Component -->
         <div class="market-column">
-          <h2 class="values-header">Core Values</h2>
+          <p class="section-label">Core Values</p>
           <div class="values-container">
             <!-- Value 1 -->
             <div class="value-item">
