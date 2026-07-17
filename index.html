@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght=300;400;500&family=Montserrat:wght=300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -153,11 +153,11 @@
     }
 
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 64px;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      line-height: 1.15;
+      font-family: 'Cinzel', serif;
+      font-size: 56px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
       margin-bottom: 12px;
       color: var(--primary-blue);
     }
@@ -253,11 +253,11 @@
       color: var(--accent-blue);
     }
 
-    /* FIXED & BALANCED GEOGRAPHIC ASYMMETRICAL GRID */
+    /* BALANCED EQUAL-WIDTH GEOGRAPHIC & VALUES GRID (50/50 SPLIT) */
     .market-matrix {
       display: grid;
-      grid-template-columns: 1.1fr 1.3fr;
-      gap: 40px;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
       align-items: start;
     }
 
@@ -278,7 +278,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      height: 480px;
+      height: 520px;
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -314,10 +314,10 @@
     }
 
     .market-text h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Cinzel', serif;
       font-size: 32px;
-      font-weight: 300;
-      letter-spacing: 0.03em;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       margin-bottom: 6px;
     }
 
@@ -331,21 +331,21 @@
     .values-container {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 25px;
     }
 
     .values-header {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
-      font-weight: 300;
-      letter-spacing: 0.02em;
+      font-family: 'Cinzel', serif;
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       color: var(--primary-blue);
-      margin-bottom: 5px;
+      margin-bottom: 12px;
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 20px;
+      padding-top: 18px;
     }
 
     .value-title {
@@ -355,7 +355,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent-blue);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -363,7 +363,7 @@
 
     .value-desc {
       font-size: 13px;
-      line-height: 1.7;
+      line-height: 1.65;
       opacity: 0.8;
     }
 
@@ -519,9 +519,10 @@
     }
 
     .portfolio-card h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
       font-weight: 400;
+      letter-spacing: 0.02em;
       margin-bottom: 4px;
     }
 
@@ -613,9 +614,10 @@
     }
 
     .walkthrough-statement h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 300;
+      font-family: 'Cinzel', serif;
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
       line-height: 1.3;
       color: var(--primary-blue);
     }
@@ -669,8 +671,8 @@
     .process-card:hover .process-step { opacity: 0.6; color: var(--accent-blue); }
 
     .process-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
       font-weight: 400;
       margin-bottom: 12px;
     }
@@ -697,10 +699,10 @@
     }
 
     .portal-frame-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 46px;
-      font-weight: 300;
-      letter-spacing: 0.03em;
+      font-family: 'Cinzel', serif;
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       color: var(--primary-blue);
     }
 
@@ -795,8 +797,9 @@
     }
 
     .contact-pane a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      letter-spacing: 0.02em;
       color: var(--primary-blue);
       text-decoration: none;
       transition: color 0.3s;
@@ -832,7 +835,7 @@
       nav img.nav-logo { height: 28px; }
 
       .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
-      .hero h1 { font-size: 38px; line-height: 1.2; }
+      .hero h1 { font-size: 34px; line-height: 1.25; }
       .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
       .hero-sub { font-size: 11px; margin-bottom: 20px; }
       
@@ -840,12 +843,12 @@
       .section-label { margin-bottom: 15px; }
       
       /* Reduced size & optimized text for iOS */
-      .market-block { height: 260px; padding: 20px; }
+      .market-block { height: 240px; padding: 20px; }
       .market-text h3 { font-size: 24px; }
       .market-text p { font-size: 11px; }
 
       /* Core Values text downsizing for tighter look */
-      .values-header { font-size: 28px; }
+      .values-header { font-size: 26px; }
       .value-desc { font-size: 12px; line-height: 1.6; }
       .values-container { gap: 20px; }
 
@@ -854,20 +857,20 @@
         width: 290px;
         padding: 25px;
       }
-      .portfolio-card h4 { font-size: 22px; }
+      .portfolio-card h4 { font-size: 20px; }
       .card-media-split { height: 90px; }
       
       /* Hide click arrows entirely on phone touch screens */
       .slider-nav-btn { display: none !important; }
 
-      .walkthrough-statement h2 { font-size: 30px; }
+      .walkthrough-statement h2 { font-size: 26px; }
       .walkthrough-body p { font-size: 14px; line-height: 1.7; }
       
       .process-flow { grid-template-columns: 1fr; gap: 15px; }
       .process-card { padding: 25px 20px; }
       
       .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
-      .portal-frame-header h2 { font-size: 32px; }
+      .portal-frame-header h2 { font-size: 28px; }
       .portal-form-wrapper { padding: 40px 20px; }
       
       .form-element input, .form-element select, .form-element textarea {
@@ -875,7 +878,7 @@
       }
       
       .contact-pane { padding: 70px 20px; }
-      .contact-pane a { font-size: 22px; }
+      .contact-pane a { font-size: 20px; }
 
       .custom-cursor { display: none; }
     }
@@ -931,7 +934,7 @@
           </div>
         </div>
 
-        <!-- Right Column: Replaces CA/AZ with structured Core Values -->
+        <!-- Right Column: 50% Desktop Width Core Values -->
         <div class="market-column">
           <h2 class="values-header">Core Values</h2>
           <div class="values-container">
@@ -939,21 +942,21 @@
             <div class="value-item">
               <div class="value-title">1) Unwavering Communication</div>
               <div class="value-desc">
-                Between broad market uncertainties and transactional friction, our operational priority is keeping you informed at every milestone. We intentionally confront difficult conversations upfront to eliminate late-stage surprises. It is real estate—obstacles are a given—but when structural hurdles surface, we solve them immediately.
+                Between market uncertainties and buyer fall-outs, our priority is keeping you informed at every milestone. We're not afraid to have the hard conversations upfront in order to reduce friction down the road. Every real estate transaction encounters hurdles; we'd simply rather solve them immediately than let them fester and stew into late-game surprises.
               </div>
             </div>
             <!-- Value 2 -->
             <div class="value-item">
               <div class="value-title">2) Transaction Transparency</div>
               <div class="value-desc">
-                No two property profiles match perfectly. What remains constant is an entirely visible process from initial underwriting to final recording. If a variable impacts your timeline, you will understand the mechanics and data behind it in real time, not via reactive explanations.
+                No two deals are the same. Development transactions are intrinsically complicated—permitting, entitlements, soil quality, and complex lot topography are constantly shifting components. While these logistical headaches aren't your problem to manage, absolute visibility is our standard. When variables change, you will be the first to know, fostering a smoother transaction for everyone involved.
               </div>
             </div>
             <!-- Value 3 -->
             <div class="value-item">
-              <div class="value-title">3) Execution Integrity</div>
+              <div class="value-title">3) Singular Focus</div>
               <div class="value-desc">
-                We believe a deal structure is only as reliable as the capital backing it. We establish concrete, achievable thresholds before opening escrow, strictly bypassing the re-contracting loops and performance games that routinely derail public retail listings.
+                Our development partners have an immense amount of moving pieces on their plates. They are orchestrating heavy equipment, supervising field crews, managing corporate scale, and debating the latest premium trim trends. Stoneholdt Partners exists because this is our entire universe. We focus exclusively on acquisitions, meaning your transaction gets our absolute, undivided attention.
               </div>
             </div>
           </div>
