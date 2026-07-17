@@ -340,12 +340,18 @@
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-      gap: 20px;
+      gap: 15px; /* Slightly tightened container gap */
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 15px;
+      padding-top: 12px; /* Marginally tightened padding for values spacing */
+    }
+
+    /* Removes the top line from the first core value */
+    .value-item:first-child {
+      border-top: none;
+      padding-top: 0;
     }
 
     .value-title {
@@ -354,7 +360,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent-blue);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .value-desc {
@@ -661,7 +667,6 @@
     .portal-frame-header {
       text-align: center;
       padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
-      /* Updated header background to transparent accent blue */
       background-color: rgba(74, 103, 173, 0.08);
       border-bottom: 1px solid rgba(74, 103, 173, 0.15);
       position: relative;
@@ -1088,7 +1093,6 @@
   <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
-      <!-- Added particle canvas for the Developer Header too to keep it dynamic and consistent -->
       <canvas id="particle-canvas-developer" class="particle-canvas"></canvas>
       <h2>Partner With Us</h2>
       <p class="subtitle">let us know what to look for</p>
@@ -1229,7 +1233,7 @@
       }
 
       if (scrollLeft >= maxScroll - 5) {
-        nextBtn.classList.remove('visible');
+        nextBtn.classList.add('visible');
       } else {
         nextBtn.classList.add('visible');
       }
