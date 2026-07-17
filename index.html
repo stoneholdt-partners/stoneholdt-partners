@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <!-- Updated to correctly pull in Cormorant Garamond -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -155,10 +156,10 @@
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 64px;
-      font-weight: 300;
+      font-weight: 500;
       letter-spacing: 0.02em;
-      line-height: 1.15;
-      margin-bottom: 12px;
+      line-height: 1.1;
+      margin-bottom: 15px;
       color: var(--primary-blue);
     }
 
@@ -237,6 +238,11 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+
+    /* WIDER CONTAINER FOR THE MIDDLE SECTION */
+    .section-spacing.wide-bounds {
+      max-width: 1250px;
+    }
     
     .bg-break {
       background-color: var(--bg-cream-light);
@@ -253,11 +259,12 @@
       color: var(--accent-blue);
     }
 
-    /* FIXED & BALANCED GEOGRAPHIC ASYMMETRICAL GRID */
+    /* REFINED BALANCED MATRIX GRIDS */
     .market-matrix {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 24px;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: stretch;
     }
 
     .market-column {
@@ -265,9 +272,10 @@
       flex-direction: column;
     }
 
-    .market-column .section-label,
-    .market-column .market-column-header {
+    /* Aligns the section labels perfectly in-line vertically */
+    .market-column .section-label {
       margin-bottom: 20px;
+      line-height: 1.2;
     }
 
     .market-block {
@@ -278,7 +286,8 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px;
-      height: 480px;
+      flex-grow: 1;
+      min-height: 480px;
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -307,27 +316,6 @@
       background: linear-gradient(180deg, rgba(27, 42, 94, 0.2) 0%, rgba(27, 42, 94, 0.85) 100%);
     }
 
-    .market-right-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      height: 480px;
-    }
-
-    .market-column-header {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      font-weight: 500;
-      color: var(--accent-blue);
-    }
-
-    .market-block.half-height {
-      height: 228px;
-      padding: 30px;
-    }
-
     .market-text {
       position: relative;
       z-index: 2;
@@ -336,19 +324,51 @@
 
     .market-text h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 32px;
-      font-weight: 300;
-      letter-spacing: 0.03em;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       margin-bottom: 6px;
-    }
-    .market-block.half-height .market-text h3 {
-      font-size: 26px;
     }
 
     .market-text p {
       font-size: 12px;
       opacity: 0.85;
       letter-spacing: 0.08em;
+    }
+
+    /* CORE VALUES COMPONENT */
+    .values-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      padding: 24px 0; /* Creates an exact 1/4 inch (24px) spacing boundary top & bottom */
+    }
+
+    .value-item {
+      border-top: 1px solid rgba(27, 42, 94, 0.1);
+      padding-top: 14px; /* Tightened padding above the lines */
+    }
+
+    /* Removes the line above Value #1 and eliminates top spacing */
+    .value-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .value-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+    }
+
+    .value-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: 0.8;
     }
 
     /* CREDIBILITY PORTFOLIO HUB */
@@ -370,21 +390,13 @@
       background: transparent;
       border: none;
       font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--primary-blue);
-      cursor: pointer;
-      opacity: 0.4;
-      padding: 6px 12px;
-      transition: opacity 0.3s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .tab-btn.active-tab {
-      opacity: 1;
-      font-weight: 500;
       color: var(--accent-blue);
+      font-weight: 500;
+      padding: 6px 0;
+      user-select: none;
     }
 
     /* HORIZONTAL SCROLL INTERFACE LAYER */
@@ -432,7 +444,7 @@
       border-color: rgba(27, 42, 94, 0.12);
     }
 
-    /* SUBTLE SCROLL ARROWS CODE */
+    /* SUBTLE SCROLL ARROWS */
     .slider-nav-btn {
       position: absolute;
       top: 50%;
@@ -504,8 +516,9 @@
 
     .portfolio-card h4 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 400;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
       margin-bottom: 4px;
     }
 
@@ -573,21 +586,6 @@
       transform: scale(1.02);
     }
 
-    .archive-fallback {
-      display: none;
-      text-align: center;
-      padding: 50px 20px;
-      border: 1px dashed rgba(27, 42, 94, 0.15);
-      border-radius: 2px;
-      width: 100%;
-    }
-    .archive-fallback p {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      opacity: 0.6;
-      line-height: 1.7;
-    }
-
     /* SELLERS OVERVIEW VIEW DYNAMICS */
     .walkthrough-grid {
       display: grid;
@@ -598,9 +596,10 @@
 
     .walkthrough-statement h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 300;
-      line-height: 1.3;
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
       color: var(--primary-blue);
     }
 
@@ -654,8 +653,8 @@
 
     .process-card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
+      font-size: 24px;
+      font-weight: 500;
       margin-bottom: 12px;
     }
 
@@ -666,12 +665,12 @@
     }
     .process-card:hover p { opacity: 0.9; }
 
-    /* REFINED EXTENDED PAGES STRUCTURAL HEADERS WITH CANVAS SAFE GUARDS */
+    /* EXTENDED PAGES STRUCTURAL HEADERS */
     .portal-frame-header {
       text-align: center;
       padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
-      background-color: var(--bg-cream-light);
-      border-bottom: 1px solid rgba(27, 42, 94, 0.03);
+      background-color: rgba(74, 103, 173, 0.08);
+      border-bottom: 1px solid rgba(74, 103, 173, 0.15);
       position: relative;
     }
 
@@ -682,9 +681,9 @@
 
     .portal-frame-header h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 46px;
-      font-weight: 300;
-      letter-spacing: 0.03em;
+      font-size: 52px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       color: var(--primary-blue);
     }
 
@@ -767,7 +766,7 @@
     /* CONTACT / CORRESPONDENCE */
     .contact-pane {
       text-align: center;
-      padding: 110px 40px;
+      padding: 70px 40px 30px;
     }
 
     .contact-pane p {
@@ -781,6 +780,8 @@
     .contact-pane a {
       font-family: 'Cormorant Garamond', serif;
       font-size: 32px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       color: var(--primary-blue);
       text-decoration: none;
       transition: color 0.3s;
@@ -791,24 +792,20 @@
 
     footer {
       text-align: center;
-      padding: 40px 24px calc(40px + env(safe-area-inset-bottom, 0px));
+      padding: 0px 24px calc(40px + env(safe-area-inset-bottom, 0px));
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
-      border-top: 1px solid rgba(27, 42, 94, 0.03);
     }
 
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
+      .walkthrough-grid { grid-template-columns: 1fr; gap: 30px; }
+      .market-matrix { grid-template-columns: 1fr; gap: 40px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .market-block { height: 380px; }
-      .market-right-stack { height: auto; }
-      .market-block.half-height { height: 380px; }
     }
 
-    /* COMPREHENSIVE PHONE OPTIMIZATION MEDIA LAYER */
     @media (max-width: 768px) {
       nav { 
         padding: 20px; 
@@ -818,43 +815,44 @@
       nav img.nav-logo { height: 28px; }
 
       .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
-      .hero h1 { font-size: 38px; line-height: 1.2; }
+      .hero h1 { font-size: 42px; line-height: 1.1; }
       .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
       .hero-sub { font-size: 11px; margin-bottom: 20px; }
       
       .section-spacing { padding: 50px 20px; }
-      .section-label { margin-bottom: 20px; }
+      .section-label { margin-bottom: 15px; }
       
-      .market-block { height: 320px; padding: 25px; }
-      .market-block.half-height { height: 240px; }
-      .market-text h3 { font-size: 26px; }
+      .market-block { min-height: 300px; padding: 25px; }
+      .market-text h3 { font-size: 28px; }
+      .market-text p { font-size: 11px; }
 
-      /* Mobile Swipe Layout Override */
+      .value-desc { font-size: 12px; line-height: 1.6; }
+      .values-container { gap: 20px; }
+
       .portfolio-card {
         width: 290px;
         padding: 25px;
       }
-      .portfolio-card h4 { font-size: 22px; }
+      .portfolio-card h4 { font-size: 24px; }
       .card-media-split { height: 90px; }
       
-      /* Hide click arrows entirely on phone touch screens */
       .slider-nav-btn { display: none !important; }
 
-      .walkthrough-statement h2 { font-size: 30px; }
+      .walkthrough-statement h2 { font-size: 32px; }
       .walkthrough-body p { font-size: 14px; line-height: 1.7; }
       
       .process-flow { grid-template-columns: 1fr; gap: 15px; }
       .process-card { padding: 25px 20px; }
       
       .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
-      .portal-frame-header h2 { font-size: 32px; }
+      .portal-frame-header h2 { font-size: 36px; }
       .portal-form-wrapper { padding: 40px 20px; }
       
       .form-element input, .form-element select, .form-element textarea {
         font-size: 16px;
       }
       
-      .contact-pane { padding: 70px 20px; }
+      .contact-pane { padding: 60px 20px 25px; }
       .contact-pane a { font-size: 22px; }
 
       .custom-cursor { display: none; }
@@ -895,10 +893,10 @@
       </div>
     </section>
 
-    <!-- GEOGRAPHY REGIONS MATRIX -->
-    <section class="section-spacing scroll-reveal">
+    <!-- WIDER MATRIX BLOCK GRAPHICS & CORE VALUES GRID -->
+    <section class="section-spacing wide-bounds scroll-reveal">
       <div class="market-matrix">
-        <!-- Left Column: Core Market Focus Wrapper -->
+        <!-- Left Column: Core Market Focus -->
         <div class="market-column">
           <p class="section-label">Core Market Focus</p>
           <div class="market-block">
@@ -911,24 +909,29 @@
           </div>
         </div>
 
-        <!-- Right Column: Secondary Markets Split Wrapper -->
+        <!-- Right Column: Core Values Component -->
         <div class="market-column">
-          <p class="market-column-header">Secondary Markets</p>
-          <div class="market-right-stack">
-            <div class="market-block half-height">
-              <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
-              <div class="market-overlay"></div>
-              <div class="market-text">
-                <h3>California</h3>
-                <p>West Hollywood &bull; Culver City &bull; Santa Monica</p>
+          <p class="section-label">Core Values</p>
+          <div class="values-container">
+            <!-- Value 1 -->
+            <div class="value-item">
+              <div class="value-title">1) Unwavering Communication</div>
+              <div class="value-desc">
+                Between market uncertainties and buyer fall-outs, our priority is keeping you informed at every milestone. We are not afraid to have the hard conversations upfront to reduce friction down the road. Real estate transactions have hurdles; we would rather solve them immediately than let them fester into late-game problems.
               </div>
             </div>
-            <div class="market-block half-height">
-              <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
-              <div class="market-overlay"></div>
-              <div class="market-text">
-                <h3>Arizona</h3>
-                <p>Scottsdale &bull; Phoenix &bull; Paradise Valley</p>
+            <!-- Value 2 -->
+            <div class="value-item">
+              <div class="value-title">2) Transaction Transparency</div>
+              <div class="value-desc">
+                No two deals are the same. Development transactions are complicated—permitting, entitlements, soil quality, and lot topography are constantly shifting variables. While these challenges aren't your problem, absolute visibility is our standard. If something comes up, you will know immediately, keeping the process smooth for everyone.
+              </div>
+            </div>
+            <!-- Value 3 -->
+            <div class="value-item">
+              <div class="value-title">3) Singular Focus</div>
+              <div class="value-desc">
+                Our development partners manage moving sites, field crews, and countertop trends. Stoneholdt Partners exists because acquisitions are all we do. With no extra projects filling our plates, your transaction gets our absolute, undivided attention from start to finish.
               </div>
             </div>
           </div>
@@ -943,8 +946,7 @@
         
         <div class="portfolio-header">
           <div class="portfolio-tabs">
-            <button class="tab-btn active-tab" id="tab2026" onclick="togglePortfolioTab('2026')">2026</button>
-            <button class="tab-btn" id="tab2025" onclick="togglePortfolioTab('2025')">2025</button>
+            <span class="tab-btn">2026 Showcase</span>
           </div>
         </div>
 
@@ -958,7 +960,7 @@
           </button>
 
           <div class="portfolio-grid-wrapper" id="portfolioWrapper">
-            <div class="portfolio-grid" id="portfolioActiveGrid">
+            <div class="portfolio-grid">
               <!-- Card 1: NW Bellevue -->
               <div class="portfolio-card">
                 <div class="badge escrow">In Escrow</div>
@@ -1008,10 +1010,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="archive-fallback" id="portfolioArchiveGrid">
-          <p>Undisclosed for seller privacy.</p>
         </div>
       </div>
     </section>
@@ -1097,6 +1095,7 @@
   <!-- ========================================== -->
   <div id="developerView" class="view-panel">
     <header class="portal-frame-header">
+      <canvas id="particle-canvas-developer" class="particle-canvas"></canvas>
       <h2>Partner With Us</h2>
       <p class="subtitle">let us know what to look for</p>
     </header>
@@ -1140,7 +1139,7 @@
     </div>
   </div>
 
-  <!-- LIQUID NAVIGATION & ENGINE SCRIPT -->
+  <!-- NAVIGATION & ENGINE SCRIPT -->
   <script>
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
@@ -1148,6 +1147,7 @@
       cursor.style.top = e.clientY + 'px';
     });
 
+    // CURSOR HOVER DYNAMICS
     function applyCursorDynamics() {
       const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block, .slider-nav-btn');
       interactives.forEach(el => {
@@ -1167,6 +1167,7 @@
     }
     applyCursorDynamics();
 
+    // INTERSECTION OBSERVER FOR SCROLL REVEAL EFFECT
     const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -1180,9 +1181,9 @@
     function trackScrollReveals() {
       document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
     }
-    // Added a small, intentional structural timeout initialization to prevent viewports from calculating layout bounds too early.
     setTimeout(trackScrollReveals, 150);
 
+    // VIEW ROUTING ARCHITECTURE
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
       document.getElementById('sellerView').classList.remove('active-view');
@@ -1208,7 +1209,7 @@
       updateSliderArrows();
     }
 
-    /* SLIDER BUTTON SCROLL CONTROLLERS */
+    // SLIDER ENGINE CONTROLLERS
     const portfolioWrapper = document.getElementById('portfolioWrapper');
     const prevBtn = document.getElementById('slidePrev');
     const nextBtn = document.getElementById('slideNext');
@@ -1216,7 +1217,7 @@
     function scrollPortfolio(direction) {
       if (!portfolioWrapper) return;
       const cardWidth = portfolioWrapper.querySelector('.portfolio-card').offsetWidth;
-      const scrollAmount = cardWidth + 20; // card thickness + gap offset
+      const scrollAmount = cardWidth + 20; 
       
       if (direction === 'left') {
         portfolioWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -1231,7 +1232,6 @@
       const scrollLeft = portfolioWrapper.scrollLeft;
       const maxScroll = portfolioWrapper.scrollWidth - portfolioWrapper.clientWidth;
 
-      // Toggle state thresholds
       if (scrollLeft <= 5) {
         prevBtn.classList.remove('visible');
       } else {
@@ -1248,36 +1248,17 @@
     if (portfolioWrapper) {
       portfolioWrapper.addEventListener('scroll', updateSliderArrows);
       window.addEventListener('resize', updateSliderArrows);
-      // Run right after construction loop processes settle
       setTimeout(updateSliderArrows, 300);
-    }
-
-    function togglePortfolioTab(year) {
-      const tab2026 = document.getElementById('tab2026');
-      const tab2025 = document.getElementById('tab2025');
-      const activeGridWrapper = document.querySelector('.portfolio-container-rel');
-      const archiveGrid = document.getElementById('portfolioArchiveGrid');
-
-      if (year === '2026') {
-        tab2026.classList.add('active-tab');
-        tab2025.classList.remove('active-tab');
-        activeGridWrapper.style.display = 'block';
-        archiveGrid.style.display = 'none';
-        setTimeout(updateSliderArrows, 50);
-      } else {
-        tab2025.classList.add('active-tab');
-        tab2026.classList.remove('active-tab');
-        activeGridWrapper.style.display = 'none';
-        archiveGrid.style.display = 'block';
-      }
     }
 
     // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
     const homeCanvas = document.getElementById('particle-canvas-home');
     const sellerCanvas = document.getElementById('particle-canvas-seller');
+    const developerCanvas = document.getElementById('particle-canvas-developer');
     
     let homeParticles = [];
     let sellerParticles = [];
+    let developerParticles = [];
 
     function resizeCanvases() {
       if (homeCanvas) {
@@ -1287,6 +1268,10 @@
       if (sellerCanvas) {
         sellerCanvas.width = sellerCanvas.offsetWidth;
         sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
+      if (developerCanvas) {
+        developerCanvas.width = developerCanvas.offsetWidth;
+        developerCanvas.height = developerCanvas.offsetHeight;
       }
     }
     window.addEventListener('resize', resizeCanvases);
@@ -1325,6 +1310,7 @@
     function initEngine() {
       homeParticles = [];
       sellerParticles = [];
+      developerParticles = [];
       
       const homeCount = 35;
       for (let i = 0; i < homeCount; i++) {
@@ -1334,6 +1320,11 @@
       const sellerCount = 20; 
       for (let i = 0; i < sellerCount; i++) {
         sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
+      }
+
+      const developerCount = 20; 
+      for (let i = 0; i < developerCount; i++) {
+        developerParticles.push(new Particle(developerCanvas.width, developerCanvas.height));
       }
     }
     setTimeout(initEngine, 100); 
@@ -1354,6 +1345,15 @@
         for (let i = 0; i < sellerParticles.length; i++) {
           sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
           sellerParticles[i].draw(ctxSeller);
+        }
+      }
+
+      if (developerCanvas && document.getElementById('developerView').classList.contains('active-view')) {
+        const ctxDeveloper = developerCanvas.getContext('2d');
+        ctxDeveloper.clearRect(0, 0, developerCanvas.width, developerCanvas.height);
+        for (let i = 0; i < developerParticles.length; i++) {
+          developerParticles[i].update(developerCanvas.width, developerCanvas.height);
+          developerParticles[i].draw(ctxDeveloper);
         }
       }
       
