@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght=300;400;500&family=Montserrat:wght=300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -256,8 +256,9 @@
     /* FIXED & BALANCED GEOGRAPHIC ASYMMETRICAL GRID */
     .market-matrix {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 24px;
+      grid-template-columns: 1.1fr 1.3fr;
+      gap: 40px;
+      align-items: start;
     }
 
     .market-column {
@@ -265,8 +266,7 @@
       flex-direction: column;
     }
 
-    .market-column .section-label,
-    .market-column .market-column-header {
+    .market-column .section-label {
       margin-bottom: 20px;
     }
 
@@ -307,27 +307,6 @@
       background: linear-gradient(180deg, rgba(27, 42, 94, 0.2) 0%, rgba(27, 42, 94, 0.85) 100%);
     }
 
-    .market-right-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      height: 480px;
-    }
-
-    .market-column-header {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      font-weight: 500;
-      color: var(--accent-blue);
-    }
-
-    .market-block.half-height {
-      height: 228px;
-      padding: 30px;
-    }
-
     .market-text {
       position: relative;
       z-index: 2;
@@ -341,14 +320,51 @@
       letter-spacing: 0.03em;
       margin-bottom: 6px;
     }
-    .market-block.half-height .market-text h3 {
-      font-size: 26px;
-    }
 
     .market-text p {
       font-size: 12px;
       opacity: 0.85;
       letter-spacing: 0.08em;
+    }
+
+    /* CORE VALUES COMPONENT */
+    .values-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .values-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--primary-blue);
+      margin-bottom: 5px;
+    }
+
+    .value-item {
+      border-top: 1px solid rgba(27, 42, 94, 0.1);
+      padding-top: 20px;
+    }
+
+    .value-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .value-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      opacity: 0.8;
     }
 
     /* CREDIBILITY PORTFOLIO HUB */
@@ -801,11 +817,9 @@
 
     /* RESPONSIVE STRUCTURE */
     @media (max-width: 992px) {
-      .walkthrough-grid, .market-matrix { grid-template-columns: 1fr; gap: 30px; }
+      .walkthrough-grid { grid-template-columns: 1fr; gap: 30px; }
+      .market-matrix { grid-template-columns: 1fr; gap: 45px; }
       .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .market-block { height: 380px; }
-      .market-right-stack { height: auto; }
-      .market-block.half-height { height: 380px; }
     }
 
     /* COMPREHENSIVE PHONE OPTIMIZATION MEDIA LAYER */
@@ -823,11 +837,17 @@
       .hero-sub { font-size: 11px; margin-bottom: 20px; }
       
       .section-spacing { padding: 50px 20px; }
-      .section-label { margin-bottom: 20px; }
+      .section-label { margin-bottom: 15px; }
       
-      .market-block { height: 320px; padding: 25px; }
-      .market-block.half-height { height: 240px; }
-      .market-text h3 { font-size: 26px; }
+      /* Reduced size & optimized text for iOS */
+      .market-block { height: 260px; padding: 20px; }
+      .market-text h3 { font-size: 24px; }
+      .market-text p { font-size: 11px; }
+
+      /* Core Values text downsizing for tighter look */
+      .values-header { font-size: 28px; }
+      .value-desc { font-size: 12px; line-height: 1.6; }
+      .values-container { gap: 20px; }
 
       /* Mobile Swipe Layout Override */
       .portfolio-card {
@@ -895,10 +915,10 @@
       </div>
     </section>
 
-    <!-- GEOGRAPHY REGIONS MATRIX -->
+    <!-- GEOGRAPHY REGION & CORE VALUES GRID -->
     <section class="section-spacing scroll-reveal">
       <div class="market-matrix">
-        <!-- Left Column: Core Market Focus Wrapper -->
+        <!-- Left Column: Core Market Focus -->
         <div class="market-column">
           <p class="section-label">Core Market Focus</p>
           <div class="market-block">
@@ -911,24 +931,29 @@
           </div>
         </div>
 
-        <!-- Right Column: Secondary Markets Split Wrapper -->
+        <!-- Right Column: Replaces CA/AZ with structured Core Values -->
         <div class="market-column">
-          <p class="market-column-header">Secondary Markets</p>
-          <div class="market-right-stack">
-            <div class="market-block half-height">
-              <div class="market-block-bg" style="background-image: url('CA.jpg');"></div>
-              <div class="market-overlay"></div>
-              <div class="market-text">
-                <h3>California</h3>
-                <p>West Hollywood &bull; Culver City &bull; Santa Monica</p>
+          <h2 class="values-header">Core Values</h2>
+          <div class="values-container">
+            <!-- Value 1 -->
+            <div class="value-item">
+              <div class="value-title">1) Unwavering Communication</div>
+              <div class="value-desc">
+                Between broad market uncertainties and transactional friction, our operational priority is keeping you informed at every milestone. We intentionally confront difficult conversations upfront to eliminate late-stage surprises. It is real estate—obstacles are a given—but when structural hurdles surface, we solve them immediately.
               </div>
             </div>
-            <div class="market-block half-height">
-              <div class="market-block-bg" style="background-image: url('AZ.jpg');"></div>
-              <div class="market-overlay"></div>
-              <div class="market-text">
-                <h3>Arizona</h3>
-                <p>Scottsdale &bull; Phoenix &bull; Paradise Valley</p>
+            <!-- Value 2 -->
+            <div class="value-item">
+              <div class="value-title">2) Transaction Transparency</div>
+              <div class="value-desc">
+                No two property profiles match perfectly. What remains constant is an entirely visible process from initial underwriting to final recording. If a variable impacts your timeline, you will understand the mechanics and data behind it in real time, not via reactive explanations.
+              </div>
+            </div>
+            <!-- Value 3 -->
+            <div class="value-item">
+              <div class="value-title">3) Execution Integrity</div>
+              <div class="value-desc">
+                We believe a deal structure is only as reliable as the capital backing it. We establish concrete, achievable thresholds before opening escrow, strictly bypassing the re-contracting loops and performance games that routinely derail public retail listings.
               </div>
             </div>
           </div>
@@ -1180,7 +1205,6 @@
     function trackScrollReveals() {
       document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
     }
-    // Added a small, intentional structural timeout initialization to prevent viewports from calculating layout bounds too early.
     setTimeout(trackScrollReveals, 150);
 
     function showView(viewId) {
@@ -1216,7 +1240,7 @@
     function scrollPortfolio(direction) {
       if (!portfolioWrapper) return;
       const cardWidth = portfolioWrapper.querySelector('.portfolio-card').offsetWidth;
-      const scrollAmount = cardWidth + 20; // card thickness + gap offset
+      const scrollAmount = cardWidth + 20; 
       
       if (direction === 'left') {
         portfolioWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -1231,7 +1255,6 @@
       const scrollLeft = portfolioWrapper.scrollLeft;
       const maxScroll = portfolioWrapper.scrollWidth - portfolioWrapper.clientWidth;
 
-      // Toggle state thresholds
       if (scrollLeft <= 5) {
         prevBtn.classList.remove('visible');
       } else {
@@ -1248,7 +1271,6 @@
     if (portfolioWrapper) {
       portfolioWrapper.addEventListener('scroll', updateSliderArrows);
       window.addEventListener('resize', updateSliderArrows);
-      // Run right after construction loop processes settle
       setTimeout(updateSliderArrows, 300);
     }
 
