@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <!-- Updated to correctly pull in Cormorant Garamond -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -239,7 +238,6 @@
       margin: 0 auto;
     }
 
-    /* WIDER CONTAINER FOR THE MIDDLE SECTION */
     .section-spacing.wide-bounds {
       max-width: 1250px;
     }
@@ -272,7 +270,6 @@
       flex-direction: column;
     }
 
-    /* Aligns the section labels perfectly in-line vertically */
     .market-column .section-label {
       margin-bottom: 20px;
       line-height: 1.2;
@@ -342,15 +339,14 @@
       flex-direction: column;
       justify-content: space-between;
       flex-grow: 1;
-      padding: 24px 0; /* Creates an exact 1/4 inch (24px) spacing boundary top & bottom */
+      padding: 24px 0;
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 14px; /* Tightened padding above the lines */
+      padding-top: 14px; 
     }
 
-    /* Removes the line above Value #1 and eliminates top spacing */
     .value-item:first-child {
       border-top: none;
       padding-top: 0;
@@ -399,7 +395,6 @@
       user-select: none;
     }
 
-    /* HORIZONTAL SCROLL INTERFACE LAYER */
     .portfolio-container-rel {
       position: relative;
       width: 100%;
@@ -444,7 +439,6 @@
       border-color: rgba(27, 42, 94, 0.12);
     }
 
-    /* SUBTLE SCROLL ARROWS */
     .slider-nav-btn {
       position: absolute;
       top: 50%;
@@ -530,7 +524,6 @@
       text-transform: uppercase;
     }
 
-    /* SPLIT-MEDIA SECURITY CONTAINER */
     .card-media-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -763,6 +756,47 @@
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
+    /* STATE TOGGLE MENU */
+    .state-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .state-toggle a {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      text-decoration: none;
+      opacity: 0.4;
+      position: relative;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      padding-bottom: 4px;
+    }
+
+    .state-toggle a:hover, .state-toggle a.active-state {
+      opacity: 1;
+    }
+
+    .state-toggle a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
+    }
+
+    .state-toggle a:hover::after, .state-toggle a.active-state::after {
+      width: 100%;
+    }
+
     /* CONTACT / CORRESPONDENCE */
     .contact-pane {
       text-align: center;
@@ -777,7 +811,7 @@
       margin-bottom: 15px;
     }
 
-    .contact-pane a {
+    .contact-pane a.email-link {
       font-family: 'Cormorant Garamond', serif;
       font-size: 32px;
       font-weight: 500;
@@ -788,7 +822,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .contact-pane a:hover { color: var(--accent-blue); }
+    .contact-pane a.email-link:hover { color: var(--accent-blue); }
 
     footer {
       text-align: center;
@@ -853,7 +887,7 @@
       }
       
       .contact-pane { padding: 60px 20px 25px; }
-      .contact-pane a { font-size: 22px; }
+      .contact-pane a.email-link { font-size: 22px; }
 
       .custom-cursor { display: none; }
     }
@@ -886,7 +920,7 @@
       <h1>Off-Market Acquisitions</h1>
       <p class="hero-sub">Leveraged Developer Network</p>
       <div class="divider"></div>
-      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of <span id="hero-state-name">Washington's</span> most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
         <button class="btn" onclick="showView('developer');">Developer Portal</button>
@@ -900,11 +934,11 @@
         <div class="market-column">
           <p class="section-label">Core Market Focus</p>
           <div class="market-block">
-            <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
+            <div class="market-block-bg" id="market-bg" style="background-image: url('WA.jpg');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
-              <h3>Washington</h3>
-              <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
+              <h3 id="market-title">Washington</h3>
+              <p id="market-sub">Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
             </div>
           </div>
         </div>
@@ -931,7 +965,7 @@
             <div class="value-item">
               <div class="value-title">3) Singular Focus</div>
               <div class="value-desc">
-                Our development partners manage moving sites, field crews, and countertop trends. Stoneholdt Partners exists because acquisitions are all we do. With no extra projects filling our plates, your transaction gets our absolute, undivided attention from start to finish.
+                Our development partners manage moving sites, field crews, and verifying that Taj Mahal quartz is indeed still the latest countertop trend. Stoneholdt Partners exists because acquisitions is all we do—it's why our partners work with us, and it's why your transaction gets the undivided attention that it does from start to finish.
               </div>
             </div>
           </div>
@@ -940,7 +974,7 @@
     </section>
 
     <!-- CREDIBILITY DECK (PORTFOLIO) -->
-    <section class="section-spacing scroll-reveal bg-break">
+    <section id="portfolio-section" class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
         <p class="section-label">Portfolio</p>
         
@@ -1014,10 +1048,16 @@
       </div>
     </section>
 
-    <!-- FOOTER PANEL -->
+    <!-- FOOTER PANEL WITH STATE TOGGLES -->
     <section class="contact-pane scroll-reveal">
+      <div class="state-toggle">
+        <a onclick="updateMarketState('WA')" id="toggle-WA" class="active-state">Washington</a>
+        <a onclick="updateMarketState('CO')" id="toggle-CO">Colorado</a>
+        <a onclick="updateMarketState('MN')" id="toggle-MN">Minnesota</a>
+      </div>
+
       <p>Get in Touch</p>
-      <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+      <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
     </section>
 
     <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
@@ -1182,6 +1222,77 @@
       document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
     }
     setTimeout(trackScrollReveals, 150);
+
+    // DYNAMIC STATE MARKET ROUTING
+    const marketData = {
+      WA: {
+        heroName: "Washington's",
+        bg: "WA.jpg",
+        title: "Washington",
+        sub: "Bellevue &bull; Kirkland &bull; Seattle &bull; + more",
+        showPortfolio: true
+      },
+      CO: {
+        heroName: "Colorado's",
+        bg: "CO.jpg",
+        title: "Colorado",
+        sub: "Denver &amp; Surrounding Markets",
+        showPortfolio: false
+      },
+      MN: {
+        heroName: "Minnesota's",
+        bg: "MN.jpg",
+        title: "Minnesota",
+        sub: "Twin Cities &amp; Surrounding Markets",
+        showPortfolio: false
+      }
+    };
+
+    function updateMarketState(stateCode) {
+      const data = marketData[stateCode];
+      if (!data) return;
+
+      // Swap core text and visuals
+      document.getElementById('hero-state-name').innerText = data.heroName;
+      document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+      document.getElementById('market-title').innerText = data.title;
+      document.getElementById('market-sub').innerHTML = data.sub;
+
+      // Handle portfolio visibility
+      document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+
+      // Update toggles
+      document.getElementById('toggle-WA').classList.remove('active-state');
+      document.getElementById('toggle-CO').classList.remove('active-state');
+      document.getElementById('toggle-MN').classList.remove('active-state');
+      document.getElementById(`toggle-${stateCode}`).classList.add('active-state');
+
+      // Update URL hash seamlessly (allows stoneholdtpartners.com/#CO)
+      if(window.location.hash !== `#${stateCode}`) {
+         history.replaceState(null, null, `#${stateCode}`);
+      }
+    }
+
+    function initializeMarketRouting() {
+      let activeState = 'WA'; // Default
+      
+      // Check if URL ends in /WA, /CO, /MN or #WA, #CO, #MN
+      const hash = window.location.hash.replace('#', '').toUpperCase();
+      const path = window.location.pathname.replace('/', '').toUpperCase();
+
+      if (['WA', 'CO', 'MN'].includes(hash)) {
+        activeState = hash;
+      } else if (['WA', 'CO', 'MN'].includes(path)) {
+        activeState = path;
+      }
+
+      updateMarketState(activeState);
+    }
+    
+    // Run on load and if hash manually changes
+    window.addEventListener('DOMContentLoaded', initializeMarketRouting);
+    window.addEventListener('hashchange', initializeMarketRouting);
+
 
     // VIEW ROUTING ARCHITECTURE
     function showView(viewId) {
