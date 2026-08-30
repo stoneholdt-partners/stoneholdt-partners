@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Stoneholdt Partners</title>
-  <!-- Updated to correctly pull in Cormorant Garamond -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -239,7 +238,6 @@
       margin: 0 auto;
     }
 
-    /* WIDER CONTAINER FOR THE MIDDLE SECTION */
     .section-spacing.wide-bounds {
       max-width: 1250px;
     }
@@ -272,7 +270,6 @@
       flex-direction: column;
     }
 
-    /* Aligns the section labels perfectly in-line vertically */
     .market-column .section-label {
       margin-bottom: 20px;
       line-height: 1.2;
@@ -342,15 +339,14 @@
       flex-direction: column;
       justify-content: space-between;
       flex-grow: 1;
-      padding: 24px 0; /* Creates an exact 1/4 inch (24px) spacing boundary top & bottom */
+      padding: 24px 0;
     }
 
     .value-item {
       border-top: 1px solid rgba(27, 42, 94, 0.1);
-      padding-top: 14px; /* Tightened padding above the lines */
+      padding-top: 14px; 
     }
 
-    /* Removes the line above Value #1 and eliminates top spacing */
     .value-item:first-child {
       border-top: none;
       padding-top: 0;
@@ -399,7 +395,6 @@
       user-select: none;
     }
 
-    /* HORIZONTAL SCROLL INTERFACE LAYER */
     .portfolio-container-rel {
       position: relative;
       width: 100%;
@@ -444,7 +439,6 @@
       border-color: rgba(27, 42, 94, 0.12);
     }
 
-    /* SUBTLE SCROLL ARROWS */
     .slider-nav-btn {
       position: absolute;
       top: 50%;
@@ -530,7 +524,6 @@
       text-transform: uppercase;
     }
 
-    /* SPLIT-MEDIA SECURITY CONTAINER */
     .card-media-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -763,6 +756,61 @@
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
+    /* FOOTER LAYOUT & STATES NAV */
+    .footer-layout {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .states-pane {
+      position: absolute;
+      left: 45px;
+      top: 52%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .state-link {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      text-decoration: none;
+      opacity: 0.4;
+      transition: opacity 0.3s, color 0.3s;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .state-link:hover,
+    .state-link.active-state {
+      opacity: 1;
+      color: var(--primary-blue);
+    }
+
+    .state-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
+    }
+
+    .state-link:hover::after,
+    .state-link.active-state::after {
+      width: 100%;
+    }
+
     /* CONTACT / CORRESPONDENCE */
     .contact-pane {
       text-align: center;
@@ -775,9 +823,10 @@
       text-transform: uppercase;
       opacity: 0.5;
       margin-bottom: 15px;
+      color: var(--primary-blue);
     }
 
-    .contact-pane a {
+    .contact-pane a.email-link {
       font-family: 'Cormorant Garamond', serif;
       font-size: 32px;
       font-weight: 500;
@@ -788,7 +837,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .contact-pane a:hover { color: var(--accent-blue); }
+    .contact-pane a.email-link:hover { color: var(--accent-blue); }
 
     footer {
       text-align: center;
@@ -797,6 +846,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
+      color: var(--primary-blue);
     }
 
     /* RESPONSIVE STRUCTURE */
@@ -852,8 +902,27 @@
         font-size: 16px;
       }
       
-      .contact-pane { padding: 60px 20px 25px; }
-      .contact-pane a { font-size: 22px; }
+      .footer-layout {
+        position: static;
+        padding: 0 20px;
+      }
+
+      .states-pane {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        gap: 25px;
+        padding-top: 40px;
+        padding-bottom: 10px;
+        left: auto;
+      }
+
+      .contact-pane { 
+        padding: 30px 20px 20px; 
+      }
+
+      .contact-pane a.email-link { font-size: 22px; }
 
       .custom-cursor { display: none; }
     }
@@ -886,7 +955,7 @@
       <h1>Off-Market Acquisitions</h1>
       <p class="hero-sub">Leveraged Developer Network</p>
       <div class="divider"></div>
-      <p>Stoneholdt Partners runs off-market acquisitions for some of Washington's most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of <span id="hero-state-name">Washington's</span> most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
       <div class="hero-ctas">
         <button class="btn" onclick="showView('seller');">Sellers Overview</button>
         <button class="btn" onclick="showView('developer');">Developer Portal</button>
@@ -900,11 +969,11 @@
         <div class="market-column">
           <p class="section-label">Core Market Focus</p>
           <div class="market-block">
-            <div class="market-block-bg" style="background-image: url('WA.jpg');"></div>
+            <div class="market-block-bg" id="market-bg" style="background-image: url('WA.jpg');"></div>
             <div class="market-overlay"></div>
             <div class="market-text">
-              <h3>Washington</h3>
-              <p>Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
+              <h3 id="market-title">Washington</h3>
+              <p id="market-sub">Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
             </div>
           </div>
         </div>
@@ -940,7 +1009,7 @@
     </section>
 
     <!-- CREDIBILITY DECK (PORTFOLIO) -->
-    <section class="section-spacing scroll-reveal bg-break">
+    <section id="portfolio-section" class="section-spacing scroll-reveal bg-break">
       <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
         <p class="section-label">Portfolio</p>
         
@@ -1014,11 +1083,19 @@
       </div>
     </section>
 
-    <!-- FOOTER PANEL -->
-    <section class="contact-pane scroll-reveal">
-      <p>Get in Touch</p>
-      <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
-    </section>
+    <!-- STATES & CONTACT CONTAINER -->
+    <div class="footer-layout scroll-reveal">
+      <div class="states-pane">
+        <a onclick="updateMarketState('WA')" id="toggle-WA" class="state-link active-state">Washington</a>
+        <a onclick="updateMarketState('CO')" id="toggle-CO" class="state-link">Colorado</a>
+        <a onclick="updateMarketState('MN')" id="toggle-MN" class="state-link">Minnesota</a>
+      </div>
+
+      <section class="contact-pane">
+        <p>Get in Touch</p>
+        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
+      </section>
+    </div>
 
     <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
   </div>
@@ -1183,6 +1260,87 @@
     }
     setTimeout(trackScrollReveals, 150);
 
+    // DYNAMIC STATE MARKET ROUTING
+    const marketData = {
+      WA: {
+        heroName: "Washington's",
+        bg: "WA.jpg",
+        title: "Washington",
+        sub: "Bellevue &bull; Kirkland &bull; Seattle &bull; + more",
+        showPortfolio: true
+      },
+      CO: {
+        heroName: "Colorado's",
+        bg: "CO.jpg",
+        title: "Colorado",
+        sub: "Denver &bull; Englewood &bull; Cherry Hills &bull; + more",
+        showPortfolio: false
+      },
+      MN: {
+        heroName: "Minnesota's",
+        bg: "MN.jpg",
+        title: "Minnesota",
+        sub: "Edina &bull; Minneapolis &bull; Wyzata &bull; + more",
+        showPortfolio: false
+      }
+    };
+
+    function updateMarketState(stateCode) {
+      const data = marketData[stateCode];
+      if (!data) return;
+
+      // Swap core text and visuals
+      document.getElementById('hero-state-name').innerText = data.heroName;
+      document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+      document.getElementById('market-title').innerText = data.title;
+      document.getElementById('market-sub').innerHTML = data.sub;
+
+      // Handle portfolio visibility
+      document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+
+      // Update toggles
+      document.getElementById('toggle-WA').classList.remove('active-state');
+      document.getElementById('toggle-CO').classList.remove('active-state');
+      document.getElementById('toggle-MN').classList.remove('active-state');
+      document.getElementById(`toggle-${stateCode}`).classList.add('active-state');
+
+      // Update URL hash seamlessly and scroll to top
+      if(window.location.hash !== `#${stateCode}`) {
+         history.replaceState(null, null, `#${stateCode}`);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function initializeMarketRouting() {
+      let activeState = 'WA'; // Default
+      
+      const hash = window.location.hash.replace('#', '').toUpperCase();
+      const path = window.location.pathname.replace('/', '').toUpperCase();
+
+      if (['WA', 'CO', 'MN'].includes(hash)) {
+        activeState = hash;
+      } else if (['WA', 'CO', 'MN'].includes(path)) {
+        activeState = path;
+      }
+
+      const data = marketData[activeState];
+      if (data) {
+        document.getElementById('hero-state-name').innerText = data.heroName;
+        document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+        document.getElementById('market-title').innerText = data.title;
+        document.getElementById('market-sub').innerHTML = data.sub;
+        document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+        document.getElementById('toggle-WA').classList.remove('active-state');
+        document.getElementById('toggle-CO').classList.remove('active-state');
+        document.getElementById('toggle-MN').classList.remove('active-state');
+        document.getElementById(`toggle-${activeState}`).classList.add('active-state');
+      }
+    }
+    
+    window.addEventListener('DOMContentLoaded', initializeMarketRouting);
+    window.addEventListener('hashchange', initializeMarketRouting);
+
+
     // VIEW ROUTING ARCHITECTURE
     function showView(viewId) {
       document.getElementById('homeView').classList.remove('active-view');
@@ -1344,7 +1502,7 @@
         ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
         for (let i = 0; i < sellerParticles.length; i++) {
           sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
-          sellerParticles[i].draw(ctxSeller);
+          sellerParticles[i].draw(sellerCanvas);
         }
       }
 
@@ -1353,7 +1511,7 @@
         ctxDeveloper.clearRect(0, 0, developerCanvas.width, developerCanvas.height);
         for (let i = 0; i < developerParticles.length; i++) {
           developerParticles[i].update(developerCanvas.width, developerCanvas.height);
-          developerParticles[i].draw(ctxDeveloper);
+          developerParticles[i].draw(developerCanvas);
         }
       }
       
