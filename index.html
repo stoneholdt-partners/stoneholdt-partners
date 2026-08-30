@@ -28,6 +28,7 @@
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
+      --bg-footer: #E3DDD1;
     }
 
     /* FLUID MOUSE TRAILING EFFECT */
@@ -756,16 +757,28 @@
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
-    /* STATE TOGGLE MENU */
-    .state-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
+    /* STATE TOGGLE MENU (VERTICAL LEFT PANEL) */
+    .contact-pane {
+      position: relative;
+      text-align: center;
+      padding: 105px 60px 30px;
+      background-color: var(--bg-footer);
     }
 
-    .state-toggle a {
+    .state-toggle-container {
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+      height: 120px;
+      justify-content: space-between;
+    }
+
+    .state-toggle-container a {
       font-size: 10px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -775,14 +788,15 @@
       position: relative;
       transition: opacity 0.3s ease;
       cursor: pointer;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
+      display: inline-block;
     }
 
-    .state-toggle a:hover, .state-toggle a.active-state {
+    .state-toggle-container a:hover, .state-toggle-container a.active-state {
       opacity: 1;
     }
 
-    .state-toggle a::after {
+    .state-toggle-container a::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -793,15 +807,14 @@
       transition: width 0.3s ease;
     }
 
-    .state-toggle a:hover::after, .state-toggle a.active-state::after {
+    .state-toggle-container a:hover::after, .state-toggle-container a.active-state::after {
       width: 100%;
     }
 
     /* CONTACT / CORRESPONDENCE */
-    .contact-pane {
-      text-align: center;
-      padding: 105px 40px 30px;
-      background-color: var(--bg-cream-light);
+    .contact-content {
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .contact-pane p {
@@ -832,7 +845,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
-      background-color: var(--bg-cream-light);
+      background-color: var(--bg-footer);
     }
 
     /* RESPONSIVE STRUCTURE */
@@ -888,7 +901,22 @@
         font-size: 16px;
       }
       
-      .contact-pane { padding: 85px 20px 25px; }
+      .contact-pane { 
+        padding: 50px 20px 25px; 
+        position: relative;
+      }
+      .state-toggle-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        gap: 25px;
+        height: auto;
+        margin-bottom: 30px;
+        align-items: center;
+      }
       .contact-pane a.email-link { font-size: 22px; }
 
       .custom-cursor { display: none; }
@@ -1052,14 +1080,16 @@
 
     <!-- FOOTER PANEL WITH STATE TOGGLES -->
     <section class="contact-pane scroll-reveal">
-      <div class="state-toggle">
+      <div class="state-toggle-container">
         <a onclick="updateMarketState('WA')" id="toggle-WA" class="active-state">Washington</a>
         <a onclick="updateMarketState('CO')" id="toggle-CO">Colorado</a>
         <a onclick="updateMarketState('MN')" id="toggle-MN">Minnesota</a>
       </div>
 
-      <p>Get in Touch</p>
-      <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
+      <div class="contact-content">
+        <p>Get in Touch</p>
+        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
+      </div>
     </section>
 
     <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
@@ -1269,10 +1299,11 @@
       document.getElementById('toggle-MN').classList.remove('active-state');
       document.getElementById(`toggle-${stateCode}`).classList.add('active-state');
 
-      // Update URL hash seamlessly (allows stoneholdtpartners.com/#CO)
+      // Update URL hash seamlessly and scroll to top
       if(window.location.hash !== `#${stateCode}`) {
          history.replaceState(null, null, `#${stateCode}`);
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function initializeMarketRouting() {
@@ -1288,7 +1319,19 @@
         activeState = path;
       }
 
-      updateMarketState(activeState);
+      // Initialize state data without triggering smooth scroll on first load
+      const data = marketData[activeState];
+      if (data) {
+        document.getElementById('hero-state-name').innerText = data.heroName;
+        document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+        document.getElementById('market-title').innerText = data.title;
+        document.getElementById('market-sub').innerHTML = data.sub;
+        document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+        document.getElementById('toggle-WA').classList.remove('active-state');
+        document.getElementById('toggle-CO').classList.remove('active-state');
+        document.getElementById('toggle-MN').classList.remove('active-state');
+        document.getElementById(`toggle-${activeState}`).classList.add('active-state');
+      }
     }
     
     // Run on load and if hash manually changes
@@ -1457,7 +1500,7 @@
         ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
         for (let i = 0; i < sellerParticles.length; i++) {
           sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
-          sellerParticles[i].draw(ctxSeller);
+          sellerParticles[i].draw(sellerCanvas);
         }
       }
 
