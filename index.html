@@ -28,7 +28,6 @@
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
-      --bg-footer: #D9D2C5;
     }
 
     /* FLUID MOUSE TRAILING EFFECT */
@@ -757,49 +756,47 @@
     }
     .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
 
-    /* STATE TOGGLE MENU (VERTICAL LEFT PANEL) */
-    .contact-pane {
-      position: relative;
-      text-align: center;
-      padding: 105px 60px 30px;
-      background-color: var(--bg-footer);
+    /* FOOTER LAYOUT & STATES NAV */
+    .footer-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
     }
 
-    .state-toggle-container {
-      position: absolute;
-      left: 60px;
-      top: 50%;
-      transform: translateY(-50%);
+    .states-pane {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      align-items: flex-start;
-      height: 75px;
-      justify-content: space-between;
+      gap: 12px;
+      padding-top: 40px;
     }
 
-    .state-toggle-container a {
-      font-size: 10px;
+    .state-link {
+      font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--primary-blue);
       text-decoration: none;
-      opacity: 0.55;
-      position: relative;
-      transition: opacity 0.3s ease;
+      opacity: 0.4;
+      transition: opacity 0.3s, color 0.3s;
       cursor: pointer;
-      padding-bottom: 2px;
+      position: relative;
       display: inline-block;
+      width: fit-content;
     }
 
-    .state-toggle-container a:hover, .state-toggle-container a.active-state {
+    .state-link:hover,
+    .state-link.active-state {
       opacity: 1;
+      color: var(--primary-blue);
     }
 
-    .state-toggle-container a::after {
+    .state-link::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
       width: 0;
       height: 1px;
@@ -807,14 +804,15 @@
       transition: width 0.3s ease;
     }
 
-    .state-toggle-container a:hover::after, .state-toggle-container a.active-state::after {
+    .state-link:hover::after,
+    .state-link.active-state::after {
       width: 100%;
     }
 
     /* CONTACT / CORRESPONDENCE */
-    .contact-content {
-      max-width: 600px;
-      margin: 0 auto;
+    .contact-pane {
+      text-align: center;
+      padding: 70px 40px 30px;
     }
 
     .contact-pane p {
@@ -823,6 +821,7 @@
       text-transform: uppercase;
       opacity: 0.5;
       margin-bottom: 15px;
+      color: var(--primary-blue);
     }
 
     .contact-pane a.email-link {
@@ -845,7 +844,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       opacity: 0.35;
-      background-color: var(--bg-footer);
+      color: var(--primary-blue);
     }
 
     /* RESPONSIVE STRUCTURE */
@@ -901,22 +900,23 @@
         font-size: 16px;
       }
       
-      .contact-pane { 
-        padding: 50px 20px 25px; 
-        position: relative;
+      .footer-layout {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
       }
-      .state-toggle-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        transform: none;
+
+      .states-pane {
         flex-direction: row;
         justify-content: center;
         gap: 25px;
-        height: auto;
-        margin-bottom: 30px;
-        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 10px;
       }
+
+      .contact-pane { 
+        padding: 30px 20px 20px; 
+      }
+
       .contact-pane a.email-link { font-size: 22px; }
 
       .custom-cursor { display: none; }
@@ -1078,19 +1078,19 @@
       </div>
     </section>
 
-    <!-- FOOTER PANEL WITH STATE TOGGLES -->
-    <section class="contact-pane scroll-reveal">
-      <div class="state-toggle-container">
-        <a onclick="updateMarketState('WA')" id="toggle-WA" class="active-state">Washington</a>
-        <a onclick="updateMarketState('CO')" id="toggle-CO">Colorado</a>
-        <a onclick="updateMarketState('MN')" id="toggle-MN">Minnesota</a>
+    <!-- STATES & CONTACT CONTAINER -->
+    <div class="footer-layout scroll-reveal">
+      <div class="states-pane">
+        <a onclick="updateMarketState('WA')" id="toggle-WA" class="state-link active-state">Washington</a>
+        <a onclick="updateMarketState('CO')" id="toggle-CO" class="state-link">Colorado</a>
+        <a onclick="updateMarketState('MN')" id="toggle-MN" class="state-link">Minnesota</a>
       </div>
 
-      <div class="contact-content">
+      <section class="contact-pane">
         <p>Get in Touch</p>
         <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
   </div>
@@ -1309,7 +1309,6 @@
     function initializeMarketRouting() {
       let activeState = 'WA'; // Default
       
-      // Check if URL ends in /WA, /CO, /MN or #WA, #CO, #MN
       const hash = window.location.hash.replace('#', '').toUpperCase();
       const path = window.location.pathname.replace('/', '').toUpperCase();
 
@@ -1319,7 +1318,6 @@
         activeState = path;
       }
 
-      // Initialize state data without triggering smooth scroll on first load
       const data = marketData[activeState];
       if (data) {
         document.getElementById('hero-state-name').innerText = data.heroName;
@@ -1334,7 +1332,6 @@
       }
     }
     
-    // Run on load and if hash manually changes
     window.addEventListener('DOMContentLoaded', initializeMarketRouting);
     window.addEventListener('hashchange', initializeMarketRouting);
 
@@ -1509,7 +1506,7 @@
         ctxDeveloper.clearRect(0, 0, developerCanvas.width, developerCanvas.height);
         for (let i = 0; i < developerParticles.length; i++) {
           developerParticles[i].update(developerCanvas.width, developerCanvas.height);
-          developerParticles[i].draw(ctxDeveloper);
+          developerParticles[i].draw(developerCanvas);
         }
       }
       
