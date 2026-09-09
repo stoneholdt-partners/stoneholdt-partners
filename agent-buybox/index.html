@@ -3,656 +3,1522 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <title>Bellevue Buy Box — Stoneholdt Partners</title>
+  <title>Stoneholdt Partners</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: #EDE8DF;
+      color: #1B2A5E;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
 
     :root {
       --primary-blue: #1B2A5E;
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
-      --bg-cream-darker: #ECE6DA; /* Slightly darker background for bottom 3 markets */
-      --flag-red: #9B4A3A;
-      --flag-red-bg: #F2E4DF;
-      --flag-orange: #B5772E;
-      --flag-orange-bg: #F5EADB;
-      --flag-green: #3F6B4E;
-      --flag-green-bg: #E4EDE7;
     }
 
-    body {
-      color: var(--primary-blue);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      position: relative;
-      cursor: default; /* Inheriting website cursor effect style preference */
-    }
-
-    /* Custom cursor effect style matching Stoneholdt Partners aesthetic */
-    a, button, .parcel-head, input, textarea {
-      cursor: pointer;
-    }
-
-    /* FIXED GRID BACKGROUND — stays put while content scrolls over it */
-    .bg-grid {
+    /* FLUID MOUSE TRAILING EFFECT */
+    .custom-cursor {
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(74, 103, 173, 0.4);
+      border-radius: 50%;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: -1;
-      background-color: var(--bg-cream);
-      background-image:
-        linear-gradient(rgba(27, 42, 94, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27, 42, 94, 0.06) 1px, transparent 1px);
-      background-size: 32px 32px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.25s, height 0.25s, background-color 0.25s, border-color 0.25s;
     }
 
-    /* NAV */
+    /* NAVIGATION ARCHITECTURE */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 30px 60px;
-      padding-top: calc(30px + env(safe-area-inset-top, 0px));
-      position: sticky;
+      padding: 35px 60px;
+      padding-top: calc(35px + env(safe-area-inset-top, 0px));
+      padding-left: calc(60px + env(safe-area-inset-left, 0px));
+      padding-right: calc(60px + env(safe-area-inset-right, 0px));
+      position: fixed;
+      width: 100%;
       top: 0;
       z-index: 100;
-      background: rgba(237, 232, 223, 0.9);
+      background: rgba(237, 232, 223, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(27, 42, 94, 0.08);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.05);
+      transition: all 0.3s ease;
     }
-    nav a.home-link {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--primary-blue);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-    nav a.back-link {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--primary-blue);
-      opacity: 0.6;
-      text-decoration: none;
+
+    nav img.nav-logo {
+      height: 34px;
+      opacity: 0.95;
+      cursor: pointer;
       transition: opacity 0.3s ease;
     }
-    nav a.back-link:hover { opacity: 1; }
-
-    /* HEADER */
-    .page-header {
-      text-align: center;
-      padding: 64px 40px 8px;
-    }
-    .page-header .section-label {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent-blue);
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-    .page-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 50px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      margin-bottom: 10px;
-    }
-    .page-header .header-sub {
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      opacity: 0.6;
+    nav img.nav-logo:hover {
+      opacity: 1;
     }
 
-    /* GOOD FIT CALLOUT */
-    .good-fit {
-      max-width: 620px;
-      margin: 34px auto 46px;
-      padding: 0 40px;
-    }
-    .good-fit-inner {
-      border-left: 2px solid var(--accent-blue);
-      padding: 4px 0 4px 22px;
-      text-align: left;
-    }
-    .good-fit-inner .fit-label {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-blue);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .good-fit-inner p {
-      font-size: 13.5px;
-      line-height: 1.75;
-      opacity: 0.82;
-    }
-
-    /* LEGEND — segmented bar, no gridlines, soft divider background */
-    .legend {
-      max-width: 760px;
-      margin: 0 auto 50px;
-      padding: 0 40px;
-    }
-    .legend-inner {
+    nav ul {
+      list-style: none;
       display: flex;
-      background: var(--bg-cream-light);
-      border: 1px solid rgba(27, 42, 94, 0.08);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .legend-item {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 18px 20px;
-      border-right: 1px solid rgba(27, 42, 94, 0.08);
-    }
-    .legend-item:last-child { border-right: none; }
-    .legend-icon { flex-shrink: 0; margin-top: 3px; }
-    .legend-text b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 3px; }
-    .legend-text span { opacity: 0.6; font-size: 11px; line-height: 1.5; display: block; }
-
-    .icon-triangle {
-      width: 0; height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 12px solid var(--flag-red);
-    }
-    .icon-square {
-      width: 11px; height: 11px;
-      background: var(--flag-orange);
-    }
-    .icon-circle {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--flag-green);
+      gap: 35px;
     }
 
-    /* WEST/EAST TOGGLE */
-    .panel-toggle {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 0 40px 8px;
-    }
-    .panel-toggle button {
-      background: none;
-      border: none;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 23px;
-      font-weight: 500;
+    nav ul li a {
+      text-decoration: none;
       color: var(--primary-blue);
-      opacity: 0.35;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: all 0.3s ease;
+      opacity: 0.6;
       cursor: pointer;
-      padding: 6px 0;
       position: relative;
     }
-    .panel-toggle button::after {
+
+    nav ul li a:hover, nav ul li a.active-link { 
+      opacity: 1; 
+    }
+    
+    nav ul li a::after {
       content: '';
       position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background-color: var(--primary-blue);
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent-blue);
       transition: width 0.3s ease;
     }
-    .panel-toggle button.active,
-    .panel-toggle button:hover { opacity: 1; }
-    .panel-toggle button.active::after { width: 100%; }
+    nav ul li a:hover::after, nav ul li a.active-link::after {
+      width: 100%;
+    }
 
-    /* SECTIONS */
+    /* SCREEN VIEWS CONTAINER */
+    .view-panel {
+      display: none;
+      min-height: 100vh;
+    }
+    .view-panel.active-view {
+      display: block;
+      animation: fadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO LAYOUT WITH PARTICLE CANVASES */
+    .hero {
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: calc(160px + env(safe-area-inset-top, 0px)) 40px 40px;
+      position: relative;
+    }
+
+    .particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero h1, .hero .hero-sub, .hero .divider, .hero p, .hero .hero-ctas {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 15px;
+      color: var(--primary-blue);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 30px;
+      font-weight: 400;
+      color: var(--accent-blue);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background-color: var(--accent-blue);
+      margin-bottom: 35px;
+      opacity: 0.4;
+    }
+
+    .hero p {
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 680px;
+      margin-bottom: 45px;
+      opacity: 0.85;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 15px;
+    }
+
+    /* CORE COMPONENTS & ACCENT BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 15px 32px;
+      border: 1px solid var(--accent-blue);
+      color: #EDE8DF;
+      background-color: var(--accent-blue);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(74, 103, 173, 0.15);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-blue);
+      border-color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 42, 94, 0.2);
+    }
+
+    /* SCROLL ANIMATION WRAPPER */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* SECTION STANDARDS */
     .section-spacing {
-      padding: 16px 60px 60px;
-      max-width: 940px;
+      padding: 90px 60px;
+      max-width: 1100px;
       margin: 0 auto;
     }
+
+    .section-spacing.wide-bounds {
+      max-width: 1250px;
+    }
+    
+    .bg-break {
+      background-color: var(--bg-cream-light);
+      max-width: 100%;
+    }
+
     .section-label {
       font-size: 10px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 16px;
+      opacity: 0.6;
+      margin-bottom: 35px;
       font-weight: 500;
       color: var(--accent-blue);
-      text-align: center;
     }
 
-    /* NEIGHBORHOOD CARDS */
-    .parcel-card {
-      background: var(--bg-cream-light);
-      border: 1px solid rgba(27, 42, 94, 0.08);
-      border-radius: 2px;
-      margin-bottom: 10px;
-      overflow: hidden;
-      transition: all 0.3s ease;
+    /* REFINED BALANCED MATRIX GRIDS */
+    .market-matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: stretch;
     }
-    .parcel-card:hover { border-color: rgba(27, 42, 94, 0.18); }
 
-    .parcel-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center; /* Horizontally aligned and centered per requirements */
-      padding: 18px 24px;
-      cursor: pointer;
-      gap: 18px;
-    }
-    .parcel-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .parcel-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-    }
-    .tag-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      letter-spacing: 0.03em;
-    }
-    .tag-chip .icon-triangle {
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 10px solid var(--flag-red);
-    }
-    .tag-chip .icon-square { width: 9px; height: 9px; background: var(--flag-orange); }
-    .tag-chip .icon-circle { width: 10px; height: 10px; background: var(--flag-green); }
-
-    .status-col {
+    .market-column {
       display: flex;
       flex-direction: column;
+    }
+
+    .market-column .section-label {
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .market-block {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      flex-grow: 1;
+      min-height: 480px;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .market-block-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 0;
+    }
+
+    .market-block:hover .market-block-bg {
+      transform: scale(1.03);
+    }
+
+    .market-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.1) 0%, rgba(27, 42, 94, 0.75) 100%);
+      z-index: 1;
+      transition: background 0.4s ease;
+    }
+
+    .market-block:hover .market-overlay {
+      background: linear-gradient(180deg, rgba(27, 42, 94, 0.2) 0%, rgba(27, 42, 94, 0.85) 100%);
+    }
+
+    .market-text {
+      position: relative;
+      z-index: 2;
+      color: #EDE8DF;
+    }
+
+    .market-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .market-text p {
+      font-size: 12px;
+      opacity: 0.85;
+      letter-spacing: 0.08em;
+    }
+
+    /* CORE VALUES COMPONENT */
+    .values-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      padding: 24px 0;
+    }
+
+    .value-item {
+      border-top: 1px solid rgba(27, 42, 94, 0.1);
+      padding-top: 14px; 
+    }
+
+    .value-item:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .value-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+    }
+
+    .value-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: 0.8;
+    }
+
+    /* CREDIBILITY PORTFOLIO HUB */
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
       align-items: flex-end;
-      gap: 10px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.08);
+      padding-bottom: 20px;
+    }
+
+    .portfolio-tabs {
+      display: flex;
+      gap: 15px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      font-weight: 500;
+      padding: 6px 0;
+      user-select: none;
+    }
+
+    .portfolio-container-rel {
+      position: relative;
+      width: 100%;
+    }
+
+    .portfolio-grid-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+    
+    .portfolio-grid-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+    }
+
+    .portfolio-card {
+      background: rgba(27, 42, 94, 0.01);
+      border: 1px solid rgba(27, 42, 94, 0.05);
+      padding: 40px;
+      border-radius: 2px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s ease;
+      width: 480px; 
+      scroll-snap-align: start;
       flex-shrink: 0;
     }
+
+    .portfolio-card:hover {
+      background: rgba(27, 42, 94, 0.02);
+      border-color: rgba(27, 42, 94, 0.12);
+    }
+
+    .slider-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(244, 240, 230, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(27, 42, 94, 0.1);
+      border-radius: 50%;
+      color: var(--primary-blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .slider-nav-btn.visible {
+      opacity: 0.7;
+      pointer-events: auto;
+    }
+
+    .slider-nav-btn:hover {
+      opacity: 1;
+      background: var(--primary-blue);
+      color: var(--bg-cream-light);
+      border-color: var(--primary-blue);
+    }
+
+    .slider-nav-btn.prev-btn { left: -22px; }
+    .slider-nav-btn.next-btn { right: -22px; }
+
+    .slider-nav-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     .badge {
+      align-self: flex-start;
       display: inline-block;
       font-size: 9px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 4px 11px;
+      padding: 4px 10px;
       border-radius: 20px;
       font-weight: 500;
-      white-space: nowrap;
+      margin-bottom: 24px;
+      background-color: rgba(27, 42, 94, 0.06);
+      color: var(--primary-blue);
     }
-    .badge.active { background: var(--flag-green-bg); color: var(--flag-green); }
-    .badge.case-by-case { background: var(--flag-orange-bg); color: var(--flag-orange); }
-    .badge.paused { background: rgba(27,42,94,0.06); color: var(--primary-blue); opacity: 0.6; }
 
-    .chevron {
-      width: 14px; height: 14px;
-      stroke: var(--primary-blue);
-      opacity: 0.4;
-      transition: transform 0.3s ease;
+    .badge.escrow {
+      background-color: rgba(74, 103, 173, 0.08);
+      color: var(--accent-blue);
+      border: 1px solid rgba(74, 103, 173, 0.2);
     }
-    .parcel-card.open .chevron { transform: rotate(180deg); }
 
-    .parcel-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
+    .portfolio-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      margin-bottom: 4px;
     }
-    .parcel-card.open .parcel-body {
-      border-top: 1px solid rgba(27, 42, 94, 0.08);
+
+    .portfolio-card .meta {
+      font-size: 11px;
+      opacity: 0.5;
+      margin-bottom: 24px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
     }
-    .parcel-body-inner {
-      padding: 20px 24px 22px;
+
+    .card-media-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-    @media (max-width: 700px) {
-      .parcel-body-inner { grid-template-columns: 1fr; gap: 18px; }
-    }
-
-    .spec-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    .spec-table td { padding: 6px 0; border-bottom: 1px solid rgba(27,42,94,0.06); vertical-align: top; }
-    .spec-table td:first-child {
-      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-      opacity: 0.5; width: 42%; padding-right: 10px;
-    }
-
-    .list-label {
-      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-      opacity: 0.5; margin-bottom: 8px; font-weight: 500;
-    }
-    .parcel-note {
-      font-size: 12px; font-style: italic; opacity: 0.65; margin-top: 2px; line-height: 1.6;
-    }
-    .send-link {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-blue);
-      text-decoration: none;
-      border-bottom: 1px solid var(--accent-blue);
-      padding-bottom: 2px;
-      transition: opacity 0.2s ease;
-    }
-    .send-link:hover { opacity: 0.7; }
-
-    /* COMPACT — bottom 3 markets matching top card heights and slightly darker background */
-    .parcel-card.compact {
-      background: var(--bg-cream-darker);
-    }
-    .parcel-card.compact .parcel-head { 
-      padding: 18px 24px; 
-    }
-    .parcel-card.compact .parcel-name { font-size: 22px; margin-bottom: 6px; }
-    .parcel-card.compact .badge { font-size: 9px; padding: 4px 11px; }
-    .parcel-card.compact .parcel-body-inner { padding: 20px 24px 22px; gap: 26px; }
-    .parcel-card.compact .chevron { width: 14px; height: 14px; }
-    .parcel-card.compact { margin-bottom: 10px; }
-
-    /* CONTACT PANEL */
-    .contact-pane {
-      text-align: center;
-      padding: 30px 40px 90px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .contact-pane .contact-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 500;
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
-    }
-    .contact-details {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
       gap: 12px;
-      margin-top: 8px;
+      margin-top: auto;
+      height: 120px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
     }
-    .contact-row {
+
+    .media-pane {
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .media-pane-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(74, 103, 173, 0.85);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      transition: all 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      font-size: 15px;
-      letter-spacing: 0.05em;
     }
-    .contact-row a {
+
+    .media-pane-overlay span {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #EDE8DF;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .portfolio-card:hover .media-pane-overlay {
+      background-color: rgba(27, 42, 94, 0.15);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+
+    .portfolio-card:hover .media-pane-overlay span {
+      opacity: 0;
+    }
+
+    .portfolio-card:hover .media-pane {
+      transform: scale(1.02);
+    }
+
+    /* SELLERS OVERVIEW VIEW DYNAMICS */
+    .walkthrough-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .walkthrough-statement h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+      color: var(--primary-blue);
+    }
+
+    .walkthrough-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .process-intro {
+      margin-bottom: 45px;
+      max-width: 720px;
+    }
+
+    .process-intro p {
+      font-size: 15px;
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+
+    .process-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .process-card {
+      background: rgba(27, 42, 94, 0.02);
+      border: 1px solid rgba(27, 42, 94, 0.06);
+      padding: 35px 25px;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .process-card:hover {
+      background: var(--primary-blue);
+      color: var(--bg-cream);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(27, 42, 94, 0.08);
+    }
+
+    .process-step {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      opacity: 0.4;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .process-card:hover .process-step { opacity: 0.6; color: var(--accent-blue); }
+
+    .process-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .process-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 0.73;
+    }
+    .process-card:hover p { opacity: 0.9; }
+
+    /* EXTENDED PAGES STRUCTURAL HEADERS */
+    .portal-frame-header {
+      text-align: center;
+      padding: calc(175px + env(safe-area-inset-top, 0px)) 40px 65px;
+      background-color: rgba(74, 103, 173, 0.08);
+      border-bottom: 1px solid rgba(74, 103, 173, 0.15);
+      position: relative;
+    }
+
+    .portal-frame-header h2, .portal-frame-header .subtitle {
+      position: relative;
+      z-index: 2;
+    }
+
+    .portal-frame-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--primary-blue);
+    }
+
+    .portal-frame-header .subtitle {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.6;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    .view-return-block {
+      text-align: center;
+      padding: 60px 40px 100px;
+    }
+
+    /* DEVELOPER INTEGRATION FORM */
+    .portal-form-wrapper {
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portal-form {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .form-element {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .form-element label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+
+    .form-element input, .form-element select, .form-element textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(27, 42, 94, 0.2);
+      padding: 10px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--primary-blue);
+      outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-element input:focus, .form-element select:focus, .form-element textarea:focus {
+      border-bottom-color: var(--accent-blue);
+    }
+
+    .form-actions {
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    .return-trigger {
+      display: inline-block;
+      margin-top: 25px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      cursor: pointer;
+      color: var(--primary-blue);
+      transition: opacity 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .return-trigger:hover { opacity: 1; color: var(--accent-blue); }
+
+    /* FOOTER LAYOUT & STATES NAV */
+    .footer-layout {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .states-pane {
+      position: absolute;
+      left: 45px;
+      top: 52%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .state-link {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--primary-blue);
       text-decoration: none;
-      transition: color 0.3s ease;
-      font-weight: 400;
+      opacity: 0.4;
+      transition: opacity 0.3s, color 0.3s;
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      width: fit-content;
     }
-    .contact-row a:hover {
-      color: var(--accent-blue);
-    }
-    .contact-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(27, 42, 94, 0.06);
+
+    .state-link:hover,
+    .state-link.active-state {
+      opacity: 1;
       color: var(--primary-blue);
-      transition: all 0.3s ease;
     }
-    .contact-icon:hover {
-      background: var(--accent-blue);
-      color: #FFF;
+
+    .state-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
     }
-    .contact-icon svg {
-      width: 13px;
-      height: 13px;
-      fill: currentColor;
+
+    .state-link:hover::after,
+    .state-link.active-state::after {
+      width: 100%;
     }
+
+    /* CONTACT / CORRESPONDENCE */
+    .contact-pane {
+      text-align: center;
+      padding: 70px 40px 30px;
+    }
+
+    .contact-pane p {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 15px;
+      color: var(--primary-blue);
+    }
+
+    .contact-pane a.email-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: color 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .contact-pane a.email-link:hover { color: var(--accent-blue); }
 
     footer {
       text-align: center;
-      padding: 0 24px calc(40px + env(safe-area-inset-bottom, 0px));
-      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0px 24px calc(40px + env(safe-area-inset-bottom, 0px));
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
       opacity: 0.35;
+      color: var(--primary-blue);
     }
 
-    @media (max-width: 700px) {
-      nav { padding: 20px; }
-      .page-header { padding: 46px 24px 6px; }
-      .page-header h1 { font-size: 34px; }
-      .legend-inner { flex-direction: column; }
-      .legend-item { border-right: none; border-bottom: 1px solid rgba(27,42,94,0.08); }
-      .legend-item:last-child { border-bottom: none; }
-      .panel-toggle { gap: 24px; }
-      .section-spacing { padding: 10px 20px 44px; }
-      .parcel-head { padding: 18px 20px; }
-      .status-col { align-items: flex-end; }
-      .parcel-body-inner { padding: 16px 18px 20px; }
-      .contact-row { flex-wrap: wrap; font-size: 14px; }
+    /* RESPONSIVE STRUCTURE */
+    @media (max-width: 992px) {
+      .walkthrough-grid { grid-template-columns: 1fr; gap: 30px; }
+      .market-matrix { grid-template-columns: 1fr; gap: 40px; }
+      .process-flow { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { 
+        padding: 20px; 
+        padding-top: calc(15px + env(safe-area-inset-top, 0px));
+      }
+      nav ul { display: none; }
+      nav img.nav-logo { height: 28px; }
+
+      .hero { padding-top: calc(130px + env(safe-area-inset-top, 0px)); }
+      .hero h1 { font-size: 42px; line-height: 1.1; }
+      .hero p { font-size: 13px; line-height: 1.7; margin-bottom: 30px; }
+      .hero-sub { font-size: 11px; margin-bottom: 20px; }
+      
+      .section-spacing { padding: 50px 20px; }
+      .section-label { margin-bottom: 15px; }
+      
+      .market-block { min-height: 300px; padding: 25px; }
+      .market-text h3 { font-size: 28px; }
+      .market-text p { font-size: 11px; }
+
+      .value-desc { font-size: 12px; line-height: 1.6; }
+      .values-container { gap: 20px; }
+
+      .portfolio-card {
+        width: 290px;
+        padding: 25px;
+      }
+      .portfolio-card h4 { font-size: 24px; }
+      .card-media-split { height: 90px; }
+      
+      .slider-nav-btn { display: none !important; }
+
+      .walkthrough-statement h2 { font-size: 32px; }
+      .walkthrough-body p { font-size: 14px; line-height: 1.7; }
+      
+      .process-flow { grid-template-columns: 1fr; gap: 15px; }
+      .process-card { padding: 25px 20px; }
+      
+      .portal-frame-header { padding-top: calc(130px + env(safe-area-inset-top, 0px)); padding-bottom: 40px; }
+      .portal-frame-header h2 { font-size: 36px; }
+      .portal-form-wrapper { padding: 40px 20px; }
+      
+      .form-element input, .form-element select, .form-element textarea {
+        font-size: 16px;
+      }
+      
+      .footer-layout {
+        position: static;
+        padding: 0 20px;
+      }
+
+      .states-pane {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: center;
+        gap: 25px;
+        padding-top: 40px;
+        padding-bottom: 10px;
+        left: auto;
+      }
+
+      .contact-pane { 
+        padding: 30px 20px 20px; 
+      }
+
+      .contact-pane a.email-link { font-size: 22px; }
+
+      .custom-cursor { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-grid"></div>
+  <!-- DYNAMIC TRAILING CONTAINER -->
+  <div class="custom-cursor" id="cursor"></div>
 
+  <!-- NAVIGATION -->
   <nav>
-    <a class="home-link" href="https://www.stoneholdtpartners.com/">Stoneholdt Partners</a>
-    <a class="back-link" href="https://www.stoneholdtpartners.com/">← Back to site</a>
+    <a href="#" onclick="showView('home'); return false;">
+      <img src="logos/Stoneholdt Partners.png" alt="Stoneholdt Partners" class="nav-logo"/>
+    </a>
+    <ul>
+      <li><a id="navSellersLink" onclick="showView('seller');">Sellers Overview</a></li>
+      <li><a id="navDevLink" onclick="showView('developer');">Developer Portal</a></li>
+    </ul>
   </nav>
 
-  <header class="page-header">
-    <p class="section-label">Bellevue Buy Box</p>
-    <h1>What We're Looking For</h1>
-    <p class="header-sub">Off-Market Lots &amp; Pocket Listings</p>
-  </header>
+  <!-- ========================================== -->
+  <!-- VIEW 1: MAIN LANDING OVERVIEW VIEW         -->
+  <!-- ========================================== -->
+  <div id="homeView" class="view-panel active-view">
+    
+    <!-- HERO PANEL WITH AMBIENT PARTICLES -->
+    <section class="hero">
+      <canvas id="particle-canvas-home" class="particle-canvas"></canvas>
+      <h1>Off-Market Acquisitions</h1>
+      <p class="hero-sub">Leveraged Developer Network</p>
+      <div class="divider"></div>
+      <p>Stoneholdt Partners runs off-market acquisitions for some of <span id="hero-state-name">Washington's</span> most reputable luxury builders, managing the outreach, initial underwriting, and coordination so they can focus on what they do best: building. By dealing straight with us, your property is positioned directly with the specific building partner best capitalized to perform on your terms.</p>
+      <div class="hero-ctas">
+        <button class="btn" onclick="showView('seller');">Sellers Overview</button>
+        <button class="btn" onclick="showView('developer');">Developer Portal</button>
+      </div>
+    </section>
 
-  <div class="good-fit">
-    <div class="good-fit-inner">
-      <p class="fit-label">It's a good fit if:</p>
-      <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
+    <!-- WIDER MATRIX BLOCK GRAPHICS & CORE VALUES GRID -->
+    <section class="section-spacing wide-bounds scroll-reveal">
+      <div class="market-matrix">
+        <!-- Left Column: Core Market Focus -->
+        <div class="market-column">
+          <p class="section-label">Core Market Focus</p>
+          <div class="market-block">
+            <div class="market-block-bg" id="market-bg" style="background-image: url('cover-photos/WA.jpg')"></div>
+            <div class="market-overlay"></div>
+            <div class="market-text">
+              <h3 id="market-title">Washington</h3>
+              <p id="market-sub">Bellevue &bull; Kirkland &bull; Seattle &bull; + more</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Core Values Component -->
+        <div class="market-column">
+          <p class="section-label">Core Values</p>
+          <div class="values-container">
+            <!-- Value 1 -->
+            <div class="value-item">
+              <div class="value-title">1) Unwavering Communication</div>
+              <div class="value-desc">
+                Between market uncertainties and buyer fall-outs, our priority is keeping you informed at every milestone. We are not afraid to have the hard conversations upfront to reduce friction down the road. Real estate transactions have hurdles; we would rather solve them immediately than let them fester into late-game problems.
+              </div>
+            </div>
+            <!-- Value 2 -->
+            <div class="value-item">
+              <div class="value-title">2) Transaction Transparency</div>
+              <div class="value-desc">
+                No two deals are the same. Development transactions are complicated—permitting, entitlements, soil quality, and lot topography are constantly shifting variables. While these challenges aren't your problem, absolute visibility is our standard. If something comes up, you will know immediately, keeping the process smooth for everyone.
+              </div>
+            </div>
+            <!-- Value 3 -->
+            <div class="value-item">
+              <div class="value-title">3) Singular Focus</div>
+              <div class="value-desc">
+                Our development partners manage moving sites, field crews, and verifying that Taj Mahal quartz is indeed still the latest countertop trend. Stoneholdt Partners exists because acquisitions is all we do—it's why our partners work with us, and it's why your transaction gets the undivided attention that it does from start to finish.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDIBILITY DECK (PORTFOLIO) -->
+    <section id="portfolio-section" class="section-spacing scroll-reveal bg-break">
+      <div style="max-width: 1100px; margin: 0 auto; padding: 10px 0;">
+        <p class="section-label">Portfolio</p>
+        
+        <div class="portfolio-header">
+          <div class="portfolio-tabs">
+            <span class="tab-btn">2026 Showcase</span>
+          </div>
+        </div>
+
+        <div class="portfolio-container-rel">
+          <!-- Navigation Arrow Triggers -->
+          <button class="slider-nav-btn prev-btn" id="slidePrev" onclick="scrollPortfolio('left')" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="slider-nav-btn next-btn" id="slideNext" onclick="scrollPortfolio('right')" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="portfolio-grid-wrapper" id="portfolioWrapper">
+            <div class="portfolio-grid">
+              <!-- Card 1: NW Bellevue -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>NW Bellevue Redevelopment</h4>
+                <div class="meta">Northwest Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('portfolio/1520-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('portfolio/1646-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Enatai -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Enatai Redevelopment</h4>
+                <div class="meta">West Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('portfolio/1646-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('portfolio/1646-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card 3: Eastgate -->
+              <div class="portfolio-card">
+                <div class="badge escrow">In Escrow</div>
+                <h4>Eastgate Redevelopment</h4>
+                <div class="meta">East Bellevue</div>
+                
+                <div class="card-media-split">
+                  <div class="media-pane" style="background-image: url('portfolio/15126-Street.jpg');">
+                    <div class="media-pane-overlay"><span>Street Index</span></div>
+                  </div>
+                  <div class="media-pane" style="background-image: url('portfolio/15126-Parcel.jpg');">
+                    <div class="media-pane-overlay"><span>Parcel Layout</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES & CONTACT CONTAINER -->
+    <div class="footer-layout scroll-reveal">
+      <div class="states-pane">
+        <a onclick="updateMarketState('WA')" id="toggle-WA" class="state-link active-state">Washington</a>
+        <a onclick="updateMarketState('CO')" id="toggle-CO" class="state-link">Colorado</a>
+        <a onclick="updateMarketState('MN')" id="toggle-MN" class="state-link">Minnesota</a>
+      </div>
+
+      <section class="contact-pane">
+        <p>Get in Touch</p>
+        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="email-link">stoneholdt.acquisitions@gmail.com</a>
+      </section>
+    </div>
+
+    <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- VIEW 2: DEDICATED SELLERS OVERVIEW VIEW   -->
+  <!-- ========================================== -->
+  <div id="sellerView" class="view-panel">
+    <header class="portal-frame-header">
+      <canvas id="particle-canvas-seller" class="particle-canvas"></canvas>
+      <h2>Sellers Overview</h2>
+      <p class="subtitle">A straightforward approach to premium property exits</p>
+    </header>
+
+    <!-- PHILOSOPHY / INTRO -->
+    <section class="section-spacing">
+      <p class="section-label">Our Philosophy</p>
+      <div class="walkthrough-grid">
+        <div class="walkthrough-statement">
+          <h2>No deal closes unless a seller feels like they are winning.</h2>
+        </div>
+        <div class="walkthrough-body">
+          <p>Stoneholdt Partners is an acquisition company operating within the residential redevelopment space. Our job is simple: we thoroughly understand exactly what you are looking for out of an exit—timeline, terms, and final valuation expectations—and construct a transparent roadmap to perform on.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLUEPRINT LAYOUT SYSTEM -->
+    <section class="section-spacing bg-break">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <p class="section-label">The Transaction Blueprint</p>
+        <div class="process-intro">
+          <p>Skip the hiring process, the public open houses, the structural repair negotiations, and the standard agent commission fees. We protect your transaction from standard retail fallouts by mapping out clear, predictable baseline expectations before we ever put pen to paper.</p>
+        </div>
+
+        <div class="process-flow">
+          <!-- 01 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 01</div>
+            <h3>Under Contract</h3>
+            <p>Once we come to an agreement on terms and completely align expectations for the transaction, we finalize our contract structure and open escrow.</p>
+          </div>
+          <!-- 02 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 02</div>
+            <h3>Feasibility Period</h3>
+            <p>A quick feasibility window for our development partners to complete preliminary surveys and soil samples to formally clear structural and engineering boundaries.</p>
+          </div>
+          <!-- 03 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 03</div>
+            <h3>Earnest Money</h3>
+            <p>Upon completion of the quick feasibility period, non-refundable earnest money deposits are released to secure our full skin in the game.</p>
+          </div>
+          <!-- 04 -->
+          <div class="process-card">
+            <div class="process-step">STAGE 04</div>
+            <h3>Close &amp; Record</h3>
+            <p>Title and funds are recorded & disbursed via the local escrow team, and you are free to take & leave what you wish from the property.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="view-return-block">
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
     </div>
   </div>
 
-  <div class="legend">
-    <div class="legend-inner">
-      <div class="legend-item">
-        <div class="legend-icon icon-triangle"></div>
-        <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon icon-square"></div>
-        <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, wooded</span></div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon icon-circle"></div>
-        <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
-      </div>
+
+  <!-- ========================================== -->
+  <!-- VIEW 3: DEDICATED DEVELOPER PORTAL VIEW    -->
+  <!-- ========================================== -->
+  <div id="developerView" class="view-panel">
+    <header class="portal-frame-header">
+      <canvas id="particle-canvas-developer" class="particle-canvas"></canvas>
+      <h2>Partner With Us</h2>
+      <p class="subtitle">let us know what to look for</p>
+    </header>
+
+    <div class="portal-form-wrapper">
+      <form class="portal-form" action="https://formspree.io/f/mrerjjzo" method="POST">
+        <div class="form-element">
+          <label>Principal Representative</label>
+          <input type="text" name="name" placeholder="Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Development Entity</label>
+          <input type="text" name="firm" placeholder="Company Name" required/>
+        </div>
+        <div class="form-element">
+          <label>Investment Criteria Profile</label>
+          <select name="profile" required>
+            <option value="" disabled selected>Select investment footprint</option>
+            <option>Custom Infill Single-Family Builder</option>
+            <option>Townhome / Multi-Family Developer</option>
+            <option>Private Equity Real Estate Fund</option>
+          </select>
+        </div>
+        <div class="form-element">
+          <label>Direct Workspace Email</label>
+          <input type="email" name="email" placeholder="email@firm.com" required/>
+        </div>
+        <div class="form-element">
+          <label>Target Acquisition Profiles</label>
+          <textarea name="parameters" rows="3" placeholder="Zoning criteria, preferred square footage thresholds, or target submarkets..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Register Buy Box</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="view-return-block" style="padding-top: 0;">
+      <span class="return-trigger" onclick="showView('home');">← Back</span>
     </div>
   </div>
 
-  <div class="panel-toggle" id="panelToggle"></div>
-
-  <section class="section-spacing">
-    <div id="parcelList"></div>
-  </section>
-
-  <section class="section-spacing" style="padding-top:0;">
-    <p class="section-label">Other Markets</p>
-    <div id="otherList"></div>
-  </section>
-
-  <section class="contact-pane">
-    <div class="contact-title">Reach out to Aaron for land acquisitions</div>
-    <div class="contact-details">
-      <div class="contact-row">
-        <a href="tel:5412005788">541-200-5788</a>
-        <a href="tel:5412005788" class="contact-icon" title="Call">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </a>
-        <a href="sms:5412005788" class="contact-icon" title="Text">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-        </a>
-      </div>
-      <div class="contact-row">
-        <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
-        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="contact-icon" title="Email">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
-
-<script>
-/* ============================================================
-   DATA
-   ------------------------------------------------------------
-   Each neighborhood has a "tags" array. Each tag needs:
-     type:  "red"    -> red triangle  (dealbreaker-leaning)
-            "orange" -> orange square (situational, worth a look)
-            "green"  -> green circle  (positive fit)
-     label: whatever text you want next to the icon
-============================================================ */
-
-const BELLEVUE_DATA = {
-  panels: [
-    {
-      id: "west",
-      label: "West Bellevue",
-      neighborhoods: [
-        { name: "Enatai",        status: "active", tags: [], specs: {}, note: "" },
-        { name: "Surrey Downs",  status: "active", tags: [], specs: {}, note: "" },
-        { name: "Clyde Hill",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Northwest",     status: "active", tags: [], specs: {}, note: "" }
-      ]
-    },
-    {
-      id: "east",
-      label: "East Bellevue",
-      neighborhoods: [
-        { name: "Eastgate",      status: "active", tags: [], specs: {}, note: "" },
-        { name: "Robinswood",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Lake Hills",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Northeast",     status: "active", tags: [], specs: {}, note: "" }
-      ]
-    }
-  ],
-  otherMarkets: [
-    { name: "Bridle Trails", status: "case-by-case", tags: [], specs: {}, note: "" },
-    { name: "Woodridge",     status: "case-by-case", tags: [], specs: {}, note: "" },
-    { name: "Wilburton",     status: "case-by-case", tags: [], specs: {}, note: "" }
-  ]
-};
-
-let activePanel = BELLEVUE_DATA.panels[0].id;
-
-function iconFor(type) {
-  if (type === "red") return `<div class="icon-triangle"></div>`;
-  if (type === "orange") return `<div class="icon-square"></div>`;
-  return `<div class="icon-circle"></div>`;
-}
-
-function getBadgeClass(status) {
-  if (status === 'active') return 'active';
-  if (status === 'case-by-case') return 'case-by-case';
-  return 'paused';
-}
-
-function getBadgeLabel(status) {
-  if (status === 'active') return 'Actively Buying';
-  if (status === 'case-by-case') return 'Case-by-Case';
-  return 'Paused';
-}
-
-function renderCard(n, compact) {
-  const specsEntries = Object.entries(n.specs || {});
-  return `
-    <div class="parcel-card ${compact ? 'compact' : ''}">
-      <div class="parcel-head">
-        <div>
-          <div class="parcel-name">${n.name}</div>
-          <div class="parcel-tags">
-            ${(n.tags || []).map(t => `<span class="tag-chip">${iconFor(t.type)}${t.label}</span>`).join('')}
-          </div>
-        </div>
-        <div class="status-col">
-          <span class="badge ${getBadgeClass(n.status)}">
-            ${getBadgeLabel(n.status)}
-          </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </div>
-      </div>
-      <div class="parcel-body">
-        <div class="parcel-body-inner">
-          <div>
-            ${specsEntries.length ? `
-              <p class="list-label">Details</p>
-              <table class="spec-table">
-                ${specsEntries.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
-              </table>
-            ` : `<p class="parcel-note">Details coming soon — reach out directly for current criteria.</p>`}
-          </div>
-          <div>
-            ${n.note ? `<p class="list-label">Notes</p><p class="parcel-note">${n.note}</p>` : ''}
-            <a class="send-link" href="mailto:stoneholdt.acquisitions@gmail.com?subject=${encodeURIComponent('Deal in ' + n.name)}">Send a deal in ${n.name} →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function attachToggleBehavior(container) {
-  container.querySelectorAll('.parcel-card').forEach(card => {
-    card.querySelector('.parcel-head').addEventListener('click', () => {
-      const body = card.querySelector('.parcel-body');
-      const isOpen = card.classList.contains('open');
-      container.querySelectorAll('.parcel-card').forEach(c => {
-        c.classList.remove('open');
-        c.querySelector('.parcel-body').style.maxHeight = null;
-      });
-      if (!isOpen) {
-        card.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
+  <!-- NAVIGATION & ENGINE SCRIPT -->
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
     });
-  });
-}
 
-function render() {
-  const toggleEl = document.getElementById('panelToggle');
-  toggleEl.innerHTML = BELLEVUE_DATA.panels.map(p => `
-    <button class="${p.id === activePanel ? 'active' : ''}" data-panel="${p.id}">${p.label}</button>
-  `).join('');
-  toggleEl.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => { activePanel = btn.dataset.panel; render(); });
-  });
+    // CURSOR HOVER DYNAMICS
+    function applyCursorDynamics() {
+      const interactives = document.querySelectorAll('a, .process-card, button, .portfolio-card, .market-block, .slider-nav-btn');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '38px';
+          cursor.style.height = '38px';
+          cursor.style.backgroundColor = 'rgba(74, 103, 173, 0.06)';
+          cursor.style.borderColor = '#4A67AD';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '20px';
+          cursor.style.height = '20px';
+          cursor.style.backgroundColor = 'transparent';
+          cursor.style.borderColor = 'rgba(74, 103, 173, 0.4)';
+        });
+      });
+    }
+    applyCursorDynamics();
 
-  const panel = BELLEVUE_DATA.panels.find(p => p.id === activePanel);
-  const listEl = document.getElementById('parcelList');
-  listEl.innerHTML = panel.neighborhoods.map(n => renderCard(n, false)).join('');
-  attachToggleBehavior(listEl);
+    // INTERSECTION OBSERVER FOR SCROLL REVEAL EFFECT
+    const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -40px 0px" };
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
 
-  const otherEl = document.getElementById('otherList');
-  otherEl.innerHTML = BELLEVUE_DATA.otherMarkets.map(n => renderCard(n, true)).join('');
-  attachToggleBehavior(otherEl);
-}
+    function trackScrollReveals() {
+      document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+    }
+    setTimeout(trackScrollReveals, 150);
 
-render();
-</script>
+    // DYNAMIC STATE MARKET ROUTING
+    const marketData = {
+      WA: {
+        heroName: "Washington's",
+        bg: "cover-photos/WA.jpg",
+        title: "Washington",
+        sub: "Bellevue &bull; Kirkland &bull; Seattle &bull; + more",
+        showPortfolio: true
+      },
+      CO: {
+        heroName: "Colorado's",
+        bg: "cover-photos/CO.jpg",
+        title: "Colorado",
+        sub: "Denver &bull; Englewood &bull; Cherry Hills &bull; + more",
+        showPortfolio: false
+      },
+      MN: {
+        heroName: "Minnesota's",
+        bg: "cover-photos/MN.jpg",
+        title: "Minnesota",
+        sub: "Edina &bull; Minneapolis &bull; Wyzata &bull; + more",
+        showPortfolio: false
+      }
+    };
+
+    function updateMarketState(stateCode) {
+      const data = marketData[stateCode];
+      if (!data) return;
+
+      // Swap core text and visuals
+      document.getElementById('hero-state-name').innerText = data.heroName;
+      document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+      document.getElementById('market-title').innerText = data.title;
+      document.getElementById('market-sub').innerHTML = data.sub;
+
+      // Handle portfolio visibility
+      document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+
+      // Update toggles
+      document.getElementById('toggle-WA').classList.remove('active-state');
+      document.getElementById('toggle-CO').classList.remove('active-state');
+      document.getElementById('toggle-MN').classList.remove('active-state');
+      document.getElementById(`toggle-${stateCode}`).classList.add('active-state');
+
+      // Update URL hash seamlessly and scroll to top
+      if(window.location.hash !== `#${stateCode}`) {
+         history.replaceState(null, null, `#${stateCode}`);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function initializeMarketRouting() {
+      let activeState = 'WA'; // Default
+      
+      const hash = window.location.hash.replace('#', '').toUpperCase();
+      const path = window.location.pathname.replace('/', '').toUpperCase();
+
+      if (['WA', 'CO', 'MN'].includes(hash)) {
+        activeState = hash;
+      } else if (['WA', 'CO', 'MN'].includes(path)) {
+        activeState = path;
+      }
+
+      const data = marketData[activeState];
+      if (data) {
+        document.getElementById('hero-state-name').innerText = data.heroName;
+        document.getElementById('market-bg').style.backgroundImage = `url('${data.bg}')`;
+        document.getElementById('market-title').innerText = data.title;
+        document.getElementById('market-sub').innerHTML = data.sub;
+        document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
+        document.getElementById('toggle-WA').classList.remove('active-state');
+        document.getElementById('toggle-CO').classList.remove('active-state');
+        document.getElementById('toggle-MN').classList.remove('active-state');
+        document.getElementById(`toggle-${activeState}`).classList.add('active-state');
+      }
+    }
+    
+    window.addEventListener('DOMContentLoaded', initializeMarketRouting);
+    window.addEventListener('hashchange', initializeMarketRouting);
+
+
+    // VIEW ROUTING ARCHITECTURE
+    function showView(viewId) {
+      document.getElementById('homeView').classList.remove('active-view');
+      document.getElementById('sellerView').classList.remove('active-view');
+      document.getElementById('developerView').classList.remove('active-view');
+
+      document.getElementById('navSellersLink').classList.remove('active-link');
+      document.getElementById('navDevLink').classList.remove('active-link');
+
+      if (viewId === 'home') {
+        document.getElementById('homeView').classList.add('active-view');
+      } else if (viewId === 'seller') {
+        document.getElementById('sellerView').classList.add('active-view');
+        document.getElementById('navSellersLink').classList.add('active-link');
+      } else if (viewId === 'developer') {
+        document.getElementById('developerView').classList.add('active-view');
+        document.getElementById('navDevLink').classList.add('active-link');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      trackScrollReveals();
+      applyCursorDynamics(); 
+      resizeCanvases(); 
+      updateSliderArrows();
+    }
+
+    // SLIDER ENGINE CONTROLLERS
+    const portfolioWrapper = document.getElementById('portfolioWrapper');
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+
+    function scrollPortfolio(direction) {
+      if (!portfolioWrapper) return;
+      const cardWidth = portfolioWrapper.querySelector('.portfolio-card').offsetWidth;
+      const scrollAmount = cardWidth + 20; 
+      
+      if (direction === 'left') {
+        portfolioWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        portfolioWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+
+    function updateSliderArrows() {
+      if (!portfolioWrapper || window.innerWidth <= 768) return;
+      
+      const scrollLeft = portfolioWrapper.scrollLeft;
+      const maxScroll = portfolioWrapper.scrollWidth - portfolioWrapper.clientWidth;
+
+      if (scrollLeft <= 5) {
+        prevBtn.classList.remove('visible');
+      } else {
+        prevBtn.classList.add('visible');
+      }
+
+      if (scrollLeft >= maxScroll - 5) {
+        nextBtn.classList.remove('visible');
+      } else {
+        nextBtn.classList.add('visible');
+      }
+    }
+
+    if (portfolioWrapper) {
+      portfolioWrapper.addEventListener('scroll', updateSliderArrows);
+      window.addEventListener('resize', updateSliderArrows);
+      setTimeout(updateSliderArrows, 300);
+    }
+
+    // MULTI-CANVAS PARTICLE ENGINE CONTROLLERS
+    const homeCanvas = document.getElementById('particle-canvas-home');
+    const sellerCanvas = document.getElementById('particle-canvas-seller');
+    const developerCanvas = document.getElementById('particle-canvas-developer');
+    
+    let homeParticles = [];
+    let sellerParticles = [];
+    let developerParticles = [];
+
+    function resizeCanvases() {
+      if (homeCanvas) {
+        homeCanvas.width = homeCanvas.offsetWidth;
+        homeCanvas.height = homeCanvas.offsetHeight;
+      }
+      if (sellerCanvas) {
+        sellerCanvas.width = sellerCanvas.offsetWidth;
+        sellerCanvas.height = sellerCanvas.offsetHeight;
+      }
+      if (developerCanvas) {
+        developerCanvas.width = developerCanvas.offsetWidth;
+        developerCanvas.height = developerCanvas.offsetHeight;
+      }
+    }
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
+
+    class Particle {
+      constructor(canvasWidth, canvasHeight) {
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
+        this.size = Math.random() * 2 + 1; 
+        this.speedX = (Math.random() * 0.6) - 0.3; 
+        this.speedY = (Math.random() * 0.45) - 0.225;
+      }
+      update(w, h) {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > w) this.x = 0;
+        if (this.x < 0) this.x = w;
+        if (this.y > h) this.y = 0;
+        if (this.y < 0) this.y = h;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = 0.45; 
+        ctx.fillStyle = '#1B2A5E';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function initEngine() {
+      homeParticles = [];
+      sellerParticles = [];
+      developerParticles = [];
+      
+      const homeCount = 35;
+      for (let i = 0; i < homeCount; i++) {
+        homeParticles.push(new Particle(homeCanvas.width, homeCanvas.height));
+      }
+      
+      const sellerCount = 20; 
+      for (let i = 0; i < sellerCount; i++) {
+        sellerParticles.push(new Particle(sellerCanvas.width, sellerCanvas.height));
+      }
+
+      const developerCount = 20; 
+      for (let i = 0; i < developerCount; i++) {
+        developerParticles.push(new Particle(developerCanvas.width, developerCanvas.height));
+      }
+    }
+    setTimeout(initEngine, 100); 
+
+    function runGlobalEngine() {
+      if (homeCanvas && document.getElementById('homeView').classList.contains('active-view')) {
+        const ctxHome = homeCanvas.getContext('2d');
+        ctxHome.clearRect(0, 0, homeCanvas.width, homeCanvas.height);
+        for (let i = 0; i < homeParticles.length; i++) {
+          homeParticles[i].update(homeCanvas.width, homeCanvas.height);
+          homeParticles[i].draw(ctxHome);
+        }
+      }
+      
+      if (sellerCanvas && document.getElementById('sellerView').classList.contains('active-view')) {
+        const ctxSeller = sellerCanvas.getContext('2d');
+        ctxSeller.clearRect(0, 0, sellerCanvas.width, sellerCanvas.height);
+        for (let i = 0; i < sellerParticles.length; i++) {
+          sellerParticles[i].update(sellerCanvas.width, sellerCanvas.height);
+          sellerParticles[i].draw(sellerCanvas);
+        }
+      }
+
+      if (developerCanvas && document.getElementById('developerView').classList.contains('active-view')) {
+        const ctxDeveloper = developerCanvas.getContext('2d');
+        ctxDeveloper.clearRect(0, 0, developerCanvas.width, developerCanvas.height);
+        for (let i = 0; i < developerParticles.length; i++) {
+          developerParticles[i].update(developerCanvas.width, developerCanvas.height);
+          developerParticles[i].draw(developerCanvas);
+        }
+      }
+      
+      requestAnimationFrame(runGlobalEngine);
+    }
+    runGlobalEngine();
+  </script>
 
 </body>
 </html>
