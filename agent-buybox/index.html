@@ -31,6 +31,17 @@
       padding-bottom: env(safe-area-inset-bottom, 0px);
       position: relative;
       cursor: none;
+      transition: filter 0.4s ease;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    body.modal-open .page-content {
+      filter: blur(6px);
+      pointer-events: none;
+      user-select: none;
     }
 
     a, button, .parcel-card, input, textarea {
@@ -49,7 +60,7 @@
       pointer-events: none;
       transform: translate(-50%, -50%);
       transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
-      z-index: 9999;
+      z-index: 99999;
       background: rgba(74, 103, 173, 0.05);
     }
     body:active .custom-cursor {
@@ -313,56 +324,77 @@
     }
     .parcel-card.compact .parcel-name { font-size: 20px; }
 
-    /* SUBMISSION FORM SECTION */
-    .submission-section {
-      max-width: 704px;
-      margin: 0 auto 60px;
-      padding: 0 32px;
+    /* POPUP MODAL OVERLAY */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(27, 42, 94, 0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
     }
-    .submission-card {
+    .modal-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-container {
       background: var(--bg-cream-light);
-      border: 1px solid rgba(27, 42, 94, 0.08);
-      border-radius: 3px;
-      padding: 40px;
+      border: 1px solid rgba(27, 42, 94, 0.12);
+      border-radius: 4px;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px 36px;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(27, 42, 94, 0.15);
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
     }
-    .submission-card h3 {
+    .modal-overlay.visible .modal-container {
+      transform: translateY(0);
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--primary-blue);
+      opacity: 0.5;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .modal-close:hover {
+      opacity: 1;
+      background: rgba(27, 42, 94, 0.06);
+    }
+    .modal-message {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 500;
-      margin-bottom: 8px;
       text-align: center;
+      line-height: 1.35;
+      margin-bottom: 24px;
+      color: var(--primary-blue);
     }
-    .submission-card p.form-sub {
-      font-size: 12px;
-      opacity: 0.7;
-      text-align: center;
-      margin-bottom: 28px;
-      letter-spacing: 0.05em;
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 600px) {
-      .form-row { grid-template-columns: 1fr; }
-    }
-    label.form-label {
-      display: block;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: var(--accent-blue);
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    textarea {
+    .modal-input {
       width: 100%;
       background: var(--bg-cream);
       border: 1px solid rgba(27, 42, 94, 0.15);
@@ -373,31 +405,26 @@
       color: var(--primary-blue);
       transition: border-color 0.2s ease, background-color 0.2s ease;
     }
-    input:focus, textarea:focus {
+    .modal-input:focus {
       outline: none;
       border-color: var(--accent-blue);
       background: #FFF;
     }
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    .submit-btn {
+    .modal-submit {
       width: 100%;
       background: var(--primary-blue);
       color: #FFF;
       border: none;
       border-radius: 2px;
-      padding: 14px;
+      padding: 13px;
       font-family: 'Montserrat', sans-serif;
       font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 500;
       transition: background-color 0.2s ease;
-      margin-top: 10px;
     }
-    .submit-btn:hover {
+    .modal-submit:hover {
       background: var(--accent-blue);
     }
 
@@ -479,10 +506,9 @@
       .section-spacing { padding: 10px 20px 44px; }
       .parcel-card { padding: 16px 20px; }
       .contact-row { flex-wrap: wrap; font-size: 14px; }
-      .submission-card { padding: 24px 20px; }
       .custom-cursor { display: none; }
       body { cursor: default; }
-      a, button, .parcel-card, input, textarea { cursor: pointer; }
+      a, button, .parcel-card, input { cursor: pointer; }
     }
   </style>
 </head>
@@ -491,112 +517,92 @@
   <div class="custom-cursor" id="customCursor"></div>
   <div class="bg-grid"></div>
 
-  <nav>
-    <a class="home-link" href="https://www.stoneholdtpartners.com/">
-      <img src="/logos/Stoneholdt Partners.png" alt="Stoneholdt Partners" />
-    </a>
-  </nav>
-
-  <header class="page-header">
-    <p class="section-label">Bellevue Buy Box</p>
-    <h1>Off-Market and Pocket Listings</h1>
-    <div class="header-sub">
-      <span>We make sure you get your commission paid in full</span>
-      <span>without ever hosting an open house or dealing with a repair negotiation.</span>
-    </div>
-  </header>
-
-  <div class="good-fit">
-    <div class="good-fit-inner">
-      <p class="fit-label">It's a good fit if:</p>
-      <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
-    </div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-inner">
-      <div class="legend-item">
-        <div class="legend-icon icon-triangle"></div>
-        <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon icon-square"></div>
-        <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, irregular shape, wooded</span></div>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon icon-circle"></div>
-        <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="panel-toggle" id="panelToggle"></div>
-
-  <section class="section-spacing">
-    <div id="parcelList"></div>
-  </section>
-
-  <section class="section-spacing" style="padding-top:0;">
-    <p class="section-label">Secondary Neighborhoods</p>
-    <div id="otherList" class="secondary-grid"></div>
-  </section>
-
-  <section class="submission-section">
-    <div class="submission-card">
-      <h3>Submit a Pocket Listing</h3>
-      <p class="form-sub">Share property details with our acquisitions team below.</p>
-      <form action="https://formspree.io/f/mnpqowqb" method="POST">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="agent-name">Your Name</label>
-            <input type="text" id="agent-name" name="agent_name" required />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="agent-email">Your Email</label>
-            <input type="email" id="agent-email" name="agent_email" required />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="agent-phone">Phone Number</label>
-            <input type="tel" id="agent-phone" name="agent_phone" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="property-address">Property Address</label>
-            <input type="text" id="property-address" name="property_address" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="property-notes">Property Details & Notes</label>
-          <textarea id="property-notes" name="property_notes" placeholder="Condition, lot size, timeline, or special circumstances..."></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Submit Property Details</button>
+  <!-- POPUP MODAL -->
+  <div class="modal-overlay" id="popupModal">
+    <div class="modal-container">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <div class="modal-message">Fill out your email for any buy box updates.</div>
+      <form class="modal-form" action="https://formspree.io/f/mnpqowqb" method="POST">
+        <input type="email" class="modal-input" name="email" placeholder="Enter your email address..." required />
+        <button type="submit" class="modal-submit">Sign Up</button>
       </form>
     </div>
-  </section>
+  </div>
 
-  <section class="contact-pane">
-    <div class="contact-title">Reach out to Aaron for land acquisitions</div>
-    <div class="contact-details">
-      <div class="contact-row">
-        <a href="tel:5412005788">541-200-5788</a>
-        <a href="tel:5412005788" class="contact-icon" title="Call">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </a>
-        <a href="sms:5412005788" class="contact-icon" title="Text">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-        </a>
+  <div class="page-content">
+    <nav>
+      <a class="home-link" href="https://www.stoneholdtpartners.com/">
+        <img src="/logos/Stoneholdt Partners.png" alt="Stoneholdt Partners" />
+      </a>
+    </nav>
+
+    <header class="page-header">
+      <p class="section-label">Bellevue Buy Box</p>
+      <h1>Off-Market and Pocket Listings</h1>
+      <div class="header-sub">
+        <span>We make sure you get your commission paid in full</span>
+        <span>without ever hosting an open house or dealing with a repair negotiation.</span>
       </div>
-      <div class="contact-row">
-        <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
-        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="contact-icon" title="Email">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </a>
+    </header>
+
+    <div class="good-fit">
+      <div class="good-fit-inner">
+        <p class="fit-label">It's a good fit if:</p>
+        <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
       </div>
     </div>
-  </section>
 
-  <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
+    <div class="legend">
+      <div class="legend-inner">
+        <div class="legend-item">
+          <div class="legend-icon icon-triangle"></div>
+          <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon icon-square"></div>
+          <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, irregular shape, wooded</span></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon icon-circle"></div>
+          <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-toggle" id="panelToggle"></div>
+
+    <section class="section-spacing">
+      <div id="parcelList"></div>
+    </section>
+
+    <section class="section-spacing" style="padding-top:0;">
+      <p class="section-label">Secondary Neighborhoods</p>
+      <div id="otherList" class="secondary-grid"></div>
+    </section>
+
+    <section class="contact-pane">
+      <div class="contact-title">Reach out to Aaron for land acquisitions</div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <a href="tel:5412005788">541-200-5788</a>
+          <a href="tel:5412005788" class="contact-icon" title="Call">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </a>
+          <a href="sms:5412005788" class="contact-icon" title="Text">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+          </a>
+        </div>
+        <div class="contact-row">
+          <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+          <a href="mailto:stoneholdt.acquisitions@gmail.com" class="contact-icon" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
+  </div>
 
 <script>
   // Custom cursor follower behavior
@@ -604,6 +610,27 @@
   document.addEventListener('mousemove', e => {
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
+  });
+
+  // Popup Modal Logic (8-second delay, background blur, close button)
+  const popupModal = document.getElementById('popupModal');
+  const modalClose = document.getElementById('modalClose');
+
+  function openPopup() {
+    popupModal.classList.add('visible');
+    document.body.classList.add('modal-open');
+  }
+
+  function closePopup() {
+    popupModal.classList.remove('visible');
+    document.body.classList.remove('modal-open');
+  }
+
+  setTimeout(openPopup, 8000);
+
+  modalClose.addEventListener('click', closePopup);
+  popupModal.addEventListener('click', (e) => {
+    if (e.target === popupModal) closePopup();
   });
 
   const BELLEVUE_DATA = {
