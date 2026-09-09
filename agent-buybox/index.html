@@ -30,11 +30,32 @@
       min-height: 100vh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
       position: relative;
-      cursor: default;
+      cursor: none; /* Hide default cursor to use custom follower */
     }
 
-    a, button, .parcel-head, input, textarea {
-      cursor: pointer;
+    a, button, .parcel-card, input, textarea {
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR FOLLOWER */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--accent-blue);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+      z-index: 9999;
+      background: rgba(74, 103, 173, 0.05);
+    }
+    body:active .custom-cursor {
+      width: 24px;
+      height: 24px;
+      background: rgba(74, 103, 173, 0.2);
     }
 
     /* FIXED GRID BACKGROUND — 32px grid lines */
@@ -86,34 +107,27 @@
     /* HEADER */
     .page-header {
       text-align: center;
-      padding: 64px 40px 8px;
-    }
-    .page-header .section-label {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent-blue);
-      font-weight: 500;
-      margin-bottom: 16px;
+      padding: 64px 40px 16px;
     }
     .page-header h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 50px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .page-header .header-sub {
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      opacity: 0.6;
+      font-size: 13.5px;
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto;
+      opacity: 0.8;
     }
 
     /* GOOD FIT CALLOUT */
     .good-fit {
       max-width: 624px;
-      margin: 34px auto 46px;
+      margin: 24px auto 46px;
       padding: 0 32px;
     }
     .good-fit-inner {
@@ -192,7 +206,7 @@
       font-weight: 500;
       color: var(--primary-blue);
       opacity: 0.35;
-      cursor: pointer;
+      cursor: none;
       padding: 6px 0;
       position: relative;
     }
@@ -225,54 +239,38 @@
       text-align: center;
     }
 
-    /* NEIGHBORHOOD CARDS */
+    /* NEIGHBORHOOD CARDS (Hover/Active Interaction instead of Dropdowns) */
     .parcel-card {
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
       border-radius: 2px;
       margin-bottom: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-    .parcel-card:hover { border-color: rgba(27, 42, 94, 0.18); }
-
-    .parcel-head {
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 24px;
-      cursor: pointer;
-      gap: 18px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
+    .parcel-card:hover {
+      background: var(--bg-cream-darker);
+      border-color: rgba(27, 42, 94, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 42, 94, 0.04);
+    }
+    .parcel-card:active {
+      transform: translateY(0);
+      background: #E4DED3;
+    }
+
     .parcel-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 22px;
       font-weight: 500;
-      margin-bottom: 6px;
     }
-    .parcel-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-    }
-    .tag-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      letter-spacing: 0.03em;
-    }
-    .tag-chip .icon-triangle {
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 10px solid var(--flag-red);
-    }
-    .tag-chip .icon-square { width: 9px; height: 9px; background: var(--flag-orange); }
-    .tag-chip .icon-circle { width: 10px; height: 10px; background: var(--flag-green); }
 
     .status-col {
       display: flex;
-      flex-direction: row;
       align-items: center;
       gap: 14px;
       flex-shrink: 0;
@@ -289,51 +287,8 @@
     }
     .badge.active { background: var(--flag-green-bg); color: var(--flag-green); }
     .badge.case-by-case { background: var(--flag-orange-bg); color: var(--flag-orange); }
-    .badge.paused { background: rgba(27,42,94,0.06); color: var(--primary-blue); opacity: 0.6; }
 
-    .chevron {
-      width: 14px; height: 14px;
-      stroke: var(--primary-blue);
-      opacity: 0.4;
-      transition: transform 0.3s ease;
-      display: block;
-    }
-    .parcel-card.open .chevron { transform: rotate(180deg); }
-
-    .parcel-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    .parcel-card.open .parcel-body {
-      border-top: 1px solid rgba(27, 42, 94, 0.08);
-    }
-    .parcel-body-inner {
-      padding: 20px 24px 22px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-    @media (max-width: 700px) {
-      .parcel-body-inner { grid-template-columns: 1fr; gap: 18px; }
-    }
-
-    .spec-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    .spec-table td { padding: 6px 0; border-bottom: 1px solid rgba(27,42,94,0.06); vertical-align: top; }
-    .spec-table td:first-child {
-      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-      opacity: 0.5; width: 42%; padding-right: 10px;
-    }
-
-    .list-label {
-      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-      opacity: 0.5; margin-bottom: 8px; font-weight: 500;
-    }
-    .parcel-note {
-      font-size: 12px; font-style: italic; opacity: 0.65; margin-top: 2px; line-height: 1.6;
-    }
-
-    /* SECONDARY NEIGHBORHOODS GRID LAYOUT (Half width, stacked in a grid, with outlines restored) */
+    /* SECONDARY NEIGHBORHOODS GRID LAYOUT (Half width, stacked, with outlines) */
     .secondary-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -344,17 +299,10 @@
     }
 
     .parcel-card.compact {
-      background: var(--bg-cream-light);
-      border: 1px solid rgba(27, 42, 94, 0.08);
       margin-bottom: 0;
+      padding: 16px 20px;
     }
-    .parcel-card.compact .parcel-head { 
-      padding: 16px 20px; 
-    }
-    .parcel-card.compact .parcel-name { font-size: 20px; margin-bottom: 4px; }
-    .parcel-card.compact .badge { font-size: 9px; padding: 4px 9px; }
-    .parcel-card.compact .parcel-body-inner { padding: 18px 20px 20px; gap: 20px; }
-    .parcel-card.compact .chevron { width: 13px; height: 13px; }
+    .parcel-card.compact .parcel-name { font-size: 20px; }
 
     /* CONTACT PANEL */
     .contact-pane {
@@ -390,6 +338,7 @@
       text-decoration: none;
       transition: color 0.3s ease;
       font-weight: 400;
+      cursor: none;
     }
     .contact-row a:hover {
       color: var(--accent-blue);
@@ -431,15 +380,17 @@
       .legend-item:last-child { border-bottom: none; }
       .panel-toggle { gap: 24px; }
       .section-spacing { padding: 10px 20px 44px; }
-      .parcel-head { padding: 18px 20px; }
-      .status-col { gap: 10px; }
-      .parcel-body-inner { padding: 16px 18px 20px; }
+      .parcel-card { padding: 16px 20px; }
       .contact-row { flex-wrap: wrap; font-size: 14px; }
+      .custom-cursor { display: none; } /* Disable on touch devices */
+      body { cursor: default; }
+      a, button, .parcel-card { cursor: pointer; }
     }
   </style>
 </head>
 <body>
 
+  <div class="custom-cursor" id="customCursor"></div>
   <div class="bg-grid"></div>
 
   <nav>
@@ -448,16 +399,14 @@
   </nav>
 
   <header class="page-header">
-    <p class="section-label">Bellevue Buy Box</p>
-    <h1>What We're Looking For</h1>
-    <p class="header-sub">Off-Market Lots &amp; Pocket Listings</p>
+    <h1>Off-Market and Pocket Listings</h1>
+    <p class="header-sub">We make sure you get your commission paid in full without ever hiring a photographer, hosting an open house, or dealing with a repair negotiation.</p>
   </header>
 
   <div class="good-fit">
     <div class="good-fit-inner">
       <p class="fit-label">It's a good fit if:</p>
       <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
-      <p>We make sure you get your commission paid in full without ever hiring a photographer, hosting an open house, or dealing with a repair negotiation.</p>
     </div>
   </div>
 
@@ -513,133 +462,89 @@
   <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
 
 <script>
-const BELLEVUE_DATA = {
-  panels: [
-    {
-      id: "west",
-      label: "West Bellevue",
-      neighborhoods: [
-        { name: "Enatai",        status: "active", tags: [], specs: {}, note: "" },
-        { name: "Surrey Downs",  status: "active", tags: [], specs: {}, note: "" },
-        { name: "Clyde Hill",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Northwest",     status: "active", tags: [], specs: {}, note: "" }
-      ]
-    },
-    {
-      id: "east",
-      label: "East Bellevue",
-      neighborhoods: [
-        { name: "Eastgate",      status: "active", tags: [], specs: {}, note: "" },
-        { name: "Robinswood",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Lake Hills",    status: "active", tags: [], specs: {}, note: "" },
-        { name: "Northeast",     status: "active", tags: [], specs: {}, note: "" }
-      ]
-    }
-  ],
-  otherMarkets: [
-    { name: "Newport Hills", status: "case-by-case", tags: [], specs: {}, note: "" },
-    { name: "Bridle Trails", status: "case-by-case", tags: [], specs: {}, note: "" },
-    { name: "Woodridge",     status: "case-by-case", tags: [], specs: {}, note: "" },
-    { name: "Wilburton",     status: "case-by-case", tags: [], specs: {}, note: "" }
-  ]
-};
+  // Custom cursor follower behavior
+  const cursor = document.getElementById('customCursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
 
-let activePanel = BELLEVUE_DATA.panels[0].id;
+  const BELLEVUE_DATA = {
+    panels: [
+      {
+        id: "west",
+        label: "West Bellevue",
+        neighborhoods: [
+          { name: "Enatai", status: "active" },
+          { name: "Surrey Downs", status: "active" },
+          { name: "Clyde Hill", status: "active" },
+          { name: "Northwest", status: "active" }
+        ]
+      },
+      {
+        id: "east",
+        label: "East Bellevue",
+        neighborhoods: [
+          { name: "Eastgate", status: "active" },
+          { name: "Robinswood", status: "active" },
+          { name: "Lake Hills", status: "active" },
+          { name: "Northeast", status: "active" }
+        ]
+      }
+    ],
+    otherMarkets: [
+      { name: "Newport Hills", status: "case-by-case" },
+      { name: "Bridle Trails", status: "case-by-case" },
+      { name: "Woodridge", status: "case-by-case" },
+      { name: "Wilburton", status: "case-by-case" }
+    ]
+  };
 
-function iconFor(type) {
-  if (type === "red") return `<div class="icon-triangle"></div>`;
-  if (type === "orange") return `<div class="icon-square"></div>`;
-  return `<div class="icon-circle"></div>`;
-}
+  let activePanel = BELLEVUE_DATA.panels[0].id;
 
-function getBadgeClass(status) {
-  if (status === 'active') return 'active';
-  if (status === 'case-by-case') return 'case-by-case';
-  return 'paused';
-}
+  function getBadgeClass(status) {
+    if (status === 'active') return 'active';
+    if (status === 'case-by-case') return 'case-by-case';
+    return 'paused';
+  }
 
-function getBadgeLabel(status) {
-  if (status === 'active') return 'Actively Buying';
-  if (status === 'case-by-case') return 'Case-by-Case';
-  return 'Paused';
-}
+  function getBadgeLabel(status) {
+    if (status === 'active') return 'Actively Buying';
+    if (status === 'case-by-case') return 'Case-by-Case';
+    return 'Paused';
+  }
 
-function renderCard(n, compact) {
-  const specsEntries = Object.entries(n.specs || {});
-  return `
-    <div class="parcel-card ${compact ? 'compact' : ''}">
-      <div class="parcel-head">
-        <div>
-          <div class="parcel-name">${n.name}</div>
-          <div class="parcel-tags">
-            ${(n.tags || []).map(t => `<span class="tag-chip">${iconFor(t.type)}${t.label}</span>`).join('')}
-          </div>
-        </div>
+  function renderCard(n, compact) {
+    return `
+      <div class="parcel-card ${compact ? 'compact' : ''}">
+        <div class="parcel-name">${n.name}</div>
         <div class="status-col">
           <span class="badge ${getBadgeClass(n.status)}">
             ${getBadgeLabel(n.status)}
           </span>
-          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
         </div>
       </div>
-      <div class="parcel-body">
-        <div class="parcel-body-inner">
-          <div>
-            ${specsEntries.length ? `
-              <p class="list-label">Details</p>
-              <table class="spec-table">
-                ${specsEntries.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
-              </table>
-            ` : `<p class="parcel-note">Details coming soon — reach out directly for current criteria.</p>`}
-          </div>
-          <div>
-            ${n.note ? `<p class="list-label">Notes</p><p class="parcel-note">${n.note}</p>` : ''}
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
+    `;
+  }
 
-function attachToggleBehavior(container) {
-  container.querySelectorAll('.parcel-card').forEach(card => {
-    card.querySelector('.parcel-head').addEventListener('click', () => {
-      const body = card.querySelector('.parcel-body');
-      const isOpen = card.classList.contains('open');
-      container.querySelectorAll('.parcel-card').forEach(c => {
-        c.classList.remove('open');
-        c.querySelector('.parcel-body').style.maxHeight = null;
-      });
-      if (!isOpen) {
-        card.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
+  function render() {
+    const toggleEl = document.getElementById('panelToggle');
+    toggleEl.innerHTML = BELLEVUE_DATA.panels.map(p => `
+      <button class="${p.id === activePanel ? 'active' : ''}" data-panel="${p.id}">${p.label}</button>
+    `).join('');
+    toggleEl.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => { activePanel = btn.dataset.panel; render(); });
     });
-  });
-}
 
-function render() {
-  const toggleEl = document.getElementById('panelToggle');
-  toggleEl.innerHTML = BELLEVUE_DATA.panels.map(p => `
-    <button class="${p.id === activePanel ? 'active' : ''}" data-panel="${p.id}">${p.label}</button>
-  `).join('');
-  toggleEl.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => { activePanel = btn.dataset.panel; render(); });
-  });
+    const panel = BELLEVUE_DATA.panels.find(p => p.id === activePanel);
+    const listEl = document.getElementById('parcelList');
+    listEl.innerHTML = panel.neighborhoods.map(n => renderCard(n, false)).join('');
 
-  const panel = BELLEVUE_DATA.panels.find(p => p.id === activePanel);
-  const listEl = document.getElementById('parcelList');
-  listEl.innerHTML = panel.neighborhoods.map(n => renderCard(n, false)).join('');
-  attachToggleBehavior(listEl);
+    const otherEl = document.getElementById('otherList');
+    otherEl.innerHTML = BELLEVUE_DATA.otherMarkets.map(n => renderCard(n, true)).join('');
+  }
 
-  const otherEl = document.getElementById('otherList');
-  otherEl.innerHTML = BELLEVUE_DATA.otherMarkets.map(n => renderCard(n, true)).join('');
-  attachToggleBehavior(otherEl);
-}
-
-render();
+  render();
 </script>
 
 </body>
