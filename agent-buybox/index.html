@@ -83,145 +83,98 @@
     }
     nav a.back-link:hover { opacity: 1; }
 
-    /* RESTRUCTURED HEADER & INTRO SECTION */
+    /* HEADER */
     .page-header {
       text-align: center;
-      padding: 56px 32px 24px;
-      max-width: 928px;
-      margin: 0 auto;
+      padding: 64px 40px 8px;
     }
     .page-header .section-label {
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--accent-blue);
       font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
     .page-header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 44px;
+      font-size: 50px;
       font-weight: 500;
       letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+    .page-header .header-sub {
+      font-size: 12px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      opacity: 0.6;
     }
 
-<<<<<<< HEAD
     /* GOOD FIT CALLOUT */
     .good-fit {
       max-width: 624px;
       margin: 34px auto 46px;
-=======
-    /* CLEAN REBUILT INTRO LAYOUT */
-    .intro-grid {
-      max-width: 928px;
-      margin: 0 auto 40px;
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
       padding: 0 32px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
     }
-    @media (max-width: 768px) {
-      .intro-grid { grid-template-columns: 1fr; gap: 24px; }
+    .good-fit-inner {
+      border-left: 2px solid var(--accent-blue);
+      padding: 4px 0 4px 22px;
+      text-align: left;
     }
-
-    .intro-card {
-      background: var(--bg-cream-light);
-      border: 1px solid rgba(27, 42, 94, 0.08);
-      border-radius: 3px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .intro-card .fit-label {
+    .good-fit-inner .fit-label {
       font-size: 10px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent-blue);
       font-weight: 500;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-    .intro-card p {
+    .good-fit-inner p {
       font-size: 13.5px;
       line-height: 1.75;
-      opacity: 0.85;
+      opacity: 0.82;
     }
-<<<<<<< HEAD
 
     /* LEGEND */
     .legend {
       max-width: 768px;
       margin: 0 auto 50px;
       padding: 0 32px;
-=======
-    .intro-card .agent-benefit {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(27, 42, 94, 0.08);
-      font-size: 12.5px;
-      line-height: 1.6;
-      opacity: 0.75;
-      font-style: italic;
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
     }
-
-    /* LEGEND BOX */
-    .legend-card {
+    .legend-inner {
+      display: flex;
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
       border-radius: 3px;
-      padding: 24px 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      overflow: hidden;
     }
-    .legend-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .legend-row {
+    .legend-item {
+      flex: 1;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
+      padding: 18px 20px;
+      border-right: 1px solid rgba(27, 42, 94, 0.08);
     }
-    .legend-row .legend-text b {
-      display: block;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 2px;
-    }
-    .legend-row .legend-text span {
-      opacity: 0.6;
-      font-size: 11px;
-      line-height: 1.4;
-      display: block;
-    }
+    .legend-item:last-child { border-right: none; }
+    .legend-icon { flex-shrink: 0; margin-top: 3px; }
+    .legend-text b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 3px; }
+    .legend-text span { opacity: 0.6; font-size: 11px; line-height: 1.5; display: block; }
 
     .icon-triangle {
       width: 0; height: 0;
       border-left: 7px solid transparent;
       border-right: 7px solid transparent;
       border-bottom: 12px solid var(--flag-red);
-      flex-shrink: 0;
-      margin-top: 2px;
     }
     .icon-square {
       width: 11px; height: 11px;
       background: var(--flag-orange);
-      flex-shrink: 0;
-      margin-top: 3px;
     }
     .icon-circle {
       width: 12px; height: 12px;
       border-radius: 50%;
       background: var(--flag-green);
-      flex-shrink: 0;
-      margin-top: 2px;
     }
 
     /* WEST/EAST TOGGLE */
@@ -379,7 +332,6 @@
     .parcel-note {
       font-size: 12px; font-style: italic; opacity: 0.65; margin-top: 2px; line-height: 1.6;
     }
-<<<<<<< HEAD
 
     /* SECONDARY NEIGHBORHOODS GRID LAYOUT (Half width, stacked in a grid, with outlines restored) */
     .secondary-grid {
@@ -390,26 +342,11 @@
     @media (max-width: 700px) {
       .secondary-grid { grid-template-columns: 1fr; }
     }
-=======
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
 
-<<<<<<< HEAD
-=======
-    /* SECONDARY MARKETS — borderless filled cards matching background fill cleanly */
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
     .parcel-card.compact {
-<<<<<<< HEAD
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
       margin-bottom: 0;
-=======
-      background: var(--bg-cream-darker);
-      border: none;
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
-    }
-    .parcel-card.compact:hover {
-      border: none;
-      filter: brightness(0.98);
     }
     .parcel-card.compact .parcel-head { 
       padding: 16px 20px; 
@@ -487,8 +424,11 @@
 
     @media (max-width: 700px) {
       nav { padding: 20px; }
-      .page-header { padding: 40px 20px 20px; }
-      .page-header h1 { font-size: 32px; }
+      .page-header { padding: 46px 24px 6px; }
+      .page-header h1 { font-size: 34px; }
+      .legend-inner { flex-direction: column; }
+      .legend-item { border-right: none; border-bottom: 1px solid rgba(27,42,94,0.08); }
+      .legend-item:last-child { border-bottom: none; }
       .panel-toggle { gap: 24px; }
       .section-spacing { padding: 10px 20px 44px; }
       .parcel-head { padding: 18px 20px; }
@@ -509,35 +449,30 @@
 
   <header class="page-header">
     <p class="section-label">Bellevue Buy Box</p>
-    <h1>Off-Market Lots &amp; Pocket Listings</h1>
+    <h1>What We're Looking For</h1>
+    <p class="header-sub">Off-Market Lots &amp; Pocket Listings</p>
   </header>
 
-  <div class="intro-grid">
-    <div class="intro-card">
-      <div>
-        <p class="fit-label">It's a good fit if:</p>
-        <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs, staging, photography, and public showings, with a flexible closing timeline built around their schedule.</p>
-      </div>
-      <div class="agent-benefit">
-        Secure your full commission seamlessly—no repair negotiations or open houses required. Direct access to our curated builder network.
-      </div>
+  <div class="good-fit">
+    <div class="good-fit-inner">
+      <p class="fit-label">It's a good fit if:</p>
+      <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
     </div>
+  </div>
 
-    <div class="legend-card">
-      <p class="fit-label" style="margin-bottom: 14px;">Evaluation Guide</p>
-      <div class="legend-list">
-        <div class="legend-row">
-          <div class="icon-triangle"></div>
-          <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
-        </div>
-        <div class="legend-row">
-          <div class="icon-square"></div>
-          <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, wooded</span></div>
-        </div>
-        <div class="legend-row">
-          <div class="icon-circle"></div>
-          <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
-        </div>
+  <div class="legend">
+    <div class="legend-inner">
+      <div class="legend-item">
+        <div class="legend-icon icon-triangle"></div>
+        <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon icon-square"></div>
+        <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, wooded</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon icon-circle"></div>
+        <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
       </div>
     </div>
   </div>
@@ -549,13 +484,8 @@
   </section>
 
   <section class="section-spacing" style="padding-top:0;">
-<<<<<<< HEAD
     <p class="section-label">Secondary Neighborhoods</p>
     <div id="otherList" class="secondary-grid"></div>
-=======
-    <p class="section-label">Secondary Neighborhoods</p>
-    <div id="otherList"></div>
->>>>>>> 6f64cb2d7d200232c347182929eef3e8a8d86d6f
   </section>
 
   <section class="contact-pane">
