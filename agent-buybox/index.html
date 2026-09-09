@@ -313,10 +313,98 @@
     }
     .parcel-card.compact .parcel-name { font-size: 20px; }
 
+    /* SUBMISSION FORM SECTION */
+    .submission-section {
+      max-width: 704px;
+      margin: 0 auto 60px;
+      padding: 0 32px;
+    }
+    .submission-card {
+      background: var(--bg-cream-light);
+      border: 1px solid rgba(27, 42, 94, 0.08);
+      border-radius: 3px;
+      padding: 40px;
+    }
+    .submission-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .submission-card p.form-sub {
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    label.form-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 500;
+      color: var(--accent-blue);
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      background: var(--bg-cream);
+      border: 1px solid rgba(27, 42, 94, 0.15);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--primary-blue);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      background: #FFF;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .submit-btn {
+      width: 100%;
+      background: var(--primary-blue);
+      color: #FFF;
+      border: none;
+      border-radius: 2px;
+      padding: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: var(--accent-blue);
+    }
+
     /* CONTACT PANEL */
     .contact-pane {
       text-align: center;
-      padding: 30px 32px 90px;
+      padding: 10px 32px 90px;
       max-width: 704px;
       margin: 0 auto;
     }
@@ -391,9 +479,10 @@
       .section-spacing { padding: 10px 20px 44px; }
       .parcel-card { padding: 16px 20px; }
       .contact-row { flex-wrap: wrap; font-size: 14px; }
+      .submission-card { padding: 24px 20px; }
       .custom-cursor { display: none; }
       body { cursor: default; }
-      a, button, .parcel-card { cursor: pointer; }
+      a, button, .parcel-card, input, textarea { cursor: pointer; }
     }
   </style>
 </head>
@@ -450,6 +539,40 @@
   <section class="section-spacing" style="padding-top:0;">
     <p class="section-label">Secondary Neighborhoods</p>
     <div id="otherList" class="secondary-grid"></div>
+  </section>
+
+  <section class="submission-section">
+    <div class="submission-card">
+      <h3>Submit a Pocket Listing</h3>
+      <p class="form-sub">Share property details with our acquisitions team below.</p>
+      <form action="https://formspree.io/f/mnpqowqb" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="agent-name">Your Name</label>
+            <input type="text" id="agent-name" name="agent_name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="agent-email">Your Email</label>
+            <input type="email" id="agent-email" name="agent_email" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="agent-phone">Phone Number</label>
+            <input type="tel" id="agent-phone" name="agent_phone" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="property-address">Property Address</label>
+            <input type="text" id="property-address" name="property_address" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="property-notes">Property Details & Notes</label>
+          <textarea id="property-notes" name="property_notes" placeholder="Condition, lot size, timeline, or special circumstances..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit Property Details</button>
+      </form>
+    </div>
   </section>
 
   <section class="contact-pane">
