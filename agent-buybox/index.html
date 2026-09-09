@@ -14,7 +14,7 @@
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
-      --bg-cream-darker: #ECE6DA; /* Slightly darker background for bottom 3 markets */
+      --bg-cream-darker: #ECE6DA;
       --flag-red: #9B4A3A;
       --flag-red-bg: #F2E4DF;
       --flag-orange: #B5772E;
@@ -30,15 +30,14 @@
       min-height: 100vh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
       position: relative;
-      cursor: default; /* Inheriting website cursor effect style preference */
+      cursor: default;
     }
 
-    /* Custom cursor effect style matching Stoneholdt Partners aesthetic */
     a, button, .parcel-head, input, textarea {
       cursor: pointer;
     }
 
-    /* FIXED GRID BACKGROUND — stays put while content scrolls over it */
+    /* FIXED GRID BACKGROUND — 32px grid lines */
     .bg-grid {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -113,9 +112,9 @@
 
     /* GOOD FIT CALLOUT */
     .good-fit {
-      max-width: 620px;
+      max-width: 624px; /* Matches 32px multiples */
       margin: 34px auto 46px;
-      padding: 0 40px;
+      padding: 0 32px;
     }
     .good-fit-inner {
       border-left: 2px solid var(--accent-blue);
@@ -136,11 +135,11 @@
       opacity: 0.82;
     }
 
-    /* LEGEND — segmented bar, no gridlines, soft divider background */
+    /* LEGEND */
     .legend {
-      max-width: 760px;
+      max-width: 768px; /* 32px grid aligned (32 * 24) */
       margin: 0 auto 50px;
-      padding: 0 40px;
+      padding: 0 32px;
     }
     .legend-inner {
       display: flex;
@@ -183,7 +182,7 @@
       display: flex;
       justify-content: center;
       gap: 40px;
-      padding: 0 40px 8px;
+      padding: 0 32px 8px;
     }
     .panel-toggle button {
       background: none;
@@ -209,10 +208,10 @@
     .panel-toggle button:hover { opacity: 1; }
     .panel-toggle button.active::after { width: 100%; }
 
-    /* SECTIONS */
+    /* SECTIONS — width matched to 928px (exact multiple of 32px grid columns) */
     .section-spacing {
-      padding: 16px 60px 60px;
-      max-width: 940px;
+      padding: 16px 32px 60px;
+      max-width: 928px; 
       margin: 0 auto;
     }
     .section-label {
@@ -231,7 +230,7 @@
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
       border-radius: 2px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       overflow: hidden;
       transition: all 0.3s ease;
     }
@@ -240,7 +239,7 @@
     .parcel-head {
       display: flex;
       justify-content: space-between;
-      align-items: center; /* Horizontally aligned and centered per requirements */
+      align-items: center;
       padding: 18px 24px;
       cursor: pointer;
       gap: 18px;
@@ -271,11 +270,12 @@
     .tag-chip .icon-square { width: 9px; height: 9px; background: var(--flag-orange); }
     .tag-chip .icon-circle { width: 10px; height: 10px; background: var(--flag-green); }
 
+    /* STATUS COL: Horizontally aligned and centered layout for badge + dropdown arrow */
     .status-col {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
       flex-shrink: 0;
     }
     .badge {
@@ -297,6 +297,7 @@
       stroke: var(--primary-blue);
       opacity: 0.4;
       transition: transform 0.3s ease;
+      display: block;
     }
     .parcel-card.open .chevron { transform: rotate(180deg); }
 
@@ -346,7 +347,7 @@
     }
     .send-link:hover { opacity: 0.7; }
 
-    /* COMPACT — bottom 3 markets matching top card heights and slightly darker background */
+    /* COMPACT CARDS */
     .parcel-card.compact {
       background: var(--bg-cream-darker);
     }
@@ -357,13 +358,13 @@
     .parcel-card.compact .badge { font-size: 9px; padding: 4px 11px; }
     .parcel-card.compact .parcel-body-inner { padding: 20px 24px 22px; gap: 26px; }
     .parcel-card.compact .chevron { width: 14px; height: 14px; }
-    .parcel-card.compact { margin-bottom: 10px; }
+    .parcel-card.compact { margin-bottom: 12px; }
 
     /* CONTACT PANEL */
     .contact-pane {
       text-align: center;
-      padding: 30px 40px 90px;
-      max-width: 700px;
+      padding: 30px 32px 90px;
+      max-width: 704px;
       margin: 0 auto;
     }
     .contact-pane .contact-title {
@@ -435,7 +436,7 @@
       .panel-toggle { gap: 24px; }
       .section-spacing { padding: 10px 20px 44px; }
       .parcel-head { padding: 18px 20px; }
-      .status-col { align-items: flex-end; }
+      .status-col { gap: 10px; }
       .parcel-body-inner { padding: 16px 18px 20px; }
       .contact-row { flex-wrap: wrap; font-size: 14px; }
     }
@@ -515,16 +516,6 @@
   <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
 
 <script>
-/* ============================================================
-   DATA
-   ------------------------------------------------------------
-   Each neighborhood has a "tags" array. Each tag needs:
-     type:  "red"    -> red triangle  (dealbreaker-leaning)
-            "orange" -> orange square (situational, worth a look)
-            "green"  -> green circle  (positive fit)
-     label: whatever text you want next to the icon
-============================================================ */
-
 const BELLEVUE_DATA = {
   panels: [
     {
