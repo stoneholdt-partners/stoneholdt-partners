@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <title>Agent Buy Box — Stoneholdt Partners</title>
+  <title>Bellevue Buy Box — Stoneholdt Partners</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,26 +14,36 @@
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
-      --good-green: #3F6B4E;
-      --good-bg: #E4EDE7;
       --flag-red: #9B4A3A;
-      --flag-bg: #F2E4DF;
+      --flag-red-bg: #F2E4DF;
+      --flag-orange: #B5772E;
+      --flag-orange-bg: #F5EADB;
+      --flag-green: #3F6B4E;
+      --flag-green-bg: #E4EDE7;
     }
 
     body {
-      background-color: var(--bg-cream);
-      background-image:
-        linear-gradient(rgba(27, 42, 94, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27, 42, 94, 0.06) 1px, transparent 1px);
-      background-size: 32px 32px;
       color: var(--primary-blue);
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       min-height: 100vh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
+      position: relative;
     }
 
-    /* NAV — simplified version of the main site's nav, just a way back home */
+    /* FIXED GRID BACKGROUND — stays put while content scrolls over it */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background-color: var(--bg-cream);
+      background-image:
+        linear-gradient(rgba(27, 42, 94, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 42, 94, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* NAV */
     nav {
       display: flex;
       justify-content: space-between;
@@ -70,7 +80,7 @@
     /* HEADER */
     .page-header {
       text-align: center;
-      padding: 70px 40px 50px;
+      padding: 64px 40px 8px;
     }
     .page-header .section-label {
       font-size: 11px;
@@ -78,142 +88,204 @@
       text-transform: uppercase;
       color: var(--accent-blue);
       font-weight: 500;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .page-header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
+      font-size: 50px;
       font-weight: 500;
       letter-spacing: 0.02em;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
-    .page-header p {
-      font-size: 14px;
-      line-height: 1.8;
-      max-width: 560px;
-      margin: 0 auto;
-      opacity: 0.8;
+    .page-header .header-sub {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.6;
     }
 
-    /* MARKET TOGGLE — echoes the states-pane pattern from the homepage */
-    .market-toggle {
+    /* GOOD FIT CALLOUT */
+    .good-fit {
+      max-width: 620px;
+      margin: 34px auto 46px;
+      padding: 0 40px;
+    }
+    .good-fit-inner {
+      border-left: 2px solid var(--accent-blue);
+      padding: 4px 0 4px 22px;
+      text-align: left;
+    }
+    .good-fit-inner .fit-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .good-fit-inner p {
+      font-size: 13.5px;
+      line-height: 1.75;
+      opacity: 0.82;
+    }
+
+    /* LEGEND — segmented bar, no gridlines, soft divider background */
+    .legend {
+      max-width: 760px;
+      margin: 0 auto 50px;
+      padding: 0 40px;
+    }
+    .legend-inner {
+      display: flex;
+      background: var(--bg-cream-light);
+      border: 1px solid rgba(27, 42, 94, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .legend-item {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 18px 20px;
+      border-right: 1px solid rgba(27, 42, 94, 0.08);
+    }
+    .legend-item:last-child { border-right: none; }
+    .legend-icon { flex-shrink: 0; margin-top: 3px; }
+    .legend-text b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 3px; }
+    .legend-text span { opacity: 0.6; font-size: 11px; line-height: 1.5; display: block; }
+
+    .icon-triangle {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 12px solid var(--flag-red);
+    }
+    .icon-square {
+      width: 11px; height: 11px;
+      background: var(--flag-orange);
+    }
+    .icon-circle {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--flag-green);
+    }
+
+    /* WEST/EAST TOGGLE */
+    .panel-toggle {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      padding: 0 40px 40px;
+      gap: 40px;
+      padding: 0 40px 8px;
     }
-    .market-toggle button {
+    .panel-toggle button {
       background: none;
       border: none;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      font-weight: 500;
       color: var(--primary-blue);
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: pointer;
       padding: 6px 0;
       position: relative;
     }
-    .market-toggle button::after {
+    .panel-toggle button::after {
       content: '';
       position: absolute;
-      bottom: -2px; left: 0;
+      bottom: -4px; left: 0;
       width: 0; height: 1px;
       background-color: var(--primary-blue);
       transition: width 0.3s ease;
     }
-    .market-toggle button.active,
-    .market-toggle button:hover { opacity: 1; }
-    .market-toggle button.active::after { width: 100%; }
+    .panel-toggle button.active,
+    .panel-toggle button:hover { opacity: 1; }
+    .panel-toggle button.active::after { width: 100%; }
 
-    /* META STRIP */
-    .meta-strip {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
-      padding: 0 40px 50px;
-    }
-    .meta-item { text-align: center; }
-    .meta-item .meta-label {
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 6px;
-    }
-    .meta-item .meta-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 500;
-    }
-
-    /* NEIGHBORHOOD CARDS */
+    /* SECTIONS */
     .section-spacing {
-      padding: 20px 60px 90px;
-      max-width: 1000px;
+      padding: 16px 60px 60px;
+      max-width: 940px;
       margin: 0 auto;
     }
     .section-label {
       font-size: 10px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 25px;
+      opacity: 0.5;
+      margin-bottom: 16px;
       font-weight: 500;
       color: var(--accent-blue);
+      text-align: center;
     }
 
+    /* NEIGHBORHOOD CARDS — tightened */
     .parcel-card {
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
       border-radius: 2px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       overflow: hidden;
-      transition: all 0.35s ease;
+      transition: all 0.3s ease;
     }
     .parcel-card:hover { border-color: rgba(27, 42, 94, 0.18); }
 
     .parcel-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 26px 32px;
+      align-items: flex-start;
+      padding: 18px 24px;
       cursor: pointer;
-      gap: 20px;
+      gap: 18px;
     }
     .parcel-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 500;
-      margin-bottom: 3px;
+      margin-bottom: 6px;
     }
-    .parcel-headline {
+    .parcel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+    }
+    .tag-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.5;
+      letter-spacing: 0.03em;
     }
+    .tag-chip .icon-triangle {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid var(--flag-red);
+    }
+    .tag-chip .icon-square { width: 9px; height: 9px; background: var(--flag-orange); }
+    .tag-chip .icon-circle { width: 10px; height: 10px; background: var(--flag-green); }
 
+    .status-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      flex-shrink: 0;
+    }
     .badge {
       display: inline-block;
       font-size: 9px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 4px 11px;
       border-radius: 20px;
       font-weight: 500;
       white-space: nowrap;
     }
-    .badge.active { background: var(--good-bg); color: var(--good-green); }
+    .badge.active { background: var(--flag-green-bg); color: var(--flag-green); }
     .badge.paused { background: rgba(27,42,94,0.06); color: var(--primary-blue); opacity: 0.6; }
 
     .chevron {
-      width: 15px; height: 15px;
-      flex-shrink: 0;
+      width: 14px; height: 14px;
       stroke: var(--primary-blue);
       opacity: 0.4;
       transition: transform 0.3s ease;
@@ -229,48 +301,55 @@
       border-top: 1px solid rgba(27, 42, 94, 0.08);
     }
     .parcel-body-inner {
-      padding: 30px 32px 34px;
+      padding: 20px 24px 22px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 26px;
     }
     @media (max-width: 700px) {
-      .parcel-body-inner { grid-template-columns: 1fr; gap: 26px; }
+      .parcel-body-inner { grid-template-columns: 1fr; gap: 18px; }
     }
 
-    .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .spec-table td { padding: 8px 0; border-bottom: 1px solid rgba(27,42,94,0.06); vertical-align: top; }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .spec-table td { padding: 6px 0; border-bottom: 1px solid rgba(27,42,94,0.06); vertical-align: top; }
     .spec-table td:first-child {
       font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
       opacity: 0.5; width: 42%; padding-right: 10px;
     }
-    .spec-table td:last-child { font-weight: 400; }
 
     .list-label {
       font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-      opacity: 0.5; margin-bottom: 12px; font-weight: 500;
-    }
-    ul.tag-list { list-style: none; margin: 0 0 22px; padding: 0; }
-    ul.tag-list li {
-      font-size: 13px; line-height: 1.7; padding-left: 18px; position: relative;
-    }
-    ul.wants li:before {
-      content: ''; position: absolute; left: 0; top: 9px;
-      width: 6px; height: 6px; border-radius: 50%; background: var(--good-green);
-    }
-    ul.flags li:before {
-      content: ''; position: absolute; left: 0; top: 8px;
-      width: 8px; height: 8px; background: var(--flag-red);
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      opacity: 0.5; margin-bottom: 8px; font-weight: 500;
     }
     .parcel-note {
-      font-size: 12px; font-style: italic; opacity: 0.6; margin-top: -6px;
+      font-size: 12px; font-style: italic; opacity: 0.65; margin-top: 2px; line-height: 1.6;
     }
+    .send-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent-blue);
+      padding-bottom: 2px;
+      transition: opacity 0.2s ease;
+    }
+    .send-link:hover { opacity: 0.7; }
 
-    /* CONTACT CTA — echoes the homepage contact-pane */
+    /* COMPACT — secondary, one-off markets */
+    .parcel-card.compact .parcel-head { padding: 12px 22px; }
+    .parcel-card.compact .parcel-name { font-size: 17px; margin-bottom: 4px; }
+    .parcel-card.compact .badge { font-size: 8px; padding: 3px 9px; }
+    .parcel-card.compact .parcel-body-inner { padding: 14px 22px 16px; gap: 20px; }
+    .parcel-card.compact .chevron { width: 12px; height: 12px; }
+    .parcel-card.compact { margin-bottom: 8px; }
+
+    /* CONTACT */
     .contact-pane {
       text-align: center;
-      padding: 30px 40px 90px;
+      padding: 16px 40px 90px;
     }
     .contact-pane p {
       font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -293,39 +372,71 @@
 
     @media (max-width: 700px) {
       nav { padding: 20px; }
-      .page-header { padding: 50px 24px 35px; }
-      .page-header h1 { font-size: 36px; }
-      .section-spacing { padding: 10px 20px 60px; }
-      .parcel-head { padding: 20px; }
-      .parcel-body-inner { padding: 22px 20px 26px; }
+      .page-header { padding: 46px 24px 6px; }
+      .page-header h1 { font-size: 34px; }
+      .legend-inner { flex-direction: column; }
+      .legend-item { border-right: none; border-bottom: 1px solid rgba(27,42,94,0.08); }
+      .legend-item:last-child { border-bottom: none; }
+      .panel-toggle { gap: 24px; }
+      .section-spacing { padding: 10px 20px 44px; }
+      .parcel-head { padding: 16px 18px; flex-direction: column; }
+      .status-col { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; margin-top: 10px; }
+      .parcel-body-inner { padding: 16px 18px 20px; }
     }
   </style>
 </head>
 <body>
 
+  <div class="bg-grid"></div>
+
   <nav>
-    <!-- EDIT: point this at your actual homepage URL if different -->
     <a class="home-link" href="https://www.stoneholdtpartners.com/">Stoneholdt Partners</a>
     <a class="back-link" href="https://www.stoneholdtpartners.com/">← Back to site</a>
   </nav>
 
   <header class="page-header">
-    <p class="section-label">Agent Buy Box</p>
-    <h1>What We're Buying</h1>
-    <p>Off-market lots and teardowns in active rebuild corridors. Send anything that fits — we'll comp it and respond same day.</p>
+    <p class="section-label">Bellevue Buy Box</p>
+    <h1>What We're Looking For</h1>
+    <p class="header-sub">Off-Market Lots &amp; Pocket Listings</p>
   </header>
 
-  <div class="market-toggle" id="marketToggle"></div>
-  <div class="meta-strip" id="metaStrip"></div>
+  <div class="good-fit">
+    <div class="good-fit-inner">
+      <p class="fit-label">It's a good fit if:</p>
+      <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-inner">
+      <div class="legend-item">
+        <div class="legend-icon icon-triangle"></div>
+        <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, high-voltage powerline visibility</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon icon-square"></div>
+        <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, wooded</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon icon-circle"></div>
+        <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, views, oversized lot</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-toggle" id="panelToggle"></div>
 
   <section class="section-spacing">
-    <p class="section-label">Target Neighborhoods</p>
     <div id="parcelList"></div>
+  </section>
+
+  <section class="section-spacing" style="padding-top:0;">
+    <p class="section-label">Other Markets</p>
+    <div id="otherList"></div>
   </section>
 
   <section class="contact-pane">
     <p>Send a Deal</p>
-    <!-- EDIT: keep or change this address -->
     <a href="mailto:stoneholdt.acquisitions@gmail.com?subject=Off-market%20lead" class="email-link">stoneholdt.acquisitions@gmail.com</a>
   </section>
 
@@ -333,109 +444,83 @@
 
 <script>
 /* ============================================================
-   DATA — edit everything in this object. Nothing else needs to change.
+   DATA
+   ------------------------------------------------------------
+   Each neighborhood has a "tags" array. Each tag needs:
+     type:  "red"    -> red triangle  (dealbreaker-leaning)
+            "orange" -> orange square (situational, worth a look)
+            "green"  -> green circle  (positive fit)
+     label: whatever text you want next to the icon
 ============================================================ */
-const BUYBOX_DATA = {
-  markets: [
+
+const BELLEVUE_DATA = {
+  panels: [
     {
-      id: "WA",
-      label: "Washington",
-      meta: {
-        "Price Range": "$XXXk – $X.XM",
-        "Close Timeline": "X–XX days, cash",
-        "Referral Fee": "X% on close"
-      },
+      id: "west",
+      label: "West Bellevue",
       neighborhoods: [
-        {
-          name: "Neighborhood name",
-          status: "active", // "active" or "paused"
-          headline: "e.g. teardown / spec rebuild corridor",
-          specs: {
-            "Lot Size": "X,XXX – X,XXX sqft",
-            "Zoning": "e.g. R-4, R-6",
-            "Topography": "flat / gentle slope preferred",
-            "Structure on Lot": "teardown OK / vacant preferred"
-          },
-          wants: [
-            "Add a specific want here",
-            "Add another want here"
-          ],
-          redFlags: [
-            "Corner lot",
-            "High-voltage transmission line adjacent",
-            "Steep slope / geotech risk",
-            "Wetland or critical area overlay"
-          ],
-          note: "" // optional — e.g. "Only west of 108th, north of Main"
-        }
-        // Copy the block above to add more WA neighborhoods
+        { name: "Enatai",        status: "active", tags: [], specs: {}, note: "" },
+        { name: "Surrey Downs",  status: "active", tags: [], specs: {}, note: "" },
+        { name: "Clyde Hill",    status: "active", tags: [], specs: {}, note: "" },
+        { name: "Northwest",     status: "active", tags: [], specs: {}, note: "" }
       ]
     },
     {
-      id: "CO",
-      label: "Colorado",
-      meta: {
-        "Price Range": "$XXXk – $X.XM",
-        "Close Timeline": "X–XX days, cash",
-        "Referral Fee": "X% on close"
-      },
+      id: "east",
+      label: "East Bellevue",
       neighborhoods: [
-        {
-          name: "Neighborhood name",
-          status: "active",
-          headline: "e.g. infill / scrape-and-build zone",
-          specs: {
-            "Lot Size": "X,XXX – X,XXX sqft",
-            "Zoning": "e.g. U-SU-C",
-            "Topography": "flat preferred",
-            "Structure on Lot": "teardown OK / vacant preferred"
-          },
-          wants: [
-            "Add a specific want here",
-            "Add another want here"
-          ],
-          redFlags: [
-            "Corner lot",
-            "Alley access issues",
-            "HOA with rebuild restrictions"
-          ],
-          note: ""
-        }
+        { name: "Eastgate",      status: "active", tags: [], specs: {}, note: "" },
+        { name: "Robinswood",    status: "active", tags: [], specs: {}, note: "" },
+        { name: "Lake Hills",    status: "active", tags: [], specs: {}, note: "" },
+        { name: "Northeast",     status: "active", tags: [], specs: {}, note: "" }
       ]
     }
+  ],
+  otherMarkets: [
+    { name: "Bridle Trails", status: "active", tags: [], specs: {}, note: "" },
+    { name: "Woodridge",     status: "active", tags: [], specs: {}, note: "" },
+    { name: "Wilburton",     status: "active", tags: [], specs: {}, note: "" }
   ]
 };
 
-let activeMarket = BUYBOX_DATA.markets[0].id;
+/* ============================================================
+   EXAMPLE — copy this pattern once you're ready to fill one in:
 
-function render() {
-  const market = BUYBOX_DATA.markets.find(m => m.id === activeMarket);
+   { name: "Enatai", status: "active",
+     tags: [
+       { type: "green",  label: "Flat lot" },
+       { type: "green",  label: "Development-adjacent" },
+       { type: "orange", label: "Corner lot" },
+       { type: "red",    label: "Road noise (108th Ave)" }
+     ],
+     specs: {
+       "Lot Size": "8,000 – 14,000 sqft",
+       "Zoning": "R-4",
+       "Structure on Lot": "teardown OK"
+     },
+     note: "Only west of 108th, north of Main St." }
+============================================================ */
 
-  const toggleEl = document.getElementById('marketToggle');
-  toggleEl.innerHTML = BUYBOX_DATA.markets.map(m => `
-    <button class="${m.id === activeMarket ? 'active' : ''}" data-market="${m.id}">${m.label}</button>
-  `).join('');
-  toggleEl.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => { activeMarket = btn.dataset.market; render(); });
-  });
+let activePanel = BELLEVUE_DATA.panels[0].id;
 
-  const metaEl = document.getElementById('metaStrip');
-  metaEl.innerHTML = Object.entries(market.meta).map(([k, v]) => `
-    <div class="meta-item">
-      <div class="meta-label">${k}</div>
-      <div class="meta-value">${v}</div>
-    </div>
-  `).join('');
+function iconFor(type) {
+  if (type === "red") return `<div class="icon-triangle"></div>`;
+  if (type === "orange") return `<div class="icon-square"></div>`;
+  return `<div class="icon-circle"></div>`;
+}
 
-  const listEl = document.getElementById('parcelList');
-  listEl.innerHTML = market.neighborhoods.map(n => `
-    <div class="parcel-card">
+function renderCard(n, compact) {
+  const specsEntries = Object.entries(n.specs || {});
+  return `
+    <div class="parcel-card ${compact ? 'compact' : ''}">
       <div class="parcel-head">
         <div>
           <div class="parcel-name">${n.name}</div>
-          <div class="parcel-headline">${n.headline}</div>
+          <div class="parcel-tags">
+            ${(n.tags || []).map(t => `<span class="tag-chip">${iconFor(t.type)}${t.label}</span>`).join('')}
+          </div>
         </div>
-        <div style="display:flex; align-items:center; gap:16px;">
+        <div class="status-col">
           <span class="badge ${n.status === 'active' ? 'active' : 'paused'}">
             ${n.status === 'active' ? 'Actively Buying' : 'Paused'}
           </span>
@@ -447,27 +532,29 @@ function render() {
       <div class="parcel-body">
         <div class="parcel-body-inner">
           <div>
-            <table class="spec-table">
-              ${Object.entries(n.specs).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
-            </table>
+            ${specsEntries.length ? `
+              <p class="list-label">Details</p>
+              <table class="spec-table">
+                ${specsEntries.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}
+              </table>
+            ` : `<p class="parcel-note">Details coming soon — reach out directly for current criteria.</p>`}
           </div>
           <div>
-            <p class="list-label">Wanted</p>
-            <ul class="tag-list wants">${n.wants.map(w => `<li>${w}</li>`).join('')}</ul>
-            <p class="list-label">Red Flags</p>
-            <ul class="tag-list flags">${n.redFlags.map(f => `<li>${f}</li>`).join('')}</ul>
-            ${n.note ? `<p class="parcel-note">${n.note}</p>` : ''}
+            ${n.note ? `<p class="list-label">Notes</p><p class="parcel-note">${n.note}</p>` : ''}
+            <a class="send-link" href="mailto:stoneholdt.acquisitions@gmail.com?subject=${encodeURIComponent('Deal in ' + n.name)}">Send a deal in ${n.name} →</a>
           </div>
         </div>
       </div>
     </div>
-  `).join('');
+  `;
+}
 
-  listEl.querySelectorAll('.parcel-card').forEach(card => {
+function attachToggleBehavior(container) {
+  container.querySelectorAll('.parcel-card').forEach(card => {
     card.querySelector('.parcel-head').addEventListener('click', () => {
       const body = card.querySelector('.parcel-body');
       const isOpen = card.classList.contains('open');
-      listEl.querySelectorAll('.parcel-card').forEach(c => {
+      container.querySelectorAll('.parcel-card').forEach(c => {
         c.classList.remove('open');
         c.querySelector('.parcel-body').style.maxHeight = null;
       });
@@ -477,12 +564,25 @@ function render() {
       }
     });
   });
+}
 
-  const first = listEl.querySelector('.parcel-card');
-  if (first) {
-    first.classList.add('open');
-    first.querySelector('.parcel-body').style.maxHeight = first.querySelector('.parcel-body').scrollHeight + 'px';
-  }
+function render() {
+  const toggleEl = document.getElementById('panelToggle');
+  toggleEl.innerHTML = BELLEVUE_DATA.panels.map(p => `
+    <button class="${p.id === activePanel ? 'active' : ''}" data-panel="${p.id}">${p.label}</button>
+  `).join('');
+  toggleEl.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => { activePanel = btn.dataset.panel; render(); });
+  });
+
+  const panel = BELLEVUE_DATA.panels.find(p => p.id === activePanel);
+  const listEl = document.getElementById('parcelList');
+  listEl.innerHTML = panel.neighborhoods.map(n => renderCard(n, false)).join('');
+  attachToggleBehavior(listEl);
+
+  const otherEl = document.getElementById('otherList');
+  otherEl.innerHTML = BELLEVUE_DATA.otherMarkets.map(n => renderCard(n, true)).join('');
+  attachToggleBehavior(otherEl);
 }
 
 render();
