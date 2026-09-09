@@ -80,7 +80,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(230, 224, 213, 0.95); /* Slightly darker navigation bar for differentiation */
+      background: rgba(230, 224, 213, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(27, 42, 94, 0.1);
@@ -99,7 +99,9 @@
     /* HEADER */
     .page-header {
       text-align: center;
-      padding: 64px 40px 16px;
+      padding: 64px 20px 16px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
     .page-header .section-label {
       font-size: 11px;
@@ -122,8 +124,9 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent-blue);
-      max-width: 1000px;
-      margin: 0 auto;
+      display: block;
+      width: 100%;
+      text-align: center;
       white-space: nowrap;
     }
 
@@ -242,7 +245,7 @@
       text-align: center;
     }
 
-    /* NEIGHBORHOOD CARDS (Hover/Active Interaction instead of Dropdowns) */
+    /* NEIGHBORHOOD CARDS */
     .parcel-card {
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
@@ -374,7 +377,7 @@
       opacity: 0.35;
     }
 
-    @media (max-width: 950px) {
+    @media (max-width: 1100px) {
       .page-header .header-sub {
         white-space: normal;
         font-size: 12px;
