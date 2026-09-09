@@ -14,6 +14,7 @@
       --accent-blue: #4A67AD;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
+      --bg-cream-darker: #ECE6DA; /* Slightly darker background for bottom 3 markets */
       --flag-red: #9B4A3A;
       --flag-red-bg: #F2E4DF;
       --flag-orange: #B5772E;
@@ -29,6 +30,12 @@
       min-height: 100vh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
       position: relative;
+      cursor: default; /* Inheriting website cursor effect style preference */
+    }
+
+    /* Custom cursor effect style matching Stoneholdt Partners aesthetic */
+    a, button, .parcel-head, input, textarea {
+      cursor: pointer;
     }
 
     /* FIXED GRID BACKGROUND — stays put while content scrolls over it */
@@ -219,7 +226,7 @@
       text-align: center;
     }
 
-    /* NEIGHBORHOOD CARDS — tightened */
+    /* NEIGHBORHOOD CARDS */
     .parcel-card {
       background: var(--bg-cream-light);
       border: 1px solid rgba(27, 42, 94, 0.08);
@@ -233,7 +240,7 @@
     .parcel-head {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center; /* Horizontally aligned and centered per requirements */
       padding: 18px 24px;
       cursor: pointer;
       gap: 18px;
@@ -282,6 +289,7 @@
       white-space: nowrap;
     }
     .badge.active { background: var(--flag-green-bg); color: var(--flag-green); }
+    .badge.case-by-case { background: var(--flag-orange-bg); color: var(--flag-orange); }
     .badge.paused { background: rgba(27,42,94,0.06); color: var(--primary-blue); opacity: 0.6; }
 
     .chevron {
@@ -338,30 +346,77 @@
     }
     .send-link:hover { opacity: 0.7; }
 
-    /* COMPACT — secondary, one-off markets */
-    .parcel-card.compact .parcel-head { padding: 12px 22px; }
-    .parcel-card.compact .parcel-name { font-size: 17px; margin-bottom: 4px; }
-    .parcel-card.compact .badge { font-size: 8px; padding: 3px 9px; }
-    .parcel-card.compact .parcel-body-inner { padding: 14px 22px 16px; gap: 20px; }
-    .parcel-card.compact .chevron { width: 12px; height: 12px; }
-    .parcel-card.compact { margin-bottom: 8px; }
+    /* COMPACT — bottom 3 markets matching top card heights and slightly darker background */
+    .parcel-card.compact {
+      background: var(--bg-cream-darker);
+    }
+    .parcel-card.compact .parcel-head { 
+      padding: 18px 24px; 
+    }
+    .parcel-card.compact .parcel-name { font-size: 22px; margin-bottom: 6px; }
+    .parcel-card.compact .badge { font-size: 9px; padding: 4px 11px; }
+    .parcel-card.compact .parcel-body-inner { padding: 20px 24px 22px; gap: 26px; }
+    .parcel-card.compact .chevron { width: 14px; height: 14px; }
+    .parcel-card.compact { margin-bottom: 10px; }
 
-    /* CONTACT */
+    /* CONTACT PANEL */
     .contact-pane {
       text-align: center;
-      padding: 16px 40px 90px;
+      padding: 30px 40px 90px;
+      max-width: 700px;
+      margin: 0 auto;
     }
-    .contact-pane p {
-      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      opacity: 0.5; margin-bottom: 15px;
-    }
-    .contact-pane a.email-link {
+    .contact-pane .contact-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 30px; font-weight: 500; letter-spacing: 0.02em;
-      color: var(--primary-blue); text-decoration: none;
-      transition: color 0.3s ease;
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
     }
-    .contact-pane a.email-link:hover { color: var(--accent-blue); }
+    .contact-details {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+    }
+    .contact-row a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 400;
+    }
+    .contact-row a:hover {
+      color: var(--accent-blue);
+    }
+    .contact-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(27, 42, 94, 0.06);
+      color: var(--primary-blue);
+      transition: all 0.3s ease;
+    }
+    .contact-icon:hover {
+      background: var(--accent-blue);
+      color: #FFF;
+    }
+    .contact-icon svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+    }
 
     footer {
       text-align: center;
@@ -379,9 +434,10 @@
       .legend-item:last-child { border-bottom: none; }
       .panel-toggle { gap: 24px; }
       .section-spacing { padding: 10px 20px 44px; }
-      .parcel-head { padding: 16px 18px; flex-direction: column; }
-      .status-col { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; margin-top: 10px; }
+      .parcel-head { padding: 18px 20px; }
+      .status-col { align-items: flex-end; }
       .parcel-body-inner { padding: 16px 18px 20px; }
+      .contact-row { flex-wrap: wrap; font-size: 14px; }
     }
   </style>
 </head>
@@ -436,8 +492,24 @@
   </section>
 
   <section class="contact-pane">
-    <p>Send a Deal</p>
-    <a href="mailto:stoneholdt.acquisitions@gmail.com?subject=Off-market%20lead" class="email-link">stoneholdt.acquisitions@gmail.com</a>
+    <div class="contact-title">Reach out to Aaron for land acquisitions</div>
+    <div class="contact-details">
+      <div class="contact-row">
+        <a href="tel:5412005788">541-200-5788</a>
+        <a href="tel:5412005788" class="contact-icon" title="Call">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+        <a href="sms:5412005788" class="contact-icon" title="Text">
+          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+        </a>
+      </div>
+      <div class="contact-row">
+        <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+        <a href="mailto:stoneholdt.acquisitions@gmail.com" class="contact-icon" title="Email">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+    </div>
   </section>
 
   <footer>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
@@ -477,29 +549,11 @@ const BELLEVUE_DATA = {
     }
   ],
   otherMarkets: [
-    { name: "Bridle Trails", status: "active", tags: [], specs: {}, note: "" },
-    { name: "Woodridge",     status: "active", tags: [], specs: {}, note: "" },
-    { name: "Wilburton",     status: "active", tags: [], specs: {}, note: "" }
+    { name: "Bridle Trails", status: "case-by-case", tags: [], specs: {}, note: "" },
+    { name: "Woodridge",     status: "case-by-case", tags: [], specs: {}, note: "" },
+    { name: "Wilburton",     status: "case-by-case", tags: [], specs: {}, note: "" }
   ]
 };
-
-/* ============================================================
-   EXAMPLE — copy this pattern once you're ready to fill one in:
-
-   { name: "Enatai", status: "active",
-     tags: [
-       { type: "green",  label: "Flat lot" },
-       { type: "green",  label: "Development-adjacent" },
-       { type: "orange", label: "Corner lot" },
-       { type: "red",    label: "Road noise (108th Ave)" }
-     ],
-     specs: {
-       "Lot Size": "8,000 – 14,000 sqft",
-       "Zoning": "R-4",
-       "Structure on Lot": "teardown OK"
-     },
-     note: "Only west of 108th, north of Main St." }
-============================================================ */
 
 let activePanel = BELLEVUE_DATA.panels[0].id;
 
@@ -507,6 +561,18 @@ function iconFor(type) {
   if (type === "red") return `<div class="icon-triangle"></div>`;
   if (type === "orange") return `<div class="icon-square"></div>`;
   return `<div class="icon-circle"></div>`;
+}
+
+function getBadgeClass(status) {
+  if (status === 'active') return 'active';
+  if (status === 'case-by-case') return 'case-by-case';
+  return 'paused';
+}
+
+function getBadgeLabel(status) {
+  if (status === 'active') return 'Actively Buying';
+  if (status === 'case-by-case') return 'Case-by-Case';
+  return 'Paused';
 }
 
 function renderCard(n, compact) {
@@ -521,8 +587,8 @@ function renderCard(n, compact) {
           </div>
         </div>
         <div class="status-col">
-          <span class="badge ${n.status === 'active' ? 'active' : 'paused'}">
-            ${n.status === 'active' ? 'Actively Buying' : 'Paused'}
+          <span class="badge ${getBadgeClass(n.status)}">
+            ${getBadgeLabel(n.status)}
           </span>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke-width="2">
             <path d="M6 9l6 6 6-6"/>
