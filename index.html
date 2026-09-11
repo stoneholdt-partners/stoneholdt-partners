@@ -1088,7 +1088,7 @@
       <div class="states-pane">
         <a onclick="updateMarketState('WA')" id="toggle-WA" class="state-link active-state">Washington</a>
         <a onclick="updateMarketState('CO')" id="toggle-CO" class="state-link">Colorado</a>
-        <a onclick="updateMarketState('MN')" id="toggle-MN" class="state-link">Minnesota</a>
+        <!-- <a onclick="updateMarketState('MN')" id="toggle-MN" class="state-link">Minnesota</a> -->
       </div>
 
       <section class="contact-pane">
@@ -1275,14 +1275,14 @@
         title: "Colorado",
         sub: "Denver &bull; Englewood &bull; Cherry Hills &bull; + more",
         showPortfolio: false
-      },
+      }/*,
       MN: {
         heroName: "Minnesota's",
         bg: "cover-photos/MN.jpg",
         title: "Minnesota",
         sub: "Edina &bull; Minneapolis &bull; Wyzata &bull; + more",
         showPortfolio: false
-      }
+      }*/
     };
 
     function updateMarketState(stateCode) {
@@ -1301,7 +1301,8 @@
       // Update toggles
       document.getElementById('toggle-WA').classList.remove('active-state');
       document.getElementById('toggle-CO').classList.remove('active-state');
-      document.getElementById('toggle-MN').classList.remove('active-state');
+      const toggleMN = document.getElementById('toggle-MN');
+      if (toggleMN) toggleMN.classList.remove('active-state');
       document.getElementById(`toggle-${stateCode}`).classList.add('active-state');
 
       // Update URL hash seamlessly and scroll to top
@@ -1317,9 +1318,9 @@
       const hash = window.location.hash.replace('#', '').toUpperCase();
       const path = window.location.pathname.replace('/', '').toUpperCase();
 
-      if (['WA', 'CO', 'MN'].includes(hash)) {
+      if (['WA', 'CO'].includes(hash)) {
         activeState = hash;
-      } else if (['WA', 'CO', 'MN'].includes(path)) {
+      } else if (['WA', 'CO'].includes(path)) {
         activeState = path;
       }
 
@@ -1332,7 +1333,8 @@
         document.getElementById('portfolio-section').style.display = data.showPortfolio ? 'block' : 'none';
         document.getElementById('toggle-WA').classList.remove('active-state');
         document.getElementById('toggle-CO').classList.remove('active-state');
-        document.getElementById('toggle-MN').classList.remove('active-state');
+        const toggleMN = document.getElementById('toggle-MN');
+        if (toggleMN) toggleMN.classList.remove('active-state');
         document.getElementById(`toggle-${activeState}`).classList.add('active-state');
       }
     }
