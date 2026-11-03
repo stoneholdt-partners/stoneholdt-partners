@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>SMS Opt-In — Stoneholdt Partners</title>
+  <meta name="description" content="How to opt in to Stoneholdt Partners Text Updates, including the consent script our representatives read."/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    :root {
+      --primary-blue: #1B2A5E;
+      --accent-blue: #4A67AD;
+      --bg-cream: #EDE8DF;
+      --bg-cream-light: #F4F0E6;
+    }
+
+    body {
+      color: var(--primary-blue);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      position: relative;
+    }
+
+    /* FIXED GRID BACKGROUND — 32px grid lines */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background-color: var(--bg-cream);
+      background-image:
+        linear-gradient(rgba(27, 42, 94, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 42, 94, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 24px 60px;
+      padding-top: calc(24px + env(safe-area-inset-top, 0px));
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(230, 224, 213, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.1);
+    }
+    nav a.home-link { display: inline-flex; align-items: center; text-decoration: none; }
+    nav a.home-link img { height: 32px; width: auto; display: block; }
+
+    /* HEADER */
+    .page-header {
+      text-align: center;
+      padding: 64px 20px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .page-header .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 50px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    .page-header .updated {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    /* DOCUMENT */
+    .doc {
+      max-width: 760px;
+      margin: 0 auto 70px;
+      padding: 0 28px;
+    }
+    .doc h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin: 38px 0 12px;
+    }
+    .doc p, .doc li {
+      font-size: 14px;
+      line-height: 1.85;
+      opacity: 0.85;
+    }
+    .doc p { margin-bottom: 14px; }
+    .doc ul { margin: 0 0 14px 20px; }
+    .doc li { margin-bottom: 6px; }
+    .doc a { color: var(--accent-blue); text-underline-offset: 3px; }
+    .doc .callout {
+      border-left: 2px solid var(--accent-blue);
+      padding: 4px 0 4px 20px;
+      margin: 18px 0;
+    }
+    .doc .callout p { opacity: 0.95; margin-bottom: 8px; }
+
+    footer {
+      text-align: center;
+      padding: 0 24px calc(40px + env(safe-area-inset-bottom, 0px));
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    }
+    footer .legal-links { margin-bottom: 14px; opacity: 0.7; }
+    footer .legal-links a { color: var(--primary-blue); text-decoration: none; margin: 0 10px; }
+    footer .legal-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    footer .copy { opacity: 0.35; }
+
+    @media (max-width: 700px) {
+      nav { padding: 20px; }
+      .page-header { padding: 46px 24px 18px; }
+      .page-header h1 { font-size: 38px; }
+      .doc { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <a class="home-link" href="https://www.stoneholdtpartners.com/">
+      <img src="/logos/Stoneholdt Partners.png" alt="Stoneholdt Partners" />
+    </a>
+  </nav>
+
+  <header class="page-header">
+    <p class="section-label">Stoneholdt Partners LLC</p>
+    <h1>SMS Opt-In</h1>
+    <p class="updated">Last updated November 3, 2026</p>
+  </header>
+
+  <main class="doc">
+    <p>This page explains how you opt in to Stoneholdt Partners Text Updates, the text messaging program operated by Stoneholdt Partners LLC.</p>
+
+    <h2>How you opt in</h2>
+    <p>You opt in verbally, during a phone call with a Stoneholdt Partners LLC representative. Before sending you any text message, the representative reads this disclosure and asks for your agreement:</p>
+    <div class="callout">
+      <p>"Is it okay if Stoneholdt Partners LLC texts you at this number about this property and our conversation? Message frequency varies, and message and data rates may apply. Reply HELP for help or STOP to opt out at any time. Consent is not required to buy or sell. Our Privacy Policy and Terms are at stoneholdtpartners.com."</p>
+    </div>
+    <p>We text only people who say yes. We record the date, time, phone number and representative for each consent, and we send one confirmation text after you opt in.</p>
+
+    <h2>What you will receive</h2>
+    <p>One-to-one text messages about a property, offer or transaction you have discussed with us, such as scheduling, documents, follow-ups, closing details and information you asked for. We do not use this program for bulk marketing or cold outreach.</p>
+
+    <h2>Frequency and costs</h2>
+    <p>Message frequency varies. Message and data rates may apply, depending on your mobile plan.</p>
+
+    <h2>Help and opting out</h2>
+    <p>Reply HELP for help, or email <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>. Reply STOP at any time to stop receiving messages. You may also reply UNSUBSCRIBE, CANCEL, END or QUIT. Reply START to start receiving messages again.</p>
+
+    <h2>Your information</h2>
+    <p>Consent to receive text messages is not a condition of purchasing or selling any property or service.</p>
+    <div class="callout">
+      <p><strong>Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</strong></p>
+      <p>Text messaging originator opt-in data and consent will not be shared with any third parties.</p>
+    </div>
+    <p>See our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms-and-conditions/">Terms &amp; Conditions</a>.</p>
+  </main>
+
+  <footer>
+    <div class="legal-links">
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
+      <a href="/sms-opt-in/">SMS Opt-In</a>
+    </div>
+    <div class="copy">&copy; 2026 Stoneholdt Partners LLC &mdash; Real Estate Acquisitions</div>
+  </footer>
+</body>
+</html>
