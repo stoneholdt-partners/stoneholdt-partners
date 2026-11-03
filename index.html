@@ -846,6 +846,17 @@
 
     .contact-pane a.email-link:hover { color: var(--accent-blue); }
 
+    .legal-links {
+      text-align: center;
+      padding: 0 24px 14px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+    .legal-links a { display: inline-block; color: var(--primary-blue); text-decoration: none; margin: 0 10px 6px; }
+    .legal-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
     footer {
       text-align: center;
       padding: 0px 24px calc(40px + env(safe-area-inset-bottom, 0px));
@@ -1122,7 +1133,12 @@
       </section>
     </div>
 
-    <footer>&copy; 2026 Stoneholdt Partners &mdash; Real Estate Acquisitions</footer>
+    <div class="legal-links">
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
+      <a href="/sms-opt-in/">SMS Opt-In</a>
+    </div>
+    <footer>&copy; 2026 Stoneholdt Partners LLC &mdash; Real Estate Acquisitions</footer>
   </div>
 
 
