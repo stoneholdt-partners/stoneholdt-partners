@@ -26,6 +26,7 @@
     :root {
       --primary-blue: #1B2A5E;
       --accent-blue: #4A67AD;
+      --accent-red: #A63D3D;
       --bg-cream: #EDE8DF;
       --bg-cream-light: #F4F0E6;
     }
@@ -506,6 +507,12 @@
       background-color: rgba(74, 103, 173, 0.08);
       color: var(--accent-blue);
       border: 1px solid rgba(74, 103, 173, 0.2);
+    }
+
+    .badge.closed {
+      background-color: rgba(166, 61, 61, 0.08);
+      color: var(--accent-red);
+      border: 1px solid rgba(166, 61, 61, 0.2);
     }
 
     .portfolio-card h4 {
@@ -1050,7 +1057,7 @@
               
               <!-- Card 2: NW Bellevue -->
               <div class="portfolio-card">
-                <div class="badge escrow">In Escrow</div>
+                <div class="badge closed">Closed</div>
                 <h4>NW Bellevue Redevelopment</h4>
                 <div class="meta">Northwest Bellevue</div>
                 
@@ -1066,7 +1073,7 @@
 
               <!-- Card 3: Enatai -->
               <div class="portfolio-card">
-                <div class="badge escrow">In Escrow</div>
+                <div class="badge closed">Closed</div>
                 <h4>Enatai Redevelopment</h4>
                 <div class="meta">West Bellevue</div>
                 
