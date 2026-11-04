@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { DealCard } from "@/components/deal-card";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 import { DEALS } from "@/data/portfolio";
 
-export const metadata: Metadata = {
-  title: "Portfolio: Recent Redevelopment Acquisitions",
-  description: "Recent Stoneholdt Partners acquisitions, closed and in escrow, including older homes and tear-down parcels in Bellevue, Washington.",
-  alternates: { canonical: "/portfolio/" },
-};
+export const metadata: Metadata = pageMeta({ title: "Portfolio: Recent Redevelopment Acquisitions", description: "Recent Stoneholdt Partners acquisitions, closed and in escrow, including older homes and tear-down parcels in Bellevue, Washington.", path: "/portfolio/" });
 
 export default function PortfolioPage() {
   return (

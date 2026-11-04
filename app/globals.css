@@ -47,7 +47,10 @@ body {
 .js .reveal {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-property: opacity, transform, translate, box-shadow, background-color, border-color;
+  transition-duration: 0.7s, 0.7s, 0.9s, 0.9s, 0.6s, 0.6s;
+  transition-timing-function: ease, ease, cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1), ease, ease;
+  transition-delay: var(--rd, 0s), var(--rd, 0s), 0s, 0s, 0s, 0s;
 }
 .js .reveal.in {
   opacity: 1;
@@ -142,11 +145,11 @@ html {
 }
 
 /* Staggered reveals for sibling cards */
-.reveal:nth-child(2) { transition-delay: 70ms; }
-.reveal:nth-child(3) { transition-delay: 140ms; }
-.reveal:nth-child(4) { transition-delay: 210ms; }
-.reveal:nth-child(5) { transition-delay: 280ms; }
-.reveal:nth-child(6) { transition-delay: 350ms; }
+.reveal:nth-child(2) { --rd: 70ms; }
+.reveal:nth-child(3) { --rd: 140ms; }
+.reveal:nth-child(4) { --rd: 210ms; }
+.reveal:nth-child(5) { --rd: 280ms; }
+.reveal:nth-child(6) { --rd: 350ms; }
 
 /* Hero headline: lines rise out of a mask */
 .rise-mask {
@@ -234,17 +237,19 @@ html {
   .ticker-track,
   .rise,
   .fade-up,
+  .shimmer,
   .page-in {
     animation: none !important;
   }
 }
 
-/* Wipe-in photo reveal (activated by the same IntersectionObserver as .reveal) */
-.js .wipe {
+/* Wipe-in photo reveal. The OBSERVED wrapper (.wipe-wrap) is never clipped, so the
+   IntersectionObserver always sees it; only the inner layer is clipped. */
+.js .wipe-wrap .wipe-inner {
   clip-path: inset(0 0 100% 0);
   transition: clip-path 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.js .wipe.in {
+.js .wipe-wrap.in .wipe-inner {
   clip-path: inset(0 0 0 0);
 }
 
@@ -257,4 +262,102 @@ html {
   color: var(--color-cream);
   border-color: var(--color-navy);
   transform: scale(1.08);
+}
+
+/* ---- Header: transparent over dark heroes at the top, solid cream otherwise ---- */
+.site-header .hdr-bar {
+  background: color-mix(in srgb, var(--color-cream) 95%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-navy) 15%, transparent);
+  backdrop-filter: blur(12px);
+  transition: height 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.site-header[data-compact="true"] .hdr-bar {
+  box-shadow: 0 10px 30px -20px rgba(19, 30, 69, 0.5);
+}
+.site-header .hdr-link {
+  color: color-mix(in srgb, var(--color-navy) 80%, transparent);
+  transition: color 0.4s ease;
+}
+.site-header .hdr-link:hover {
+  color: var(--color-navy);
+}
+.site-header .hdr-logo {
+  transition: height 0.5s ease, filter 0.5s ease;
+}
+.site-header .hdr-cta {
+  background: var(--color-navy);
+  color: var(--color-cream);
+  border: 1px solid var(--color-navy);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+.site-header .hdr-cta:hover {
+  background: transparent;
+  color: var(--color-navy);
+}
+.site-header .hdr-menu {
+  border: 1px solid color-mix(in srgb, var(--color-navy) 30%, transparent);
+  color: var(--color-navy);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-bar {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-link {
+  color: color-mix(in srgb, var(--color-cream) 92%, transparent);
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-link:hover {
+  color: #fff;
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 14px rgba(8, 14, 36, 0.55));
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-cta {
+  background: var(--color-cream);
+  color: var(--color-navy);
+  border-color: var(--color-cream);
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-cta:hover {
+  background: transparent;
+  color: var(--color-cream);
+}
+body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-menu {
+  color: var(--color-cream);
+  border-color: color-mix(in srgb, var(--color-cream) 50%, transparent);
+}
+
+/* Shimmering accent word */
+.shimmer {
+  background: linear-gradient(100deg, #ede8df 20%, #9db4ee 45%, #ffffff 52%, #9db4ee 59%, #ede8df 80%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 6s ease-in-out 1.4s infinite;
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 0;
+  }
+}
+
+/* Light that follows the cursor across a dark hero */
+.spot-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgba(237, 232, 223, 0.09), transparent 60%);
+}
+
+/* Slim, quiet scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-navy) 45%, transparent) transparent;
 }

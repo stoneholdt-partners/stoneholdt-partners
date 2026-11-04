@@ -10,6 +10,7 @@ export function ParallaxImage({
   className = "",
   strength = 0.18,
   priority = false,
+  eager = false,
   sizes = "100vw",
 }: {
   src: string;
@@ -17,6 +18,8 @@ export function ParallaxImage({
   className?: string;
   strength?: number;
   priority?: boolean;
+  /** Load immediately instead of lazily (for images inside reveal/clip containers). */
+  eager?: boolean;
   sizes?: string;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -53,7 +56,7 @@ export function ParallaxImage({
   return (
     <div ref={wrap} className="absolute inset-0 overflow-hidden" aria-hidden={alt ? undefined : true}>
       <div ref={img} className="absolute inset-0 will-change-transform" style={{ transform: "scale(1.18)" }}>
-        <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className={`object-cover ${className}`} />
+        <Image src={src} alt={alt} fill priority={priority} loading={eager && !priority ? "eager" : undefined} sizes={sizes} className={`object-cover ${className}`} />
       </div>
     </div>
   );

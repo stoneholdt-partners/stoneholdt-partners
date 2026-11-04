@@ -67,7 +67,7 @@ export function PageHero({
 }) {
   if (image) {
     return (
-      <div className="relative isolate overflow-hidden bg-navy text-cream">
+      <div data-hero="dark" className="relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
         <div className="absolute inset-0 -z-10 opacity-50"><ParallaxImage src={image} alt={imageAlt} priority strength={0.12} /></div>
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/70 via-navy/55 to-navy/85" aria-hidden="true" />
         <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:py-32">

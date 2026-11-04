@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OfferCta } from "@/components/offer-cta";
@@ -6,6 +7,8 @@ import { Breadcrumbs, FaqList, PageHero, Section } from "@/components/ui";
 import { GENERAL_FAQS } from "@/data/faqs";
 import { STATES, cityList, getState } from "@/data/markets";
 import { NICHES } from "@/data/niches";
+import { JsonLd } from "@/components/json-ld";
+import { SITE } from "@/data/site";
 
 export const dynamicParams = false;
 
@@ -17,11 +20,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const s = getState(slug);
   if (!s) return {};
-  return {
+  return pageMeta({
     title: `Sell Your Home for Luxury Redevelopment in ${s.name}`,
     description: `Sell your home as-is to a luxury redevelopment buyer in ${s.name}, including ${cityList(s)}. Private cash offers with no repairs, showings or commissions.`,
-    alternates: { canonical: `/markets/${s.slug}/` },
-  };
+    path: `/markets/${s.slug}/`,
+  });
 }
 
 export default async function StatePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,6 +35,19 @@ export default async function StatePage({ params }: { params: Promise<{ slug: st
   return (
     <>
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Markets", href: "/markets/" }, { name: s.name, href: `/markets/${s.slug}/` }]} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: `Home purchase for luxury redevelopment in ${s.name}`,
+          serviceType: "Real estate acquisition",
+          provider: { "@id": `${SITE.url}/#organization` },
+          areaServed: [
+            { "@type": "State", name: s.name },
+            ...s.cities.map((c) => ({ "@type": "City", name: `${c.name}, ${s.abbr}` })),
+          ],
+        }}
+      />
       <PageHero eyebrow={s.name} title={`Sell your ${s.name} home as-is, for cash`} lead={s.summary} image={s.image} imageAlt={s.imageAlt} />
       <Section tone="cream">
         <div className="mx-auto max-w-3xl space-y-5 text-base text-navy/85">

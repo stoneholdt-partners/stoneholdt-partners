@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { OfferForm } from "@/components/offer-form";
 import { PageHero } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Get Your Cash Offer",
-  description: "Tell Stoneholdt Partners about the home or lot you are thinking of selling and request a private, as-is cash offer.",
-  alternates: { canonical: "/contact/" },
-};
+export const metadata: Metadata = pageMeta({ title: "Get Your Cash Offer", description: "Tell Stoneholdt Partners about the home or lot you are thinking of selling and request a private, as-is cash offer.", path: "/contact/" });
 
 export default function ContactPage() {
   return (

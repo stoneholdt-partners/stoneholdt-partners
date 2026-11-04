@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PartnerForm } from "@/components/partner-form";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Partner With Us: Builders, Developers & Funds",
-  description: "Builders, developers and funds: tell Stoneholdt Partners what you are looking to acquire and we will bring you matching off-market opportunities.",
-  alternates: { canonical: "/partners/" },
-};
+export const metadata: Metadata = pageMeta({ title: "Partner With Us: Builders, Developers & Funds", description: "Builders, developers and funds: tell Stoneholdt Partners what you are looking to acquire and we will bring you matching off-market opportunities.", path: "/partners/" });
 
 export default function PartnersPage() {
   return (

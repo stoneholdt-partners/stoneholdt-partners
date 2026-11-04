@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "About Stoneholdt Partners",
-  description: "Stoneholdt Partners LLC is a real estate acquisitions company buying homes for luxury redevelopment, as-is.",
-  alternates: { canonical: "/about/" },
-};
+export const metadata: Metadata = pageMeta({ title: "About Stoneholdt Partners", description: "Stoneholdt Partners LLC is a real estate acquisitions company buying homes for luxury redevelopment, as-is.", path: "/about/" });
 
 export default function AboutPage() {
   return (
