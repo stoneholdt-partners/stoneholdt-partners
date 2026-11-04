@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { OfferForm } from "@/components/offer-form";
 import { DealCard } from "@/components/deal-card";
 import { FaqList, Heading, Section } from "@/components/ui";
+import { Ornament } from "@/components/ornament";
+import { ParallaxImage } from "@/components/parallax-image";
 import { DEALS } from "@/data/portfolio";
 import { GENERAL_FAQS } from "@/data/faqs";
-import { MARKETS } from "@/data/markets";
+import { STATES, cityList } from "@/data/markets";
 import { NICHES } from "@/data/niches";
 
 export const metadata: Metadata = {
   title: { absolute: "Sell Your Home As-Is for Cash | Stoneholdt Partners" },
   description:
-    "Private, as-is cash offers on older homes, tear-downs and luxury properties nationwide. No repairs, no showings, no commissions. Request your offer from Stoneholdt Partners.",
+    "We buy homes for luxury redevelopment: older homes, tear-downs and well-kept larger homes. Private, as-is cash offers with no repairs, showings or commissions.",
   alternates: { canonical: "/" },
 };
 
@@ -34,7 +35,7 @@ export default function Home() {
     <>
       {/* Hero */}
       <div className="relative isolate overflow-hidden bg-navy text-cream">
-        <Image src="/cover-photos/CO.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-center opacity-50" />
+        <div className="absolute inset-0 -z-20 opacity-50"><ParallaxImage src="/cover-photos/CO.jpg" priority strength={0.14} /></div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/75 to-navy/35" />
         <div
           aria-hidden="true"
@@ -54,7 +55,7 @@ export default function Home() {
               A more <em className="italic">private</em> way to sell your home.
             </h1>
             <p className="mt-6 max-w-xl text-base text-cream/80 sm:text-lg">
-              We make direct, as-is cash offers on older homes, tear-downs and luxury properties. No repairs, no showings, no commissions.
+              We buy homes for luxury redevelopment: older homes, <span className="whitespace-nowrap">tear-downs</span> and even well-kept larger homes. Direct, as-is cash offers with no repairs, no showings and no commissions.
             </p>
             <ul className="mt-8 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 text-sm text-cream/85">
               {["Any condition", "No agent fees", "No showings", "Flexible closing"].map((t) => (
@@ -91,7 +92,8 @@ export default function Home() {
       <section className="bg-cream-light">
         <div className="grid items-stretch lg:grid-cols-2">
           <div className="relative min-h-[320px] lg:min-h-[520px]">
-            <Image src="/cover-photos/MN.jpg" alt="Luxury home with arched windows at sunset" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <ParallaxImage src="/cover-photos/WA.jpg" alt="Modern luxury home with glass balconies and landscaped garden" strength={0.08} sizes="(min-width: 1024px) 50vw, 100vw" />
+            <div className="pointer-events-none absolute inset-5 border border-cream/70 sm:inset-8" aria-hidden="true" />
           </div>
           <div className="reveal flex max-w-xl flex-col justify-center px-5 py-16 sm:px-12 lg:py-24 lg:pl-16">
             <p className="eyebrow mb-4">Built for properties like yours</p>
@@ -100,7 +102,7 @@ export default function Home() {
               In established, high-value neighborhoods, the most valuable part of an older home is often the lot beneath it. We understand how builders value a parcel, so we can make a serious offer on homes that retail buyers overlook.
             </p>
             <ul className="mt-7 space-y-3 text-sm">
-              {["Older homes and tear-downs", "Luxury and high-end properties", "Estates, trusts and inherited homes"].map((t) => (
+              {["Older homes and tear-downs", "Well-kept and larger homes", "Estates, trusts and inherited homes"].map((t) => (
                 <li key={t} className="flex items-center gap-3">
                   <span aria-hidden="true" className="inline-block size-1.5 rotate-45 bg-accent" />
                   {t}
@@ -158,17 +160,34 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Photo band */}
+      <section className="relative isolate overflow-hidden bg-navy-deep text-cream">
+        <div className="absolute inset-0 -z-10 opacity-60"><ParallaxImage src="/cover-photos/AZ.jpg" strength={0.2} /></div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-deep/80 via-navy-deep/45 to-navy-deep/85" aria-hidden="true" />
+        <div className="reveal mx-auto max-w-3xl px-5 py-28 text-center sm:py-40">
+          <Ornament light />
+          <p className="display mt-8 text-4xl leading-tight sm:text-6xl">Every property has a next chapter.</p>
+          <p className="mx-auto mt-6 max-w-xl text-cream/80">We buy homes for luxury redevelopment, and we make the sale simple for the people who are letting go of them.</p>
+          <Link href="/#offer" className="mt-9 inline-block rounded-sm border border-cream/70 px-8 py-4 text-[11px] font-medium uppercase tracking-[0.24em] transition hover:bg-cream hover:text-navy">
+            Get My Cash Offer
+          </Link>
+        </div>
+      </section>
+
       {/* Markets */}
       <Section tone="cream">
         <Heading eyebrow="Markets" title="Nationwide, with deep local focus." lead="We buy across the country. These are markets where we are actively acquiring right now." />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {MARKETS.map((m) => (
+          {STATES.map((m) => (
             <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
-              <p className="eyebrow">{m.state}</p>
-              <h3 className="display mt-1 text-3xl">{m.name}</h3>
-              <p className="mt-2 text-sm text-navy/75">{m.summary}</p>
+              <h3 className="display text-3xl">{m.name}</h3>
+              <p className="mt-1.5 text-xs uppercase tracking-[0.14em] text-navy/55">{cityList(m)}</p>
             </Link>
           ))}
+          <Link href="/#offer" className="reveal flex flex-col justify-center rounded-sm border border-dashed border-navy/30 p-6 transition hover:border-navy/60 hover:bg-cream-light">
+            <h3 className="display text-3xl">Elsewhere</h3>
+            <p className="mt-1.5 text-xs uppercase tracking-[0.14em] text-navy/55">We also buy in other markets</p>
+          </Link>
         </div>
         <p className="mt-8 text-sm text-navy/70">
           Do not see your city? We also buy in other markets.{" "}

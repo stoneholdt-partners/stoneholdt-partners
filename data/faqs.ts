@@ -10,6 +10,10 @@ export const GENERAL_FAQS: Faq[] = [
     a: "Yes. Many of the properties we buy are older homes whose real value is the land. If a home is a candidate for demolition and rebuild, we price it on its redevelopment potential, not its current condition.",
   },
   {
+    q: "Would you buy a home that is in great condition?",
+    a: "Often, yes. We buy homes for luxury redevelopment, and builders value the lot and the projected resale of a new home on it. In strong neighborhoods that can support an offer above what a retail buyer would pay, even for a well-kept or larger home.",
+  },
+  {
     q: "Do I pay commissions or fees?",
     a: "No agent commissions or listing fees apply when you sell directly to us. We present a clear offer and the terms up front.",
   },
@@ -23,7 +27,7 @@ export const GENERAL_FAQS: Faq[] = [
   },
   {
     q: "Is my sale private?",
-    a: "Yes. There is no listing, no yard sign, no open houses, and no showings. For higher-profile properties and estates, that privacy is often the point.",
+    a: "Yes. There is no listing, no yard sign, no open houses, and no showings. For owners who value discretion, that privacy is often the point.",
   },
   {
     q: "Do I have to agree to text messages to get an offer?",

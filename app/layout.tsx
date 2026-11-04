@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Stoneholdt Partners",
   },
   description:
-    "Stoneholdt Partners makes private, as-is cash offers on older homes, tear-downs and luxury properties nationwide. No repairs, no showings, flexible closing.",
+    "Stoneholdt Partners buys homes for luxury redevelopment with private, as-is cash offers on older homes, tear-downs and well-kept larger homes. No repairs, no showings, flexible closing.",
   applicationName: SITE.name,
   alternates: { canonical: "./" },
   openGraph: {

@@ -1,142 +1,164 @@
-export type Market = {
+export type City = {
+  name: string;
+  /** One-line description of the local market. */
+  summary: string;
+  /** Genuinely local context (keep specific; thin text hurts SEO). */
+  paragraphs: string[];
+};
+
+export type StateMarket = {
   slug: string;
   name: string;
-  /** State abbreviation, shown as "Name, ST". */
-  state: string;
-  /** One-line summary used on cards and meta descriptions. */
+  abbr: string;
+  /** Short line for cards and meta descriptions. */
   summary: string;
-  /** Local context paragraphs (keep these genuinely specific to the market). */
-  context: string[];
-  homeTypes: string[];
+  intro: string[];
+  cities: City[];
   /** Lifestyle photo in /public/cover-photos used on the page hero. */
   image: string;
   imageAlt: string;
 };
 
 /**
- * Launch set: markets where we actively acquire. Add a market only when there is
- * real local content to write; thin templated pages are an SEO liability.
+ * Markets are organized by state, with cities covered inside each state page. Add a city
+ * only when there is real local content to write; thin text is an SEO liability.
  */
-export const MARKETS: Market[] = [
+export const STATES: StateMarket[] = [
   {
-    slug: "bellevue-wa",
-    name: "Bellevue",
-    state: "WA",
-    summary: "Older Eastside homes on high-value lots, from Enatai and Northwest Bellevue to Eastgate.",
-    context: [
-      "Bellevue's most valuable inventory is often its oldest: mid-century ramblers and 1960s to 1980s homes on generous lots in Enatai, Northwest Bellevue, Eastgate and the Bridle Trails area. In many of these neighborhoods the land is worth more than the structure, and new custom construction is the natural next chapter.",
-      "We have recently acquired Bellevue properties for redevelopment, including parcels in Eastgate, Northwest Bellevue and Enatai (see our portfolio). If your home is dated, deferred on maintenance, or simply not worth renovating, we can make a direct as-is offer.",
+    slug: "washington",
+    name: "Washington",
+    abbr: "WA",
+    summary: "Eastside redevelopment, including Bellevue, Kirkland and Clyde Hill.",
+    intro: [
+      "Washington's Eastside is one of the strongest redevelopment markets in the country. Many neighborhoods are filled with mid-century and 1970s to 1990s homes on lots that support significantly larger new construction, and builders actively look for them.",
+      "We have recently acquired Bellevue properties for redevelopment (see our portfolio). Whether your home is dated and tired or well kept and larger than most, we can make a direct, as-is offer.",
     ],
-    homeTypes: ["Mid-century ramblers", "1970s to 1990s homes", "Large-lot tear-downs", "Estate and inherited homes"],
-    image: "/cover-photos/WA.jpg",
-    imageAlt: "Modern luxury home with glass balconies and landscaped garden",
-  },
-  {
-    slug: "kirkland-wa",
-    name: "Kirkland",
-    state: "WA",
-    summary: "Older Kirkland homes in the Market, Juanita and Houghton areas with strong redevelopment value.",
-    context: [
-      "Kirkland's waterfront-adjacent neighborhoods and close-in streets have seen steady teardown and rebuild activity as older homes give way to new construction. Homes that need substantial work are often better sold as-is than renovated.",
-      "We evaluate each property on its lot, location and redevelopment potential, then make a straightforward offer.",
+    cities: [
+      {
+        name: "Bellevue",
+        summary: "Enatai, Northwest Bellevue, Eastgate and Bridle Trails.",
+        paragraphs: [
+          "Bellevue's most valuable inventory is often its oldest: mid-century ramblers and 1960s to 1980s homes on generous lots in Enatai, Northwest Bellevue, Eastgate and the Bridle Trails area. In many of these neighborhoods the land is worth more than the structure, and new custom construction is the natural next chapter.",
+        ],
+      },
+      {
+        name: "Kirkland",
+        summary: "Market, Juanita, Houghton and close-in streets.",
+        paragraphs: [
+          "Kirkland's waterfront-adjacent neighborhoods and close-in streets have seen steady teardown and rebuild activity as older homes give way to new construction. Homes that need substantial work are often better sold as-is than renovated, and well-kept homes on strong lots can appeal to builders too.",
+        ],
+      },
+      {
+        name: "Clyde Hill",
+        summary: "A small, high-value city beside Bellevue.",
+        paragraphs: [
+          "Clyde Hill is a compact, entirely residential city next to Bellevue, known for larger lots, view properties and some of the Eastside's highest home values. Much of its housing was built decades ago, and owners often weigh a costly renovation against selling to a builder who values the lot.",
+        ],
+      },
     ],
-    homeTypes: ["Older close-in homes", "Waterfront-adjacent lots", "Homes needing major work"],
-    image: "/cover-photos/WA.jpg",
-    imageAlt: "Modern luxury home with glass balconies and landscaped garden",
-  },
-  {
-    slug: "clyde-hill-wa",
-    name: "Clyde Hill",
-    state: "WA",
-    summary: "A small, high-value Eastside city next to Bellevue where lot size, views and location drive the sale.",
-    context: [
-      "Clyde Hill is a compact, entirely residential city beside Bellevue, known for larger lots, view properties and some of the Eastside's highest home values. Much of its housing was built decades ago, and owners are often weighing a costly renovation against selling the land.",
-      "We buy privately and as-is, which suits owners who would rather not list a home in a small, close-knit community. We price the lot and what it can become, not the condition of the existing house.",
-    ],
-    homeTypes: ["View and large-lot homes", "Dated custom homes", "Teardown and rebuild lots", "Estate sales"],
-    image: "/cover-photos/WA.jpg",
-    imageAlt: "Modern luxury home with glass balconies and landscaped garden",
-  },
-  {
-    slug: "bethesda-md",
-    name: "Bethesda",
-    state: "MD",
-    summary: "Older Bethesda homes inside the Beltway where land value and rebuild potential drive demand.",
-    context: [
-      "Bethesda's close-in neighborhoods are full of mid-century and older homes on lots that support significantly larger new construction, a pattern that has driven steady teardown and rebuild activity for years. Proximity to Washington, D.C. keeps land values high.",
-      "Sellers with dated or heavily deferred properties, and families handling an estate, often prefer a direct as-is sale to renovating and listing. We buy as-is and can work to your timeline.",
-    ],
-    homeTypes: ["Mid-century homes", "Large close-in lots", "Teardown and rebuild candidates", "Estate and inherited homes"],
-    image: "/cover-photos/MN.jpg",
-    imageAlt: "Luxury home with arched windows at sunset",
-  },
-  {
-    slug: "mclean-va",
-    name: "McLean",
-    state: "VA",
-    summary: "Established McLean homes on large lots, many ready for rebuild or a private as-is sale.",
-    context: [
-      "McLean is defined by large lots and substantial residences, with many 1950s to 1980s homes sitting on land that supports much larger new houses. Owners of long-held properties often face the choice between a major update and selling the lot's potential.",
-      "We make direct as-is offers and handle the sale privately, with no listing and no showings, and with flexible closing for sellers who need time to plan a move.",
-    ],
-    homeTypes: ["1950s to 1980s homes", "Large-lot estates", "Teardown candidates", "Estate and inherited homes"],
-    image: "/cover-photos/MN.jpg",
-    imageAlt: "Luxury home with arched windows at sunset",
-  },
-  {
-    slug: "charlotte-nc",
-    name: "Charlotte",
-    state: "NC",
-    summary: "Older homes in Myers Park, Eastover, SouthPark and nearby neighborhoods with strong rebuild demand.",
-    context: [
-      "Charlotte's established neighborhoods, including Myers Park, Eastover, Dilworth and SouthPark, mix older homes with newer construction, and many mid-century properties sit on lots that support a larger rebuild. Local rules and tree and historic overlays vary by neighborhood, which makes experience matter.",
-      "We evaluate each property on its lot and location and make a direct as-is offer, so you do not have to repair, stage or list the home.",
-    ],
-    homeTypes: ["Mid-century homes", "Dated luxury homes", "Teardown and rebuild lots", "Inherited properties"],
     image: "/cover-photos/CO.jpg",
     imageAlt: "Modern luxury home lit at dusk",
   },
   {
-    slug: "south-tampa-fl",
-    name: "South Tampa",
-    state: "FL",
-    summary: "Older South Tampa homes, from Hyde Park and Palma Ceia to Davis Islands, with strong land value.",
-    context: [
-      "South Tampa's older bungalows and mid-century homes sit on some of the area's most sought-after land. Flood-zone and elevation requirements, along with hurricane damage and rising insurance costs, make renovating an older house expensive, and many owners find selling as-is to be the simpler path.",
-      "We buy South Tampa homes in any condition, including homes with storm damage or deferred maintenance, with no repair requests and no commissions.",
+    slug: "maryland",
+    name: "Maryland",
+    abbr: "MD",
+    summary: "Close-in Washington, D.C. suburbs, including Bethesda.",
+    intro: [
+      "Maryland's close-in suburbs of Washington, D.C. combine high land values with a large stock of older homes. Builders are steadily replacing mid-century houses with larger new homes, and sellers benefit from that demand.",
     ],
-    homeTypes: ["Older bungalows", "Mid-century homes", "Storm-damaged properties", "Teardown and rebuild lots"],
+    cities: [
+      {
+        name: "Bethesda",
+        summary: "Older homes inside the Beltway on valuable lots.",
+        paragraphs: [
+          "Bethesda's close-in neighborhoods are full of mid-century and older homes on lots that support significantly larger new construction, a pattern that has driven steady teardown and rebuild activity for years. Proximity to Washington, D.C. keeps land values high. Sellers of dated properties, estates and even well-kept homes on strong lots often prefer a direct as-is sale to renovating and listing.",
+        ],
+      },
+    ],
     image: "/cover-photos/WA.jpg",
     imageAlt: "Modern luxury home with glass balconies and landscaped garden",
   },
   {
-    slug: "naples-fl",
-    name: "Naples",
-    state: "FL",
-    summary: "Older Naples homes on high-value lots, including waterfront and golf-community properties.",
-    context: [
-      "Naples is one of Florida's most land-driven luxury markets. Many older homes, especially near the water, are bought for their lots and then rebuilt, and post-storm rebuilding rules and elevation requirements can make renovating an older property impractical.",
-      "We buy privately and as-is, with no listing or showings, which suits owners of higher-profile properties and families settling an estate.",
+    slug: "virginia",
+    name: "Virginia",
+    abbr: "VA",
+    summary: "Northern Virginia redevelopment, including McLean.",
+    intro: [
+      "Northern Virginia's established neighborhoods have large lots and substantial older homes, and new luxury construction is a common next step. Owners of long-held properties often face a choice between a major update and selling to a builder.",
     ],
-    homeTypes: ["Waterfront and near-water homes", "Dated luxury homes", "Storm-affected properties", "Teardown lots"],
-    image: "/cover-photos/WA.jpg",
-    imageAlt: "Modern luxury home with glass balconies and landscaped garden",
+    cities: [
+      {
+        name: "McLean",
+        summary: "Established homes on large lots, many ready for rebuild.",
+        paragraphs: [
+          "McLean is defined by large lots and substantial residences, with many 1950s to 1980s homes sitting on land that supports much larger new houses. We make direct as-is offers and handle the sale privately, with no listing and no showings, and with flexible closing for sellers who need time to plan a move.",
+        ],
+      },
+    ],
+    image: "/cover-photos/CO.jpg",
+    imageAlt: "Modern luxury home lit at dusk",
   },
   {
-    slug: "west-palm-beach-fl",
-    name: "West Palm Beach",
-    state: "FL",
-    summary: "Older West Palm Beach homes in El Cid, Flamingo Park, Northwood and nearby areas.",
-    context: [
-      "West Palm Beach combines older neighborhoods with strong demand from the island and the coast. Some areas, such as certain historic districts, have additional review requirements for demolition and changes, so what can be done with a property depends heavily on where it sits.",
-      "We evaluate each property's lot, location and local constraints before making an as-is offer, and we handle the sale so you do not have to repair, stage or list.",
+    slug: "north-carolina",
+    name: "North Carolina",
+    abbr: "NC",
+    summary: "Established Charlotte neighborhoods with strong rebuild demand.",
+    intro: [
+      "North Carolina's largest city has several established neighborhoods where older homes sit on lots that builders value for new construction. Local rules, including tree and historic overlays, vary by neighborhood, which makes experience matter.",
     ],
-    homeTypes: ["Older neighborhood homes", "Dated coastal-area properties", "Homes needing major work", "Inherited properties"],
+    cities: [
+      {
+        name: "Charlotte",
+        summary: "Myers Park, Eastover, Dilworth and SouthPark.",
+        paragraphs: [
+          "Charlotte's established neighborhoods, including Myers Park, Eastover, Dilworth and SouthPark, mix older homes with newer construction, and many mid-century properties sit on lots that support a larger rebuild. We evaluate each property on its lot and location and make a direct as-is offer, so you do not have to repair, stage or list the home.",
+        ],
+      },
+    ],
+    image: "/cover-photos/CO.jpg",
+    imageAlt: "Modern luxury home lit at dusk",
+  },
+  {
+    slug: "florida",
+    name: "Florida",
+    abbr: "FL",
+    summary: "South Tampa, Naples and West Palm Beach.",
+    intro: [
+      "Florida's coastal markets are land-driven. Older homes are regularly replaced by new construction, and flood-zone and elevation requirements, storm damage and rising insurance costs often make renovating an older house impractical. For many owners, selling as-is is the simpler path.",
+    ],
+    cities: [
+      {
+        name: "South Tampa",
+        summary: "Hyde Park, Palma Ceia, Beach Park and Davis Islands.",
+        paragraphs: [
+          "South Tampa's older bungalows and mid-century homes sit on some of the area's most sought-after land. Flood-zone and elevation requirements, hurricane damage and insurance costs make renovating an older house expensive. We buy South Tampa homes in any condition, including storm-damaged and deferred-maintenance properties, with no repair requests and no commissions.",
+        ],
+      },
+      {
+        name: "Naples",
+        summary: "Older and waterfront homes on high-value lots.",
+        paragraphs: [
+          "Naples is one of Florida's most land-driven luxury markets. Many older homes, especially near the water, are bought for their lots and then rebuilt, and post-storm rebuilding rules and elevation requirements can make renovating an older property impractical. We buy privately and as-is, with no listing or showings.",
+        ],
+      },
+      {
+        name: "West Palm Beach",
+        summary: "El Cid, Flamingo Park, Northwood and nearby areas.",
+        paragraphs: [
+          "West Palm Beach combines older neighborhoods with strong demand from the island and the coast. Some areas, such as certain historic districts, have additional review requirements for demolition and changes, so what can be done with a property depends heavily on where it sits. We evaluate each property's lot, location and local constraints before making an as-is offer.",
+        ],
+      },
+    ],
     image: "/cover-photos/WA.jpg",
     imageAlt: "Modern luxury home with glass balconies and landscaped garden",
   },
 ];
 
-export function getMarket(slug: string) {
-  return MARKETS.find((m) => m.slug === slug);
+export function getState(slug: string) {
+  return STATES.find((s) => s.slug === slug);
+}
+
+export function cityList(s: StateMarket) {
+  return s.cities.map((c) => c.name).join(", ");
 }
