@@ -15,7 +15,7 @@ export default function WhoWeHelp() {
       <Section tone="cream">
         <div className="grid gap-5 md:grid-cols-2">
           {NICHES.map((n) => (
-            <Link key={n.slug} href={`/${n.slug}/`} className="reveal spot rounded-sm border border-navy/15 bg-cream-light p-8 transition hover:border-navy/50 hover:shadow-lg">
+            <Link key={n.slug} href={`/${n.slug}/`} className="reveal rounded-sm border border-navy/15 bg-cream-light p-8 transition hover:border-navy/50 hover:shadow-lg">
               <h2 className="display text-4xl">{n.label}</h2>
               <p className="mt-3 text-sm text-navy/75">{n.lead}</p>
               <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em] text-accent">Learn more &rarr;</p>

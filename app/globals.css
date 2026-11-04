@@ -205,24 +205,6 @@ html {
   transition: transform 0.8s ease;
 }
 
-/* Cursor-following light on cards */
-.spot {
-  position: relative;
-  overflow: hidden;
-}
-.spot::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(74, 103, 173, 0.16), transparent 62%);
-}
-.spot:hover::before {
-  opacity: 1;
-}
-
 /* Ticker */
 .ticker-track {
   animation: ticker 60s linear infinite;
@@ -327,15 +309,16 @@ body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-menu {
   border-color: color-mix(in srgb, var(--color-cream) 50%, transparent);
 }
 
-/* Shimmering accent word */
+/* Shimmering accent word: a bright, wide sweep with a soft glow */
 .shimmer {
-  background: linear-gradient(100deg, #ede8df 20%, #9db4ee 45%, #ffffff 52%, #9db4ee 59%, #ede8df 80%);
-  background-size: 250% 100%;
+  background: linear-gradient(100deg, #ede8df 15%, #7f9be8 38%, #ffffff 50%, #7f9be8 62%, #ede8df 85%);
+  background-size: 260% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer 6s ease-in-out 1.4s infinite;
+  filter: drop-shadow(0 0 14px rgba(127, 155, 232, 0.55));
+  animation: shimmer 4s ease-in-out 0.9s infinite;
 }
 @keyframes shimmer {
   0%,
@@ -345,15 +328,6 @@ body:has([data-hero="dark"]) .site-header[data-compact="false"] .hdr-menu {
   50% {
     background-position: 0 0;
   }
-}
-
-/* Light that follows the cursor across a dark hero */
-.spot-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgba(237, 232, 223, 0.09), transparent 60%);
 }
 
 /* Slim, quiet scrollbar */

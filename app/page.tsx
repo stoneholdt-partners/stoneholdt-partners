@@ -46,7 +46,7 @@ export default function Home() {
         }}
       />
       {/* Hero */}
-      <div data-hero="dark" className="spot spot-hero relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
+      <div data-hero="dark" className="relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
         <div className="absolute inset-0 -z-20 opacity-50"><ParallaxImage src="/cover-photos/CO.jpg" priority strength={0.14} /></div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/75 to-navy/35" />
         <div
@@ -70,7 +70,7 @@ export default function Home() {
             <p className="fade-up mt-6 max-w-xl text-base text-cream/80 sm:text-lg" style={{ "--d": "0.5s" } as React.CSSProperties}>
               We buy homes for luxury redevelopment: older homes, <span className="whitespace-nowrap">tear-downs</span> and even well-kept larger homes. Direct, as-is cash offers with no repairs, no showings and no commissions.
             </p>
-            <ul className="fade-up mt-8 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 text-sm text-cream/85" style={{ "--d": "0.65s" } as React.CSSProperties}>
+            <ul className="fade-up mt-8 grid grid-cols-[auto_auto] justify-start gap-x-10 gap-y-3 text-sm text-cream/85" style={{ "--d": "0.65s" } as React.CSSProperties}>
               {["Any condition", "No agent fees", "No showings", "Flexible closing"].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">
                   <span aria-hidden="true" className="inline-block size-1.5 rotate-45 bg-cream/70" />
@@ -142,7 +142,7 @@ export default function Home() {
         <Heading eyebrow="Who We Help" title="Homes with more value than meets the eye." lead="We specialize in properties that traditional buyers pass over, and that builders and developers look for." />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {NICHES.map((n) => (
-            <Link key={n.slug} href={`/${n.slug}/`} className="reveal spot group rounded-sm border border-navy/15 bg-cream p-7 transition hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-lg">
+            <Link key={n.slug} href={`/${n.slug}/`} className="reveal group rounded-sm border border-navy/15 bg-cream p-7 transition hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-lg">
               <h3 className="display text-3xl">{n.label}</h3>
               <p className="mt-3 text-sm text-navy/75">{n.lead}</p>
               <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em] text-accent transition group-hover:translate-x-1">Learn more &rarr;</p>
@@ -203,7 +203,7 @@ export default function Home() {
         <Heading eyebrow="Markets" title="Nationwide, with deep local focus." lead="We buy across the country. These are markets where we are actively acquiring right now." />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {STATES.map((m) => (
-            <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal spot rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
+            <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
               <h3 className="display text-3xl">{m.name}</h3>
               <p className="mt-1.5 text-xs uppercase tracking-[0.14em] text-navy/55">{cityList(m)}</p>
             </Link>

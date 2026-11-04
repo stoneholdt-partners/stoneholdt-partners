@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, FaqList, PageHero, Section } from "@/components/ui";
 import { GENERAL_FAQS } from "@/data/faqs";
-import { STATES, cityList, getState } from "@/data/markets";
+import { STATES, cityListShort, citySlug, getState } from "@/data/markets";
 import { NICHES } from "@/data/niches";
 import { JsonLd } from "@/components/json-ld";
 import { SITE } from "@/data/site";
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!s) return {};
   return pageMeta({
     title: `Sell Your Home for Luxury Redevelopment in ${s.name}`,
-    description: `Sell your home as-is to a luxury redevelopment buyer in ${s.name}, including ${cityList(s)}. Private cash offers with no repairs, showings or commissions.`,
+    description: `Sell your home as-is to a luxury redevelopment buyer in ${s.name}, including ${cityListShort(s)}. Private cash offers with no repairs, showings or commissions.`,
     path: `/markets/${s.slug}/`,
   });
 }
@@ -55,10 +55,21 @@ export default async function StatePage({ params }: { params: Promise<{ slug: st
           {s.intro.map((p) => (
             <p key={p}>{p}</p>
           ))}
+          {s.cities.length > 2 && (
+            <p className="pt-2 text-sm text-navy/65">
+              Jump to:{" "}
+              {s.cities.map((c, i) => (
+                <span key={c.name}>
+                  <a href={`#${citySlug(c.name)}`} className="underline underline-offset-4 hover:text-navy">{c.name}</a>
+                  {i < s.cities.length - 1 ? " · " : ""}
+                </span>
+              ))}
+            </p>
+          )}
         </div>
         <div className="mx-auto mt-14 max-w-3xl space-y-12">
           {s.cities.map((c) => (
-            <div key={c.name} className="border-t border-navy/15 pt-8">
+            <div key={c.name} id={citySlug(c.name)} className="scroll-mt-28 border-t border-navy/15 pt-8">
               <p className="eyebrow mb-2">{c.summary.replace(/\.$/, "")}</p>
               <h3 className="display text-3xl sm:text-4xl">{c.name}, {s.abbr}</h3>
               <div className="mt-4 space-y-4 text-navy/85">
