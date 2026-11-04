@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Bellevue Buy Box — Stoneholdt Partners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    :root {
+      --primary-blue: #1B2A5E;
+      --accent-blue: #4A67AD;
+      --bg-cream: #EDE8DF;
+      --bg-cream-light: #F4F0E6;
+      --bg-cream-darker: #ECE6DA;
+      --flag-red: #9B4A3A;
+      --flag-red-bg: #F2E4DF;
+      --flag-orange: #B5772E;
+      --flag-orange-bg: #F5EADB;
+      --flag-green: #3F6B4E;
+      --flag-green-bg: #E4EDE7;
+    }
+
+    body {
+      color: var(--primary-blue);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      position: relative;
+      cursor: none;
+      transition: filter 0.4s ease;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    body.modal-open .page-content {
+      filter: blur(6px);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    a, button, .parcel-card, input, textarea {
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR FOLLOWER */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--accent-blue);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+      z-index: 99999;
+      background: rgba(74, 103, 173, 0.05);
+    }
+    body:active .custom-cursor {
+      width: 24px;
+      height: 24px;
+      background: rgba(74, 103, 173, 0.2);
+    }
+
+    /* FIXED GRID BACKGROUND — 32px grid lines */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      background-color: var(--bg-cream);
+      background-image:
+        linear-gradient(rgba(27, 42, 94, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 42, 94, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 24px 60px;
+      padding-top: calc(24px + env(safe-area-inset-top, 0px));
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(230, 224, 213, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27, 42, 94, 0.1);
+    }
+    nav a.home-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    nav a.home-link img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    /* HEADER */
+    .page-header {
+      text-align: center;
+      padding: 64px 20px 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .page-header .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 50px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+    .page-header .header-sub {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* GOOD FIT CALLOUT */
+    .good-fit {
+      max-width: 624px;
+      margin: 24px auto 46px;
+      padding: 0 32px;
+    }
+    .good-fit-inner {
+      border-left: 2px solid var(--accent-blue);
+      padding: 4px 0 4px 22px;
+      text-align: left;
+    }
+    .good-fit-inner .fit-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .good-fit-inner p {
+      font-size: 13.5px;
+      line-height: 1.75;
+      opacity: 0.82;
+    }
+
+    /* LEGEND */
+    .legend {
+      max-width: 768px;
+      margin: 0 auto 50px;
+      padding: 0 32px;
+    }
+    .legend-inner {
+      display: flex;
+      background: var(--bg-cream-light);
+      border: 1px solid rgba(27, 42, 94, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .legend-item {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 18px 20px;
+      border-right: 1px solid rgba(27, 42, 94, 0.08);
+    }
+    .legend-item:last-child { border-right: none; }
+    .legend-icon { flex-shrink: 0; margin-top: 3px; }
+    .legend-text b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 3px; }
+    .legend-text span { opacity: 0.6; font-size: 11px; line-height: 1.5; display: block; }
+
+    .icon-triangle {
+      width: 0; height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 12px solid var(--flag-red);
+    }
+    .icon-square {
+      width: 11px; height: 11px;
+      background: var(--flag-orange);
+    }
+    .icon-circle {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--flag-green);
+    }
+
+    /* WEST/EAST TOGGLE */
+    .panel-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 0 32px 8px;
+    }
+    .panel-toggle button {
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      font-weight: 500;
+      color: var(--primary-blue);
+      opacity: 0.35;
+      cursor: none;
+      padding: 6px 0;
+      position: relative;
+    }
+    .panel-toggle button::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background-color: var(--primary-blue);
+      transition: width 0.3s ease;
+    }
+    .panel-toggle button.active,
+    .panel-toggle button:hover { opacity: 1; }
+    .panel-toggle button.active::after { width: 100%; }
+
+    /* SECTIONS */
+    .section-spacing {
+      padding: 16px 32px 60px;
+      max-width: 928px; 
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 16px;
+      font-weight: 500;
+      color: var(--accent-blue);
+      text-align: center;
+    }
+
+    /* NEIGHBORHOOD CARDS */
+    .parcel-card {
+      background: var(--bg-cream-light);
+      border: 1px solid rgba(27, 42, 94, 0.08);
+      border-radius: 2px;
+      margin-bottom: 12px;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .parcel-card:hover {
+      background: var(--bg-cream-darker);
+      border-color: rgba(27, 42, 94, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(27, 42, 94, 0.04);
+    }
+    .parcel-card:active {
+      transform: translateY(0);
+      background: #E4DED3;
+    }
+
+    .parcel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .status-col {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .badge.active { background: var(--flag-green-bg); color: var(--flag-green); }
+    .badge.case-by-case { background: var(--flag-orange-bg); color: var(--flag-orange); }
+
+    /* SECONDARY NEIGHBORHOODS GRID LAYOUT */
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 700px) {
+      .secondary-grid { grid-template-columns: 1fr; }
+    }
+
+    .parcel-card.compact {
+      margin-bottom: 0;
+      padding: 16px 20px;
+    }
+    .parcel-card.compact .parcel-name { font-size: 20px; }
+
+    /* POPUP MODAL OVERLAY */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(27, 42, 94, 0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+    .modal-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-container {
+      background: var(--bg-cream-light);
+      border: 1px solid rgba(27, 42, 94, 0.12);
+      border-radius: 4px;
+      width: 100%;
+      max-width: 420px;
+      padding: 40px 32px 36px;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(27, 42, 94, 0.15);
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.visible .modal-container {
+      transform: translateY(0);
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--primary-blue);
+      opacity: 0.5;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .modal-close:hover {
+      opacity: 1;
+      background: rgba(27, 42, 94, 0.06);
+    }
+    .modal-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.35;
+      margin-bottom: 24px;
+      color: var(--primary-blue);
+    }
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .modal-input {
+      width: 100%;
+      background: var(--bg-cream);
+      border: 1px solid rgba(27, 42, 94, 0.15);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--primary-blue);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .modal-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      background: #FFF;
+    }
+    .modal-submit {
+      width: 100%;
+      background: var(--primary-blue);
+      color: #FFF;
+      border: none;
+      border-radius: 2px;
+      padding: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+    .modal-submit:hover {
+      background: var(--accent-blue);
+    }
+
+    /* CONTACT PANEL */
+    .contact-pane {
+      text-align: center;
+      padding: 10px 32px 90px;
+      max-width: 704px;
+      margin: 0 auto;
+    }
+    .contact-pane .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .contact-details {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+    }
+    .contact-row a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 400;
+      cursor: none;
+    }
+    .contact-row a:hover {
+      color: var(--accent-blue);
+    }
+    .contact-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(27, 42, 94, 0.06);
+      color: var(--primary-blue);
+      transition: all 0.3s ease;
+    }
+    .contact-icon:hover {
+      background: var(--accent-blue);
+      color: #FFF;
+    }
+    .contact-icon svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0 24px calc(40px + env(safe-area-inset-bottom, 0px));
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      opacity: 0.35;
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 20px; }
+      .page-header { padding: 46px 24px 6px; }
+      .page-header h1 { font-size: 34px; }
+      .legend-inner { flex-direction: column; }
+      .legend-item { border-right: none; border-bottom: 1px solid rgba(27,42,94,0.08); }
+      .legend-item:last-child { border-bottom: none; }
+      .panel-toggle { gap: 24px; }
+      .section-spacing { padding: 10px 20px 44px; }
+      .parcel-card { padding: 16px 20px; }
+      .contact-row { flex-wrap: wrap; font-size: 14px; }
+      .custom-cursor { display: none; }
+      body { cursor: default; }
+      a, button, .parcel-card, input { cursor: pointer; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- POPUP MODAL -->
+  <div class="modal-overlay" id="popupModal">
+    <div class="modal-container">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      <div class="modal-message">Fill out your email for any buy box updates.</div>
+      <form class="modal-form" action="https://formspree.io/f/mnpqowqb" method="POST">
+        <input type="email" class="modal-input" name="email" placeholder="Enter your email address..." required />
+        <button type="submit" class="modal-submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <nav>
+      <a class="home-link" href="https://www.stoneholdtpartners.com/">
+        <img src="/logos/Stoneholdt Partners.png" alt="Stoneholdt Partners" />
+      </a>
+    </nav>
+
+    <header class="page-header">
+      <p class="section-label">Bellevue Buy Box</p>
+      <h1>Off-Market and Pocket Listings</h1>
+      <div class="header-sub">
+        <span>We make sure you get your commission paid in full</span>
+        <span>without ever hosting an open house or dealing with a repair negotiation.</span>
+      </div>
+    </header>
+
+    <div class="good-fit">
+      <div class="good-fit-inner">
+        <p class="fit-label">It's a good fit if:</p>
+        <p>Your client's home is outdated, smaller square footage, or sitting on a lot whose highest and best use is redevelopment. They'd rather skip repairs and showings, and want a flexible closing timeline built around their schedule.</p>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-inner">
+        <div class="legend-item">
+          <div class="legend-icon icon-triangle"></div>
+          <div class="legend-text"><b>Red flag</b><span>Steep topography, road noise, powerline visibility</span></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon icon-square"></div>
+          <div class="legend-text"><b>Worth a closer look</b><span>Corner lot, irregular shape, wooded</span></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon icon-circle"></div>
+          <div class="legend-text"><b>Strong fit</b><span>Flat, development-adjacent, oversized lot</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-toggle" id="panelToggle"></div>
+
+    <section class="section-spacing">
+      <div id="parcelList"></div>
+    </section>
+
+    <section class="section-spacing" style="padding-top:0;">
+      <p class="section-label">Secondary Neighborhoods</p>
+      <div id="otherList" class="secondary-grid"></div>
+    </section>
+
+    <section class="contact-pane">
+      <div class="contact-title">Reach out to Aaron for land acquisitions</div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <a href="tel:5412005788">541-200-5788</a>
+          <a href="tel:5412005788" class="contact-icon" title="Call">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </a>
+          <a href="sms:5412005788" class="contact-icon" title="Text">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+          </a>
+        </div>
+        <div class="contact-row">
+          <a href="mailto:stoneholdt.acquisitions@gmail.com">stoneholdt.acquisitions@gmail.com</a>
+          <a href="mailto:stoneholdt.acquisitions@gmail.com" class="contact-icon" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer><div style="margin-bottom:12px;opacity:.7"><a href="/privacy-policy/" style="color:inherit;margin:0 10px">Privacy Policy</a><a href="/terms-and-conditions/" style="color:inherit;margin:0 10px">Terms &amp; Conditions</a><a href="/sms-opt-in/" style="color:inherit;margin:0 10px">SMS Opt-In</a></div>&copy; 2026 Stoneholdt Partners — Real Estate Acquisitions</footer>
+  </div>
+
+<script>
+  // Custom cursor follower behavior
+  const cursor = document.getElementById('customCursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  // Popup Modal Logic (8-second delay, background blur, close button)
+  const popupModal = document.getElementById('popupModal');
+  const modalClose = document.getElementById('modalClose');
+
+  function openPopup() {
+    popupModal.classList.add('visible');
+    document.body.classList.add('modal-open');
+  }
+
+  function closePopup() {
+    popupModal.classList.remove('visible');
+    document.body.classList.remove('modal-open');
+  }
+
+  setTimeout(openPopup, 8000);
+
+  modalClose.addEventListener('click', closePopup);
+  popupModal.addEventListener('click', (e) => {
+    if (e.target === popupModal) closePopup();
+  });
+
+  const BELLEVUE_DATA = {
+    panels: [
+      {
+        id: "west",
+        label: "West Bellevue",
+        neighborhoods: [
+          { name: "Enatai", status: "active" },
+          { name: "Surrey Downs", status: "active" },
+          { name: "Clyde Hill", status: "active" },
+          { name: "Northwest", status: "active" }
+        ]
+      },
+      {
+        id: "east",
+        label: "East Bellevue",
+        neighborhoods: [
+          { name: "Eastgate", status: "active" },
+          { name: "Robinswood", status: "active" },
+          { name: "Lake Hills", status: "active" },
+          { name: "Northeast", status: "active" }
+        ]
+      }
+    ],
+    otherMarkets: [
+      { name: "Newport Hills", status: "case-by-case" },
+      { name: "Bridle Trails", status: "case-by-case" },
+      { name: "Woodridge", status: "case-by-case" },
+      { name: "Wilburton", status: "case-by-case" }
+    ]
+  };
+
+  let activePanel = BELLEVUE_DATA.panels[0].id;
+
+  function getBadgeClass(status) {
+    if (status === 'active') return 'active';
+    if (status === 'case-by-case') return 'case-by-case';
+    return 'paused';
+  }
+
+  function getBadgeLabel(status) {
+    if (status === 'active') return 'Actively Buying';
+    if (status === 'case-by-case') return 'Case-by-Case';
+    return 'Paused';
+  }
+
+  function renderCard(n, compact) {
+    return `
+      <div class="parcel-card ${compact ? 'compact' : ''}">
+        <div class="parcel-name">${n.name}</div>
+        <div class="status-col">
+          <span class="badge ${getBadgeClass(n.status)}">
+            ${getBadgeLabel(n.status)}
+          </span>
+        </div>
+      </div>
+    `;
+  }
+
+  function render() {
+    const toggleEl = document.getElementById('panelToggle');
+    toggleEl.innerHTML = BELLEVUE_DATA.panels.map(p => `
+      <button class="${p.id === activePanel ? 'active' : ''}" data-panel="${p.id}">${p.label}</button>
+    `).join('');
+    toggleEl.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => { activePanel = btn.dataset.panel; render(); });
+    });
+
+    const panel = BELLEVUE_DATA.panels.find(p => p.id === activePanel);
+    const listEl = document.getElementById('parcelList');
+    listEl.innerHTML = panel.neighborhoods.map(n => renderCard(n, false)).join('');
+
+    const otherEl = document.getElementById('otherList');
+    otherEl.innerHTML = BELLEVUE_DATA.otherMarkets.map(n => renderCard(n, true)).join('');
+  }
+
+  render();
+</script>
+
+</body>
+</html>
