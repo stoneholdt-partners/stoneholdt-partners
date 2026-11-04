@@ -81,15 +81,10 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className={`pointer-events-auto relative flex items-center justify-center transition-all duration-500 ease-out ${
               compact
-                ? "h-14 w-[7.5rem] border border-transparent bg-transparent md:h-[60px] md:w-[9.5rem]"
-                : "h-[6.25rem] w-[10.5rem] border border-navy/20 bg-cream shadow-[0_26px_44px_-24px_rgba(19,30,69,0.55)] md:h-[7.75rem] md:w-[15rem]"
+                ? "h-14 w-[7.5rem] rounded-b-none bg-transparent md:h-[60px] md:w-[9.5rem]"
+                : "h-[6.25rem] w-[10.5rem] rounded-b-[2.25rem] bg-cream shadow-[0_28px_40px_-26px_rgba(19,30,69,0.6)] md:h-[8rem] md:w-[15.5rem] md:rounded-b-[3rem]"
             }`}
           >
-            {/* inner hairline frame */}
-            <span
-              aria-hidden="true"
-              className={`pointer-events-none absolute inset-1.5 border border-navy/10 transition-opacity duration-500 ${compact ? "opacity-0" : "opacity-100"}`}
-            />
             <Image
               src="/logos/Stoneholdt Partners.png"
               alt="Stoneholdt Partners"
@@ -97,7 +92,7 @@ export function SiteHeader() {
               height={455}
               priority
               sizes="(min-width: 768px) 224px, 140px"
-              className={`w-auto transition-all duration-500 ease-out ${compact ? "h-9 md:h-10" : "h-14 md:h-[5.25rem]"}`}
+              className={`w-auto transition-all duration-500 ease-out ${compact ? "h-9 md:h-10" : "h-14 md:h-[5.5rem]"}`}
             />
           </Link>
         </div>

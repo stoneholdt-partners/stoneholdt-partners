@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { OfferCta } from "@/components/offer-cta";
+import { ScrollTimeline } from "@/components/scroll-timeline";
 import { Breadcrumbs, FaqList, PageHero, Section } from "@/components/ui";
 import { GENERAL_FAQS } from "@/data/faqs";
 
@@ -23,17 +24,24 @@ export default function HowItWorks() {
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "How It Works", href: "/how-it-works/" }]} />
       <PageHero eyebrow="The Process" title="How selling to us works" lead="A direct, as-is sale: no listing, no showings, no repairs." />
       <Section tone="cream">
-        <ol className="mx-auto max-w-3xl space-y-4">
-          {STEPS.map((s, i) => (
-            <li key={s.t} className="reveal flex gap-6 rounded-sm bg-cream-light p-7 ring-1 ring-navy/10">
-              <span className="display text-5xl text-accent">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <h2 className="text-lg font-medium">{s.t}</h2>
-                <p className="mt-1.5 text-sm text-navy/75">{s.d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <ScrollTimeline className="mx-auto max-w-3xl">
+          <div className="absolute bottom-6 left-6 top-6 w-px bg-navy/15" aria-hidden="true">
+            <span className="absolute inset-x-0 top-0 bg-accent" style={{ height: "calc(var(--p) * 100%)" }} />
+          </div>
+          <ol className="space-y-6">
+            {STEPS.map((s, i) => (
+              <li key={s.t} data-step className="reveal relative flex items-start gap-6">
+                <span className="step-dot relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-navy/25 bg-cream font-display text-xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="spot flex-1 rounded-sm bg-cream-light p-6 ring-1 ring-navy/10">
+                  <h2 className="text-lg font-medium">{s.t}</h2>
+                  <p className="mt-1.5 text-sm text-navy/75">{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </ScrollTimeline>
       </Section>
       <Section tone="light">
         <div className="mx-auto max-w-3xl">

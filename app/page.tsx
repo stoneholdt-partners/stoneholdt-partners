@@ -5,6 +5,8 @@ import { DealCard } from "@/components/deal-card";
 import { FaqList, Heading, Section } from "@/components/ui";
 import { Ornament } from "@/components/ornament";
 import { Ticker } from "@/components/ticker";
+import { ScrollTimeline } from "@/components/scroll-timeline";
+import { StatsBand } from "@/components/stats-band";
 import { ParallaxImage } from "@/components/parallax-image";
 import { DEALS } from "@/data/portfolio";
 import { GENERAL_FAQS } from "@/data/faqs";
@@ -81,21 +83,28 @@ export default function Home() {
       {/* Process */}
       <Section tone="cream">
         <Heading eyebrow="The Process" title={<>Simple, from first message to closing.</>} />
-        <ol className="mt-14 grid gap-6 md:grid-cols-3">
-          {STEPS.map((s) => (
-            <li key={s.n} className="reveal spot rounded-sm bg-cream-light p-7 ring-1 ring-navy/10">
-              <p className="display text-5xl text-accent">{s.n}</p>
-              <h3 className="mt-4 text-lg font-medium">{s.t}</h3>
-              <p className="mt-2 text-sm text-navy/75">{s.d}</p>
-            </li>
-          ))}
-        </ol>
+        <ScrollTimeline className="mt-14">
+          {/* Connector line that fills as you scroll (desktop) */}
+          <div className="absolute inset-x-0 top-0 hidden h-px bg-navy/15 md:block" aria-hidden="true">
+            <span className="absolute inset-y-0 left-0 bg-accent" style={{ width: "calc(var(--p) * 100%)" }} />
+          </div>
+          <ol className="grid gap-6 md:grid-cols-3 md:pt-10">
+            {STEPS.map((s) => (
+              <li key={s.n} data-step className="reveal relative rounded-sm bg-cream-light p-7 ring-1 ring-navy/10">
+                <span className="step-dot absolute -top-[2.875rem] left-7 hidden size-3 rounded-full border border-navy/30 bg-cream md:block" aria-hidden="true" />
+                <p className="display text-5xl text-accent">{s.n}</p>
+                <h3 className="mt-4 text-lg font-medium">{s.t}</h3>
+                <p className="mt-2 text-sm text-navy/75">{s.d}</p>
+              </li>
+            ))}
+          </ol>
+        </ScrollTimeline>
       </Section>
 
       {/* Photo split */}
       <section className="bg-cream-light">
         <div className="grid items-stretch lg:grid-cols-2">
-          <div className="relative min-h-[320px] lg:min-h-[520px]">
+          <div className="wipe relative min-h-[320px] lg:min-h-[520px]">
             <ParallaxImage src="/cover-photos/WA.jpg" alt="Modern luxury home with glass balconies and landscaped garden" strength={0.08} sizes="(min-width: 1024px) 50vw, 100vw" />
             <div className="pointer-events-none absolute inset-5 border border-cream/70 sm:inset-8" aria-hidden="true" />
           </div>
@@ -146,10 +155,19 @@ export default function Home() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {DEALS.map((d) => (
-            <DealCard key={d.id} deal={d} compact />
+            <DealCard key={d.id} deal={d} />
           ))}
         </div>
       </Section>
+
+      <StatsBand
+        stats={[
+          { value: STATES.length, label: "States" },
+          { value: STATES.reduce((n, st) => n + st.cities.length, 0), label: "Cities" },
+          { value: DEALS.length, label: "Recent deals" },
+          { value: 0, label: "Agent commissions", prefix: "$" },
+        ]}
+      />
 
       {/* Benefits */}
       <Section tone="navy">

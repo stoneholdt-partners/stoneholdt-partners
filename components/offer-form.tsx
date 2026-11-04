@@ -35,7 +35,7 @@ type Fields = {
   smsConsent: boolean;
   honeypot: string;
 };
-type Errors = Partial<Record<"address" | "propertyType" | "timeline" | "condition" | "name" | "email", string>>;
+type Errors = Partial<Record<"address" | "propertyType" | "timeline" | "condition" | "name" | "email" | "phone", string>>;
 
 const EMPTY: Fields = { address: "", propertyType: "", timeline: "", condition: "", name: "", email: "", phone: "", smsConsent: false, honeypot: "" };
 
@@ -72,7 +72,10 @@ export function OfferForm({ source = "Home page" }: { source?: string }) {
   function validate(forStep: number): Errors {
     const e: Errors = {};
     if (forStep === 1) {
-      if (f.address.trim().length < 5) e.address = "Enter the property's street address, city and state.";
+      const addr = f.address.trim();
+      if (!/^\d+\S*\s+\S+/.test(addr) || !/\b\d{5}(?:-\d{4})?\b/.test(addr)) {
+        e.address = "Please enter the full address with the ZIP code, like 123 Main St, Bellevue, WA 98004.";
+      }
       if (!f.propertyType) e.propertyType = "Choose the closest property type.";
     }
     if (forStep === 2) {
@@ -80,8 +83,9 @@ export function OfferForm({ source = "Home page" }: { source?: string }) {
       if (!f.condition) e.condition = "How would you describe its condition?";
     }
     if (forStep === 3) {
-      if (!f.name.trim()) e.name = "Enter your name.";
+      if (!/^\S+\s+\S+/.test(f.name.trim())) e.name = "Please enter your first and last name.";
       if (!/^\S+@\S+\.\S+$/.test(f.email.trim())) e.email = "Enter a valid email address.";
+      if (f.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a valid 10-digit phone number.";
     }
     return e;
   }
@@ -184,14 +188,14 @@ export function OfferForm({ source = "Home page" }: { source?: string }) {
               <h3 ref={headingRef} tabIndex={-1} className="display text-3xl outline-none sm:text-4xl">Where is the property?</h3>
               <p className="mt-1.5 text-sm text-navy/65">About 2 minutes. No obligation.</p>
             </div>
-            <Field id={`${uid}-addr`} label="Property address" error={errors.address}>
+            <Field id={`${uid}-addr`} label="Property address" hint="Include the street, city, state and ZIP code." error={errors.address}>
               <div className="relative">
                 <PinIcon />
                 <input
                   id={`${uid}-addr`}
                   className={`${fieldClass(!!errors.address)} pl-11`}
                   autoComplete="street-address"
-                  placeholder="123 Main St, Bellevue, WA"
+                  placeholder="123 Main St, Bellevue, WA 98004"
                   value={f.address}
                   onChange={(e) => set("address", e.target.value)}
                   aria-invalid={!!errors.address}
@@ -222,14 +226,14 @@ export function OfferForm({ source = "Home page" }: { source?: string }) {
                 </span>
               </div>
             </div>
-            <Field id={`${uid}-name`} label="Your name" error={errors.name}>
-              <input id={`${uid}-name`} className={fieldClass(!!errors.name)} autoComplete="name" value={f.name} onChange={(e) => set("name", e.target.value)} aria-invalid={!!errors.name} />
+            <Field id={`${uid}-name`} label="Full name" hint="First and last name, as shown on the title." error={errors.name}>
+              <input id={`${uid}-name`} className={fieldClass(!!errors.name)} autoComplete="name" placeholder="First and last name" value={f.name} onChange={(e) => set("name", e.target.value)} aria-invalid={!!errors.name} />
             </Field>
             <Field id={`${uid}-email`} label="Email" error={errors.email}>
               <input id={`${uid}-email`} type="email" inputMode="email" className={fieldClass(!!errors.email)} autoComplete="email" placeholder="you@example.com" value={f.email} onChange={(e) => set("email", e.target.value)} aria-invalid={!!errors.email} />
             </Field>
-            <Field id={`${uid}-phone`} label="Phone (optional)" hint="Only if you would like to be reached by phone or text.">
-              <input id={`${uid}-phone`} type="tel" inputMode="tel" className={fieldClass(false)} autoComplete="tel" placeholder="(555) 123-4567" value={f.phone} onChange={(e) => set("phone", e.target.value)} />
+            <Field id={`${uid}-phone`} label="Phone" hint="We will use this to reach you about your offer." error={errors.phone}>
+              <input id={`${uid}-phone`} type="tel" inputMode="tel" className={fieldClass(!!errors.phone)} autoComplete="tel" placeholder="(555) 123-4567" value={f.phone} onChange={(e) => set("phone", e.target.value)} aria-invalid={!!errors.phone} />
             </Field>
             {/* Honeypot: hidden from people, filled by bots. */}
             <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
