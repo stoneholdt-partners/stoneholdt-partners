@@ -217,6 +217,12 @@ export function cityListShort(s: StateMarket, max = 4) {
   return names.length <= max ? names.join(", ") : `${names.slice(0, max).join(", ")} and more`;
 }
 
+/** Compact list for preview cards: the first few cities, then "+ more". */
+export function cityCardList(s: StateMarket, max = 3) {
+  const names = s.cities.map((c) => c.name);
+  return names.length <= max ? names.join(", ") : `${names.slice(0, max).join(", ")} + more`;
+}
+
 export function citySlug(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }

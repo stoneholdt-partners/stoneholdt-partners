@@ -1,7 +1,7 @@
 /** Hairline rule with a centered diamond, used as a quiet luxury divider. */
 export function Ornament({ className = "", light = false }: { className?: string; light?: boolean }) {
-  const line = light ? "bg-cream/40" : "bg-navy/25";
-  const dot = light ? "bg-cream/70" : "bg-accent";
+  const line = light ? "bg-brass-light/50" : "bg-brass/50";
+  const dot = light ? "bg-brass-light" : "bg-brass";
   return (
     <div className={`flex items-center justify-center gap-3 ${className}`} aria-hidden="true">
       <span className={`h-px w-14 ${line}`} />

@@ -82,7 +82,7 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-        <span className="pointer-events-none absolute bottom-[-1px] left-0 h-[2px] bg-accent transition-[width] duration-150" style={{ width: `${progress}%` }} aria-hidden="true" />
+        <span className="pointer-events-none absolute bottom-[-1px] left-0 h-[2px] bg-brass transition-[width] duration-150" style={{ width: `${progress}%` }} aria-hidden="true" />
       </div>
 
       {open && (

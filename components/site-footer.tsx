@@ -33,7 +33,8 @@ function LinkRow({ label, links }: { label: string; links: readonly { href: stri
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy-deep text-cream">
+    <footer className="grain bg-navy-deep text-cream">
+      <div className="h-px bg-gradient-to-r from-transparent via-brass/70 to-transparent" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-5 pb-8 pt-14 sm:pt-16">
         <div className="grid items-center gap-10 md:grid-cols-[auto_1px_1fr] md:gap-14">
           {/* Brand: logo, line and button all share one centered axis */}
@@ -49,7 +50,7 @@ export function SiteFooter() {
           </div>
 
           {/* Subtle divider */}
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-cream/25 to-transparent md:h-44 md:w-px md:bg-gradient-to-b" aria-hidden="true" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-brass/50 to-transparent md:h-44 md:w-px md:bg-gradient-to-b" aria-hidden="true" />
 
           {/* Compact link rows */}
           <div className="space-y-6">

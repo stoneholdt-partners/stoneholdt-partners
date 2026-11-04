@@ -45,7 +45,7 @@ export function Ticker() {
       {items.map((t, i) => (
         <li key={`${t}-${i}`} className="flex items-center">
           <span className={`whitespace-nowrap px-6 text-[11px] font-medium uppercase tracking-[0.3em] ${stateNames.has(t) ? "text-cream" : "text-cream/55"}`}>{t}</span>
-          <span className="size-1 rotate-45 bg-cream/40" aria-hidden="true" />
+          <span className="size-1 rotate-45 bg-brass" aria-hidden="true" />
         </li>
       ))}
     </ul>
