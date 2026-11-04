@@ -15,7 +15,7 @@ export function Section({
   className?: string;
   id?: string;
 }) {
-  const bg = tone === "navy" ? "bg-navy text-cream" : tone === "light" ? "bg-cream-light" : "bg-cream";
+  const bg = tone === "navy" ? "grain bg-navy text-cream" : tone === "light" ? "bg-cream-light" : "bg-cream";
   return (
     <section id={id} className={`${bg} ${className}`}>
       <div className="mx-auto max-w-6xl px-5 py-20 sm:py-28">{children}</div>
@@ -38,7 +38,7 @@ export function Heading({
 }) {
   return (
     <div className={`reveal max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
-      {eyebrow && <p className="eyebrow mb-4 flex items-center gap-3 before:h-px before:w-8 before:bg-current before:opacity-40">{eyebrow}</p>}
+      {eyebrow && <p className="eyebrow eyebrow-rule mb-4 flex items-center gap-3">{eyebrow}</p>}
       <Tag className="display text-4xl sm:text-5xl">{title}</Tag>
       {lead && <p className="mt-5 text-base opacity-80 sm:text-lg">{lead}</p>}
     </div>
@@ -67,7 +67,7 @@ export function PageHero({
 }) {
   if (image) {
     return (
-      <div data-hero="dark" className="relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
+      <div data-hero="dark" className="grain relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
         <div className="absolute inset-0 -z-10 opacity-50"><ParallaxImage src={image} alt={imageAlt} priority strength={0.12} /></div>
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/70 via-navy/55 to-navy/85" aria-hidden="true" />
         <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:py-32">

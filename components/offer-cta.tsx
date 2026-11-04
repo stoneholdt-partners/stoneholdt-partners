@@ -11,8 +11,8 @@ export function OfferCta({ source, title = "Ready to see your offer?" }: { sourc
           title={title}
           lead="Tell us about the property. There is no obligation, and we never list or show your home."
         />
-        <div className="reveal">
-          <div className="rounded-sm bg-cream-light p-6 text-navy shadow-xl sm:p-8">
+        <div className="reveal relative z-10">
+          <div className="frame-brass rounded-sm bg-cream-light p-6 text-navy shadow-xl sm:p-8">
             <OfferForm source={source} />
           </div>
         </div>

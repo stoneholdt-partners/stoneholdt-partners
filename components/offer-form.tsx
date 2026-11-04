@@ -142,9 +142,10 @@ export function OfferForm({ source = "Home page" }: { source?: string }) {
   if (status === "done") {
     return (
       <div className="py-6 text-center" role="status">
-        <div className="mx-auto mb-5 flex size-14 items-center justify-center rounded-full bg-navy text-cream" aria-hidden="true">
-          <svg viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-        </div>
+        <svg viewBox="0 0 56 56" className="mx-auto mb-5 size-16" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="28" cy="28" r="25" stroke="#b8975a" strokeWidth="1.6" className="draw-ring" style={{ transformOrigin: "center", transform: "rotate(-90deg)" }} />
+          <path d="M17.5 29l7.5 7.5L39 20.5" stroke="#1b2a5e" strokeWidth="2.6" className="draw-check" />
+        </svg>
         <p className="display text-4xl">Request received.</p>
         <p className="mx-auto mt-3 max-w-sm text-sm text-navy/75">Thank you. We review every property personally and will be in touch about your offer.</p>
       </div>

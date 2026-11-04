@@ -3,7 +3,7 @@ import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
-import { STATES, cityList } from "@/data/markets";
+import { STATES, cityCardList } from "@/data/markets";
 
 export const metadata: Metadata = pageMeta({ title: "Markets We Buy In", description: "Stoneholdt Partners buys homes for luxury redevelopment in Washington, Maryland, Virginia, North Carolina and Florida, and in other markets by request.", path: "/markets/" });
 
@@ -15,14 +15,14 @@ export default function MarketsPage() {
       <Section tone="cream">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {STATES.map((s) => (
-            <Link key={s.slug} href={`/markets/${s.slug}/`} className="reveal group rounded-sm border border-navy/15 bg-cream-light p-8 transition hover:border-navy/50 hover:shadow-lg">
+            <Link key={s.slug} href={`/markets/${s.slug}/`} className="reveal spot group rounded-sm border border-navy/15 bg-cream-light p-8 transition hover:border-navy/50 hover:shadow-lg">
               <h2 className="display text-4xl">{s.name}</h2>
-              <p className="mt-2 text-xs uppercase tracking-[0.16em] text-navy/55">{cityList(s)}</p>
+              <p className="mt-2 text-xs uppercase tracking-[0.16em] text-navy/55">{cityCardList(s)}</p>
               <p className="mt-4 text-sm text-navy/75">{s.summary}</p>
               <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em] text-accent transition group-hover:translate-x-1">Explore &rarr;</p>
             </Link>
           ))}
-          <Link href="/#offer" className="reveal flex flex-col justify-center rounded-sm border border-dashed border-navy/30 p-8 transition hover:border-navy/60 hover:bg-cream-light">
+          <Link href="/#offer" className="reveal spot flex flex-col justify-center rounded-sm border border-dashed border-navy/30 p-8 transition hover:border-navy/60 hover:bg-cream-light">
             <h2 className="display text-4xl">Elsewhere</h2>
             <p className="mt-2 text-xs uppercase tracking-[0.16em] text-navy/55">We also buy in other markets</p>
             <p className="mt-4 text-sm text-navy/75">Tell us where the property is and we will take it from there.</p>

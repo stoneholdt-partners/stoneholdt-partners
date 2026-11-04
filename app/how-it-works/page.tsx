@@ -40,7 +40,7 @@ export default function HowItWorks() {
                 <span className="step-dot relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-navy/25 bg-cream font-display text-xl">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="flex-1 rounded-sm bg-cream-light p-6 ring-1 ring-navy/10">
+                <div className="spot flex-1 rounded-sm bg-cream-light p-6 ring-1 ring-navy/10">
                   <h2 className="text-lg font-medium">{s.t}</h2>
                   <p className="mt-1.5 text-sm text-navy/75">{s.d}</p>
                 </div>
