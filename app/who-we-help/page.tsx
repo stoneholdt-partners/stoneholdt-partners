@@ -5,8 +5,8 @@ import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 import { NICHES } from "@/data/niches";
 
 export const metadata: Metadata = {
-  title: "Who We Help: Older Homes, Tear-Downs & Luxury Sellers",
-  description: "We buy older homes, tear-down properties, luxury homes, inherited estates and houses needing repairs, as-is and for cash.",
+  title: "Who We Help: Older Homes, Tear-Downs & Well-Kept Homes",
+  description: "We buy homes for luxury redevelopment: older homes, tear-downs, well-kept larger homes, inherited estates and houses needing repairs, as-is and for cash.",
   alternates: { canonical: "/who-we-help/" },
 };
 
@@ -14,7 +14,7 @@ export default function WhoWeHelp() {
   return (
     <>
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Who We Help", href: "/who-we-help/" }]} />
-      <PageHero eyebrow="Who We Help" title="Properties with more to them" lead="From dated family homes to high-end estates, we buy where the process of a traditional sale gets in the way." />
+      <PageHero eyebrow="Who We Help" title="Properties with more to them" lead="From dated family homes to well-kept larger homes, we buy where the best use of the lot is a new build." />
       <Section tone="cream">
         <div className="grid gap-5 md:grid-cols-2">
           {NICHES.map((n) => (

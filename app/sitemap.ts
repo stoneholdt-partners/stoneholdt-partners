@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
-import { MARKETS } from "@/data/markets";
+import { STATES } from "@/data/markets";
 import { NICHES } from "@/data/niches";
 import { SITE } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const core = ["/", "/how-it-works/", "/portfolio/", "/markets/", "/who-we-help/", "/faq/", "/about/", "/partners/", "/contact/", "/privacy-policy/", "/terms-and-conditions/", "/sms-opt-in/"];
-  const paths = [...core, ...NICHES.map((n) => `/${n.slug}/`), ...MARKETS.map((m) => `/markets/${m.slug}/`)];
+  const paths = [...core, ...NICHES.map((n) => `/${n.slug}/`), ...STATES.map((m) => `/markets/${m.slug}/`)];
   return paths.map((p) => ({
     url: `${SITE.url}${p}`,
     lastModified: now,

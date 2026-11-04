@@ -74,32 +74,32 @@ export const NICHES: Niche[] = [
     ],
   },
   {
-    slug: "sell-luxury-home-as-is",
-    label: "Luxury homes",
-    title: "Sell your luxury home privately and as-is",
-    metaTitle: "Sell a Luxury Home As-Is, Privately",
+    slug: "sell-home-to-builder",
+    label: "Well-kept & larger homes",
+    title: "Sell your well-kept home to a luxury builder",
+    metaTitle: "Sell a Well-Kept Home to a Luxury Builder",
     metaDescription:
-      "Sell a high-end or dated luxury home privately for cash. No listing, no showings, no staging. Stoneholdt Partners buys luxury homes and estates as-is.",
-    lead: "For high-end properties, discretion and certainty matter as much as price. We buy luxury homes and estates privately, with no listing and no showings.",
+      "A home in great condition can still be worth more to a builder. Stoneholdt Partners buys well-kept and larger homes for luxury redevelopment, with private, as-is cash offers.",
+    lead: "A home does not have to be run-down to be a redevelopment candidate. In high-value neighborhoods, a builder can sometimes pay more than a retail buyer, because the numbers are driven by what a new luxury home on your lot could sell for.",
     sections: [
       {
-        heading: "A quieter way to sell",
+        heading: "Why a builder can pay more than a retail buyer",
         body: [
-          "A public listing on a prominent property invites attention, showings by unqualified lookers, and months of uncertainty. A direct sale to us avoids all of it.",
-          "Dated luxury homes are also expensive to update. If a renovation would cost more than the value it adds, selling as-is is often the better path.",
+          "A retail buyer values your home as it stands today. A builder values the lot and the projected resale of the new construction that could be built on it. In neighborhoods where new luxury homes sell for a premium, that projected resale can support an offer above what the existing house would bring on the open market, even when the house is in excellent shape.",
+          "That is why a well-kept, larger or recently updated home can still be a strong candidate for redevelopment. We work with builders who are actively looking for lots like yours, and we underwrite the property on its redevelopment value.",
         ],
       },
       {
-        heading: "Flexible terms for larger properties",
+        heading: "Private, simple and as-is",
         body: [
-          "We can accommodate longer closing windows, leasebacks where appropriate, and the practical needs of estates and trusts.",
+          "There is no listing, no staging and no showings. We make a direct offer on the property as it is and close on a timeline that works for you. Not every property fits, but if yours is in a strong neighborhood it is worth finding out.",
         ],
       },
     ],
-    bullets: ["No listing, signs or showings", "Dated luxury homes welcome", "Flexible closing and terms", "Straightforward, direct offer"],
+    bullets: ["Great condition is welcome", "Priced on redevelopment value", "No listing, signs or showings", "Flexible closing and terms"],
     faqs: [
-      { q: "Will my sale be public?", a: "No. There is no listing, no marketing and no open houses." },
-      { q: "Can you close on a longer timeline?", a: "Yes. Many luxury sellers need time to plan a move, and we can build that into the agreement." },
+      { q: "My home is in great shape. Would a builder still want it?", a: "Possibly. Builders value the lot and the projected resale of new construction, so a home's condition matters less than its location and lot. Request an offer and we will tell you whether it fits." },
+      { q: "Will I get more than listing it on the market?", a: "Sometimes. In some neighborhoods a builder's projected numbers support a price above what a retail buyer would pay, and you avoid commissions, repairs and showings. We cannot promise that for every property." },
     ],
   },
   {

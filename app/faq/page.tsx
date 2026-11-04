@@ -5,7 +5,7 @@ import { GENERAL_FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
   title: "FAQ: Selling Your Home As-Is",
-  description: "Answers to common questions about selling your older home, tear-down or luxury property as-is to Stoneholdt Partners.",
+  description: "Answers to common questions about selling your older home, tear-down or well-kept home to a builder as-is to Stoneholdt Partners.",
   alternates: { canonical: "/faq/" },
 };
 
