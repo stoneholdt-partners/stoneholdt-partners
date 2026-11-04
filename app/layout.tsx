@@ -5,6 +5,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { RevealInit } from "@/components/reveal-init";
 import { SpotlightInit } from "@/components/spotlight-init";
 import { StickyCta } from "@/components/sticky-cta";
+import { BackToTop } from "@/components/back-to-top";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { JsonLd } from "@/components/json-ld";
 import { SITE } from "@/data/site";
 import "./globals.css";
@@ -78,6 +81,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <SiteFooter />
         <StickyCta />
+        <BackToTop />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

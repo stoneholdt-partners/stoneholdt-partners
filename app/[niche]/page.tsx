@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OfferCta } from "@/components/offer-cta";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ niche: st
   const { niche } = await params;
   const n = getNiche(niche);
   if (!n) return {};
-  return { title: n.metaTitle, description: n.metaDescription, alternates: { canonical: `/${n.slug}/` } };
+  return pageMeta({ title: n.metaTitle, description: n.metaDescription, path: `/${n.slug}/` });
 }
 
 export default async function NichePage({ params }: { params: Promise<{ niche: string }> }) {

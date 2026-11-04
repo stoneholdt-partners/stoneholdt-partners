@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 import { STATES, cityList } from "@/data/markets";
 
-export const metadata: Metadata = {
-  title: "Markets We Buy In",
-  description: "Stoneholdt Partners buys homes for luxury redevelopment in Washington, Maryland, Virginia, North Carolina and Florida, and in other markets by request.",
-  alternates: { canonical: "/markets/" },
-};
+export const metadata: Metadata = pageMeta({ title: "Markets We Buy In", description: "Stoneholdt Partners buys homes for luxury redevelopment in Washington, Maryland, Virginia, North Carolina and Florida, and in other markets by request.", path: "/markets/" });
 
 export default function MarketsPage() {
   return (

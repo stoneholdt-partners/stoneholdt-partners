@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { OfferForm } from "@/components/offer-form";
 import { DealCard } from "@/components/deal-card";
 import { FaqList, Heading, Section } from "@/components/ui";
 import { Ornament } from "@/components/ornament";
 import { Ticker } from "@/components/ticker";
+import { JsonLd } from "@/components/json-ld";
+import { SITE } from "@/data/site";
 import { ScrollTimeline } from "@/components/scroll-timeline";
-import { StatsBand } from "@/components/stats-band";
 import { ParallaxImage } from "@/components/parallax-image";
 import { DEALS } from "@/data/portfolio";
 import { GENERAL_FAQS } from "@/data/faqs";
 import { STATES, cityList } from "@/data/markets";
 import { NICHES } from "@/data/niches";
 
-export const metadata: Metadata = {
-  title: { absolute: "Sell Your Home As-Is for Cash | Stoneholdt Partners" },
-  description:
-    "We buy homes for luxury redevelopment: older homes, tear-downs and well-kept larger homes. Private, as-is cash offers with no repairs, showings or commissions.",
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMeta({ title: { absolute: "Sell Your Home As-Is for Cash | Stoneholdt Partners" }, description: "We buy homes for luxury redevelopment: older homes, tear-downs and well-kept larger homes. Private, as-is cash offers with no repairs, showings or commissions.", path: "/" });
 
 const STEPS = [
   { n: "01", t: "Tell us about the property", d: "Share the address, your timeline and the home's condition. It takes about two minutes." },
@@ -36,8 +33,20 @@ const BENEFITS = [
 export default function Home() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Home purchase for luxury redevelopment",
+          serviceType: "Real estate acquisition",
+          description:
+            "Direct, as-is cash offers on older homes, tear-downs and well-kept larger homes that are candidates for luxury redevelopment.",
+          provider: { "@id": `${SITE.url}/#organization` },
+          areaServed: STATES.map((st) => ({ "@type": "State", name: st.name })),
+        }}
+      />
       {/* Hero */}
-      <div className="relative isolate overflow-hidden bg-navy text-cream">
+      <div data-hero="dark" className="spot spot-hero relative isolate overflow-hidden bg-navy text-cream -mt-[72px] pt-[72px] md:-mt-[112px] md:pt-[112px]">
         <div className="absolute inset-0 -z-20 opacity-50"><ParallaxImage src="/cover-photos/CO.jpg" priority strength={0.14} /></div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/75 to-navy/35" />
         <div
@@ -55,7 +64,7 @@ export default function Home() {
           <div className="lg:pt-14">
             <p className="eyebrow mb-5 !text-cream/70">Nationwide &middot; Private &middot; As-Is</p>
             <h1 className="display text-5xl sm:text-7xl">
-              <span className="rise-mask"><span className="rise" style={{ "--d": "0.1s" } as React.CSSProperties}>A more <em className="italic">private</em> way</span></span>
+              <span className="rise-mask"><span className="rise" style={{ "--d": "0.1s" } as React.CSSProperties}>A more <em className="shimmer italic">private</em> way</span></span>
               <span className="rise-mask"><span className="rise" style={{ "--d": "0.25s" } as React.CSSProperties}>to sell your home.</span></span>
             </h1>
             <p className="fade-up mt-6 max-w-xl text-base text-cream/80 sm:text-lg" style={{ "--d": "0.5s" } as React.CSSProperties}>
@@ -104,9 +113,11 @@ export default function Home() {
       {/* Photo split */}
       <section className="bg-cream-light">
         <div className="grid items-stretch lg:grid-cols-2">
-          <div className="wipe relative min-h-[320px] lg:min-h-[520px]">
-            <ParallaxImage src="/cover-photos/WA.jpg" alt="Modern luxury home with glass balconies and landscaped garden" strength={0.08} sizes="(min-width: 1024px) 50vw, 100vw" />
-            <div className="pointer-events-none absolute inset-5 border border-cream/70 sm:inset-8" aria-hidden="true" />
+          <div className="wipe-wrap relative min-h-[320px] lg:min-h-[520px]">
+            <div className="wipe-inner absolute inset-0">
+              <ParallaxImage src="/cover-photos/WA.jpg" alt="Modern luxury home with glass balconies and landscaped garden" strength={0.08} eager sizes="(min-width: 1024px) 50vw, 100vw" />
+              <div className="pointer-events-none absolute inset-5 border border-cream/70 sm:inset-8" aria-hidden="true" />
+            </div>
           </div>
           <div className="reveal flex max-w-xl flex-col justify-center px-5 py-16 sm:px-12 lg:py-24 lg:pl-16">
             <p className="eyebrow mb-4">Built for properties like yours</p>
@@ -159,15 +170,6 @@ export default function Home() {
           ))}
         </div>
       </Section>
-
-      <StatsBand
-        stats={[
-          { value: STATES.length, label: "States" },
-          { value: STATES.reduce((n, st) => n + st.cities.length, 0), label: "Cities" },
-          { value: DEALS.length, label: "Recent deals" },
-          { value: 0, label: "Agent commissions", prefix: "$" },
-        ]}
-      />
 
       {/* Benefits */}
       <Section tone="navy">

@@ -7,7 +7,7 @@ import { SITE, SMS_CONSENT_TEXT, SMS_CONSENT_VALUE } from "@/data/site";
 const PROPERTY_TYPES = [
   { v: "Older home", d: "Dated or long-held" },
   { v: "Tear-down / lot", d: "Value is in the land" },
-  { v: "Well-kept / larger home", d: "Good condition, strong lot" },
+  { v: "Well-kept home", d: "Great condition" },
   { v: "Inherited / estate", d: "Probate or trust" },
 ];
 const TIMELINES = [

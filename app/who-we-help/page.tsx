@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { OfferCta } from "@/components/offer-cta";
 import { Breadcrumbs, PageHero, Section } from "@/components/ui";
 import { NICHES } from "@/data/niches";
 
-export const metadata: Metadata = {
-  title: "Who We Help: Older Homes, Tear-Downs & Well-Kept Homes",
-  description: "We buy homes for luxury redevelopment: older homes, tear-downs, well-kept larger homes, inherited estates and houses needing repairs, as-is and for cash.",
-  alternates: { canonical: "/who-we-help/" },
-};
+export const metadata: Metadata = pageMeta({ title: "Who We Help: Older Homes, Tear-Downs & Well-Kept Homes", description: "We buy homes for luxury redevelopment: older homes, tear-downs, well-kept larger homes, inherited estates and houses needing repairs, as-is and for cash.", path: "/who-we-help/" });
 
 export default function WhoWeHelp() {
   return (
