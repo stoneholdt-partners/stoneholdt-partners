@@ -19,7 +19,7 @@ export default function MarketsPage() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {MARKETS.map((m) => (
             <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal rounded-sm border border-navy/15 bg-cream-light p-7 transition hover:border-navy/50 hover:shadow-lg">
-              <p className="eyebrow">{m.region}</p>
+              <p className="eyebrow">{m.state}</p>
               <h2 className="display mt-1 text-4xl">{m.name}</h2>
               <p className="mt-3 text-sm text-navy/75">{m.summary}</p>
             </Link>

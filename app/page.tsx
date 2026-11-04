@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { OfferForm } from "@/components/offer-form";
 import { DealCard } from "@/components/deal-card";
@@ -32,10 +33,12 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <div className="relative overflow-hidden bg-navy text-cream">
+      <div className="relative isolate overflow-hidden bg-navy text-cream">
+        <Image src="/cover-photos/CO.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-center opacity-50" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/75 to-navy/35" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 opacity-[0.12]"
+          className="absolute inset-0 -z-10 opacity-[0.08]"
           style={{
             backgroundImage:
               "linear-gradient(rgba(237,232,223,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(237,232,223,.5) 1px, transparent 1px)",
@@ -44,8 +47,8 @@ export default function Home() {
             WebkitMaskImage: "radial-gradient(ellipse at 30% 40%, black 10%, transparent 70%)",
           }}
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
+        <div className="relative mx-auto grid max-w-6xl items-start gap-12 px-5 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="lg:pt-14">
             <p className="eyebrow mb-5 !text-cream/70">Nationwide &middot; Private &middot; As-Is</p>
             <h1 className="display text-5xl sm:text-7xl">
               A more <em className="italic">private</em> way to sell your home.
@@ -84,6 +87,30 @@ export default function Home() {
         </ol>
       </Section>
 
+      {/* Photo split */}
+      <section className="bg-cream-light">
+        <div className="grid items-stretch lg:grid-cols-2">
+          <div className="relative min-h-[320px] lg:min-h-[520px]">
+            <Image src="/cover-photos/MN.jpg" alt="Luxury home with arched windows at sunset" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          </div>
+          <div className="reveal flex max-w-xl flex-col justify-center px-5 py-16 sm:px-12 lg:py-24 lg:pl-16">
+            <p className="eyebrow mb-4">Built for properties like yours</p>
+            <h2 className="display text-4xl sm:text-5xl">Where the land is the real asset.</h2>
+            <p className="mt-5 text-navy/80">
+              In established, high-value neighborhoods, the most valuable part of an older home is often the lot beneath it. We understand how builders value a parcel, so we can make a serious offer on homes that retail buyers overlook.
+            </p>
+            <ul className="mt-7 space-y-3 text-sm">
+              {["Older homes and tear-downs", "Luxury and high-end properties", "Estates, trusts and inherited homes"].map((t) => (
+                <li key={t} className="flex items-center gap-3">
+                  <span aria-hidden="true" className="inline-block size-1.5 rotate-45 bg-accent" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Homes we buy */}
       <Section tone="light">
         <Heading eyebrow="Who We Help" title="Homes with more value than meets the eye." lead="We specialize in properties that traditional buyers pass over, and that builders and developers look for." />
@@ -95,6 +122,13 @@ export default function Home() {
               <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em] text-accent transition group-hover:translate-x-1">Learn more &rarr;</p>
             </Link>
           ))}
+          <Link href="/#offer" className="reveal flex flex-col justify-between rounded-sm bg-navy p-7 text-cream transition hover:bg-navy-deep">
+            <div>
+              <h3 className="display text-3xl">Not sure which fits?</h3>
+              <p className="mt-3 text-sm text-cream/75">Tell us about the property and we will take it from there. Every situation is different.</p>
+            </div>
+            <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em]">Get my cash offer &rarr;</p>
+          </Link>
         </div>
       </Section>
 
@@ -106,7 +140,7 @@ export default function Home() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {DEALS.map((d) => (
-            <DealCard key={d.id} deal={d} />
+            <DealCard key={d.id} deal={d} compact />
           ))}
         </div>
       </Section>
@@ -130,7 +164,7 @@ export default function Home() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {MARKETS.map((m) => (
             <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
-              <p className="eyebrow">{m.region}</p>
+              <p className="eyebrow">{m.state}</p>
               <h3 className="display mt-1 text-3xl">{m.name}</h3>
               <p className="mt-2 text-sm text-navy/75">{m.summary}</p>
             </Link>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Faq } from "@/data/faqs";
 import { SITE } from "@/data/site";
@@ -44,12 +45,44 @@ export function Heading({
   );
 }
 
-export function PageHero({ eyebrow, title, lead }: { eyebrow: string; title: React.ReactNode; lead?: React.ReactNode }) {
+/** Keeps "as-is" from breaking across lines at the hyphen. */
+function keepAsIs(node: React.ReactNode): React.ReactNode {
+  if (typeof node !== "string") return node;
+  const parts = node.split(/(as-is)/gi);
+  return parts.map((p, i) => (/^as-is$/i.test(p) ? <span key={i} className="whitespace-nowrap">{p}</span> : p));
+}
+
+export function PageHero({
+  eyebrow,
+  title,
+  lead,
+  image,
+  imageAlt = "",
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  lead?: React.ReactNode;
+  image?: string;
+  imageAlt?: string;
+}) {
+  if (image) {
+    return (
+      <div className="relative isolate overflow-hidden bg-navy text-cream">
+        <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-10 object-cover opacity-45" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy/70 via-navy/55 to-navy/85" aria-hidden="true" />
+        <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:py-32">
+          <p className="eyebrow mb-4 !text-cream/80">{eyebrow}</p>
+          <h1 className="display text-balance text-5xl sm:text-7xl">{keepAsIs(title)}</h1>
+          {lead && <p className="mx-auto mt-6 max-w-2xl text-base text-cream/85 sm:text-lg">{lead}</p>}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="border-b border-navy/10 bg-cream-light">
       <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:py-24">
         <p className="eyebrow mb-4">{eyebrow}</p>
-        <h1 className="display text-5xl sm:text-6xl">{title}</h1>
+        <h1 className="display text-balance text-5xl sm:text-6xl">{keepAsIs(title)}</h1>
         {lead && <p className="mx-auto mt-6 max-w-2xl text-base text-navy/80 sm:text-lg">{lead}</p>}
       </div>
     </div>

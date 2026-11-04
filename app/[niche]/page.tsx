@@ -62,7 +62,7 @@ export default async function NichePage({ params }: { params: Promise<{ niche: s
         <h2 className="eyebrow mb-4">Markets we buy in</h2>
         <ul className="flex flex-wrap gap-3 text-sm">
           {MARKETS.map((m) => (
-            <li key={m.slug}><Link href={`/markets/${m.slug}/`} className="rounded-sm border border-navy/20 px-3.5 py-2 transition hover:border-navy">{m.name}, {m.region}</Link></li>
+            <li key={m.slug}><Link href={`/markets/${m.slug}/`} className="rounded-sm border border-navy/20 px-3.5 py-2 transition hover:border-navy">{m.name}, {m.state}</Link></li>
           ))}
         </ul>
       </Section>

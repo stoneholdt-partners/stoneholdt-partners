@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const m = getMarket(slug);
   if (!m) return {};
   return {
-    title: `Sell Your Home As-Is in ${m.name}, ${m.region}`,
-    description: `Sell an older home, tear-down or luxury property in ${m.name}, ${m.region} for cash. Stoneholdt Partners makes private, as-is offers with no repairs, showings or commissions.`,
+    title: `Sell Your Home As-Is in ${m.name}, ${m.state}`,
+    description: `Sell an older home, tear-down or luxury property in ${m.name}, ${m.state} for cash. Stoneholdt Partners makes private, as-is offers with no repairs, showings or commissions.`,
     alternates: { canonical: `/markets/${m.slug}/` },
   };
 }
@@ -32,7 +32,7 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
   return (
     <>
       <Breadcrumbs trail={[{ name: "Home", href: "/" }, { name: "Markets", href: "/markets/" }, { name: m.name, href: `/markets/${m.slug}/` }]} />
-      <PageHero eyebrow={`${m.name}, ${m.region}`} title={`Sell your ${m.name} home as-is, for cash`} lead={m.summary} />
+      <PageHero eyebrow={`${m.name}, ${m.state}`} title={`Sell your ${m.name} home as-is, for cash`} lead={m.summary} image={m.image} imageAlt={m.imageAlt} />
       <Section tone="cream">
         <div className="mx-auto grid max-w-5xl gap-14 lg:grid-cols-[1.3fr_0.7fr]">
           <div className="space-y-5 text-base text-navy/85">
@@ -74,7 +74,7 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
             <h2 className="eyebrow mb-4">Other markets</h2>
             <ul className="space-y-2 text-sm">
               {others.map((o) => (
-                <li key={o.slug}><Link href={`/markets/${o.slug}/`} className="underline underline-offset-4">{o.name}, {o.region}</Link></li>
+                <li key={o.slug}><Link href={`/markets/${o.slug}/`} className="underline underline-offset-4">{o.name}, {o.state}</Link></li>
               ))}
             </ul>
           </div>
