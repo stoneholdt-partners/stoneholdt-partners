@@ -16,7 +16,7 @@ export function RevealInit() {
   useEffect(() => {
     const show = (el: Element) => el.classList.add("in");
     if (!("IntersectionObserver" in window)) {
-      document.querySelectorAll(".reveal").forEach(show);
+      document.querySelectorAll(".reveal, .wipe").forEach(show);
       return;
     }
     const seen = new WeakSet<Element>();
@@ -32,7 +32,7 @@ export function RevealInit() {
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
     const scan = () => {
-      document.querySelectorAll(".reveal:not(.in)").forEach((el) => {
+      document.querySelectorAll(".reveal:not(.in), .wipe:not(.in)").forEach((el) => {
         if (!seen.has(el)) {
           seen.add(el);
           io.observe(el);
@@ -44,7 +44,7 @@ export function RevealInit() {
     mo.observe(document.body, { childList: true, subtree: true });
     // Safety net: never leave anything that is already on screen hidden.
     const t = window.setTimeout(() => {
-      document.querySelectorAll(".reveal:not(.in)").forEach((el) => {
+      document.querySelectorAll(".reveal:not(.in), .wipe:not(.in)").forEach((el) => {
         if (el.getBoundingClientRect().top < window.innerHeight) show(el);
       });
     }, 1200);

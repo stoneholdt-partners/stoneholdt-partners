@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { Faq } from "@/data/faqs";
 import { SITE } from "@/data/site";
 import { JsonLd } from "./json-ld";
 import { Ornament } from "./ornament";
@@ -92,36 +91,7 @@ export function PageHero({
   );
 }
 
-export function FaqList({ faqs, withSchema = true }: { faqs: Faq[]; withSchema?: boolean }) {
-  return (
-    <>
-      {withSchema && (
-        <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqs.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }}
-        />
-      )}
-      <div className="divide-y divide-current/15 border-y border-current/15">
-        {faqs.map((f) => (
-          <details key={f.q} className="group py-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium">
-              {f.q}
-              <span className="text-2xl leading-none transition group-open:rotate-45" aria-hidden="true">+</span>
-            </summary>
-            <p className="mt-3 max-w-3xl opacity-80">{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </>
-  );
-}
+export { FaqList } from "./faq-list";
 
 export function Breadcrumbs({ trail }: { trail: { name: string; href: string }[] }) {
   return (
