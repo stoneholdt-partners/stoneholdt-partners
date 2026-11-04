@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RevealInit } from "@/components/reveal-init";
+import { SpotlightInit } from "@/components/spotlight-init";
+import { StickyCta } from "@/components/sticky-cta";
 import { JsonLd } from "@/components/json-ld";
 import { SITE } from "@/data/site";
 import "./globals.css";
@@ -71,9 +73,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <RevealInit />
+        <SpotlightInit />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <StickyCta />
       </body>
     </html>
   );

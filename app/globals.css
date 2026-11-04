@@ -118,3 +118,126 @@ body {
 .step-in {
   animation: step-in 0.35s ease both;
 }
+
+/* ---- Polish layer ---- */
+html {
+  scroll-padding-top: 5rem;
+}
+::selection {
+  background: var(--color-navy);
+  color: var(--color-cream);
+}
+.page-in {
+  animation: page-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Staggered reveals for sibling cards */
+.reveal:nth-child(2) { transition-delay: 70ms; }
+.reveal:nth-child(3) { transition-delay: 140ms; }
+.reveal:nth-child(4) { transition-delay: 210ms; }
+.reveal:nth-child(5) { transition-delay: 280ms; }
+.reveal:nth-child(6) { transition-delay: 350ms; }
+
+/* Hero headline: lines rise out of a mask */
+.rise-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.rise {
+  display: block;
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Button sheen */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.btn-sheen:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.8s ease;
+}
+
+/* Cursor-following light on cards */
+.spot {
+  position: relative;
+  overflow: hidden;
+}
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(74, 103, 173, 0.16), transparent 62%);
+}
+.spot:hover::before {
+  opacity: 1;
+}
+
+/* Ticker */
+.ticker-track {
+  animation: ticker 60s linear infinite;
+}
+.group:hover .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track,
+  .rise,
+  .fade-up,
+  .page-in {
+    animation: none !important;
+  }
+}

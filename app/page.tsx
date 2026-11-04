@@ -4,6 +4,7 @@ import { OfferForm } from "@/components/offer-form";
 import { DealCard } from "@/components/deal-card";
 import { FaqList, Heading, Section } from "@/components/ui";
 import { Ornament } from "@/components/ornament";
+import { Ticker } from "@/components/ticker";
 import { ParallaxImage } from "@/components/parallax-image";
 import { DEALS } from "@/data/portfolio";
 import { GENERAL_FAQS } from "@/data/faqs";
@@ -52,12 +53,13 @@ export default function Home() {
           <div className="lg:pt-14">
             <p className="eyebrow mb-5 !text-cream/70">Nationwide &middot; Private &middot; As-Is</p>
             <h1 className="display text-5xl sm:text-7xl">
-              A more <em className="italic">private</em> way to sell your home.
+              <span className="rise-mask"><span className="rise" style={{ "--d": "0.1s" } as React.CSSProperties}>A more <em className="italic">private</em> way</span></span>
+              <span className="rise-mask"><span className="rise" style={{ "--d": "0.25s" } as React.CSSProperties}>to sell your home.</span></span>
             </h1>
-            <p className="mt-6 max-w-xl text-base text-cream/80 sm:text-lg">
+            <p className="fade-up mt-6 max-w-xl text-base text-cream/80 sm:text-lg" style={{ "--d": "0.5s" } as React.CSSProperties}>
               We buy homes for luxury redevelopment: older homes, <span className="whitespace-nowrap">tear-downs</span> and even well-kept larger homes. Direct, as-is cash offers with no repairs, no showings and no commissions.
             </p>
-            <ul className="mt-8 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 text-sm text-cream/85">
+            <ul className="fade-up mt-8 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 text-sm text-cream/85" style={{ "--d": "0.65s" } as React.CSSProperties}>
               {["Any condition", "No agent fees", "No showings", "Flexible closing"].map((t) => (
                 <li key={t} className="flex items-center gap-2.5">
                   <span aria-hidden="true" className="inline-block size-1.5 rotate-45 bg-cream/70" />
@@ -74,12 +76,14 @@ export default function Home() {
         </div>
       </div>
 
+      <Ticker />
+
       {/* Process */}
       <Section tone="cream">
         <Heading eyebrow="The Process" title={<>Simple, from first message to closing.</>} />
         <ol className="mt-14 grid gap-6 md:grid-cols-3">
           {STEPS.map((s) => (
-            <li key={s.n} className="reveal rounded-sm bg-cream-light p-7 ring-1 ring-navy/10">
+            <li key={s.n} className="reveal spot rounded-sm bg-cream-light p-7 ring-1 ring-navy/10">
               <p className="display text-5xl text-accent">{s.n}</p>
               <h3 className="mt-4 text-lg font-medium">{s.t}</h3>
               <p className="mt-2 text-sm text-navy/75">{s.d}</p>
@@ -118,7 +122,7 @@ export default function Home() {
         <Heading eyebrow="Who We Help" title="Homes with more value than meets the eye." lead="We specialize in properties that traditional buyers pass over, and that builders and developers look for." />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {NICHES.map((n) => (
-            <Link key={n.slug} href={`/${n.slug}/`} className="reveal group rounded-sm border border-navy/15 bg-cream p-7 transition hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-lg">
+            <Link key={n.slug} href={`/${n.slug}/`} className="reveal spot group rounded-sm border border-navy/15 bg-cream p-7 transition hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-lg">
               <h3 className="display text-3xl">{n.label}</h3>
               <p className="mt-3 text-sm text-navy/75">{n.lead}</p>
               <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.2em] text-accent transition group-hover:translate-x-1">Learn more &rarr;</p>
@@ -179,7 +183,7 @@ export default function Home() {
         <Heading eyebrow="Markets" title="Nationwide, with deep local focus." lead="We buy across the country. These are markets where we are actively acquiring right now." />
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {STATES.map((m) => (
-            <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
+            <Link key={m.slug} href={`/markets/${m.slug}/`} className="reveal spot rounded-sm border border-navy/15 p-6 transition hover:border-navy/50 hover:bg-cream-light">
               <h3 className="display text-3xl">{m.name}</h3>
               <p className="mt-1.5 text-xs uppercase tracking-[0.14em] text-navy/55">{cityList(m)}</p>
             </Link>
