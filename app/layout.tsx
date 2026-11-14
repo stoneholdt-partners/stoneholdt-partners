@@ -34,6 +34,8 @@ export const metadata: Metadata = {
   description:
     "Stoneholdt Partners buys homes for luxury redevelopment with private, as-is cash offers on older homes, tear-downs and well-kept larger homes. No repairs, no showings, flexible closing.",
   applicationName: SITE.name,
+  // Google Search Console ownership (URL-prefix property for www). Keep this, or the site gets unverified.
+  verification: { google: "BGD7hHflDYQImRw6YI0CD7FpOdXS8flDLFGSafg59v8" },
   alternates: { canonical: "./" },
   openGraph: {
     type: "website",
