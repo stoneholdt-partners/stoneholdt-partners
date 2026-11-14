@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     locale: "en_US",
   },
   twitter: { card: "summary_large_image" },
-  icons: { icon: "/logos/LogoProfile.png", apple: "/logos/LogoProfile.png" },
+  icons: { icon: "/logos/icon.png", apple: "/logos/apple-icon.png" },
 };
 
 export const viewport: Viewport = {
